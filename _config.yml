@@ -4,15 +4,15 @@
 
 # Site
 title: Stone
-subtitle: If you only do what you can do you will never be more than you are now!
-description: JavaScript
+subtitle: 前端笔记
+description: If you only do what you can do you will never be more than you are now!
 author: Stone
 language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yancoder.com
+url: http://blog.yancoder.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -71,3 +71,11 @@ deploy:
   type: git
   repository: https://github.com/SSSStone/SSSStone.github.io.git
   branch: master
+
+# Algolia Search
+algolia:
+  applicationID: 'XOWQNS8RHX'
+  apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d'
+  adminApiKey: '6ab6b19ca0e3ac22e807ac7d8499355a'
+  indexName: 'blog'
+  chunkSize: 5000
