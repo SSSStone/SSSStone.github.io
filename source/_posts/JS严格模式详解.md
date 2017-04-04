@@ -1,5 +1,5 @@
 ---
-title: JavaScript严格模式详解[转]
+title: JS严格模式详解[转]
 date: 2017-03-31 19:34:18
 tags: 
 - 严格模式
