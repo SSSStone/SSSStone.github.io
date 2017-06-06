@@ -973,7 +973,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/CSRF攻击/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/Ajax笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -995,8 +995,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/CSRF攻击/" itemprop="url">
-                  CSRF攻击
+                <a class="post-title-link" href="/2017/03/31/Ajax笔记/" itemprop="url">
+                  Ajax笔记
                 </a>
               
             
@@ -1047,8 +1047,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript原理</span>
                   </a>
                 </span>
 
@@ -1083,11 +1083,12 @@
 
       
         
-          <p>CSRF（Cross-site request forgery），中文名称：跨站请求伪造。</p>
-<h2 id="图解CSRF"><a href="#图解CSRF" class="headerlink" title="图解CSRF"></a>图解CSRF</h2><p><img src="/images/20170328141745.png" alt=""></p>
+          <p>Ajax的具体实现。</p>
+<h2 id="Ajax请求流程"><a href="#Ajax请求流程" class="headerlink" title="Ajax请求流程"></a>Ajax请求流程</h2><h3 id="如何创建XHR对象"><a href="#如何创建XHR对象" class="headerlink" title="如何创建XHR对象"></a>如何创建XHR对象</h3><p>按标准，<code>new XMLHttpRequest()</code> 即可得到。</p>
+<p>考虑低版本IE浏览器，可以<code>new window.ActiveXObject(Mircosoft.XMLHttp)</code>。新版本JQuery已经不支持IE6。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/CSRF攻击/#more" rel="contents">
+            <a class="btn" href="/2017/03/31/Ajax笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1464,6 +1465,211 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/XSS攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/XSS攻击/" itemprop="url">
+                  XSS攻击
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>XSS – Cross-site scripting</p>
+<p><a href="http://netsecurity.51cto.com/art/201408/448305.htm" target="_blank" rel="external">http://netsecurity.51cto.com/art/201408/448305.htm</a></p>
+<h2 id="XSS攻击分类"><a href="#XSS攻击分类" class="headerlink" title="XSS攻击分类"></a>XSS攻击分类</h2><p><a href="http://blog.csdn.net/ghsau/article/details/17027893" target="_blank" rel="external">http://blog.csdn.net/ghsau/article/details/17027893</a></p>
+<h2 id="防御XSS攻击"><a href="#防御XSS攻击" class="headerlink" title="防御XSS攻击"></a>防御XSS攻击</h2><h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>编码。即根据不可信数据将要被放置到的地方进行相应的编码，比如放到<code>&lt;div&gt;</code>标签之间的时候，需要进行<code>HTML</code>编码，放到<code>&lt;div&gt;</code>标签属性里的时候，需要进行<code>HTML</code>属性编码，等等。</p>
+<p>具体如何编码</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">不可信数据将被放置的地方</th>
+<th>例子</th>
+<th>应该采取的编码</th>
+<th>编码格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">HTML标签之间</td>
+<td>\<div>不可信数据\</div></td>
+<td>HTML Entity编码</td>
+<td>&amp;–&gt;\&amp;<br>&lt;–&gt;\&lt;<br>&gt;–&gt;\&gt;<br>”–&gt;\&quot;<br>‘–&gt;\&#x27;<br>/–&gt;\&#x2f;</td>
+</tr>
+<tr>
+<td style="text-align:center">HTML标签的属性里</td>
+<td>\<input type="”text”" value="”不可信数据”/"></td>
+<td>HTML Attribute编码</td>
+<td>&#xHH;</td>
+</tr>
+<tr>
+<td style="text-align:center">JavaScript标签里</td>
+<td>\<script> var msg=”不可信数据” \</script></td>
+<td>JavaScript编码</td>
+<td>\xHH</td>
+</tr>
+<tr>
+<td style="text-align:center">HTML页面的URL里</td>
+<td>\<a href="”/page?p=" 不可信数据="" ”="">…\</a></td>
+<td>URL编码</td>
+<td>%HH</td>
+</tr>
+<tr>
+<td style="text-align:center">CSS里</td>
+<td>\<div style="”" width:="" 不可信数据="" ”=""> … \</div></td>
+<td>CSS编码</td>
+<td>\HH</td>
+</tr>
+</tbody>
+</table>
+<h3 id="输入验证"><a href="#输入验证" class="headerlink" title="输入验证"></a>输入验证</h3><p>对用户输入进行数据合法性验证，例如输入<code>email</code>的文本框只允许输入格式正确的<code>email</code>，输入手机号码的文本框只允许填入数字且格式需要正确。</p>
+<p>这类合法性验证至少需要在服务器端进行以防止浏览器端验证被绕过，而为了提高用户体验和减轻服务器压力，最好也在浏览器端进行同样的验证。</p>
+<h3 id="输出验证"><a href="#输出验证" class="headerlink" title="输出验证"></a>输出验证</h3><p>参考<a href="#编码">编码</a></p>
+<h3 id="保护Cookie"><a href="#保护Cookie" class="headerlink" title="保护Cookie"></a>保护Cookie</h3><p>为<code>Cookie</code>加上<code>HttpOnly</code>标记。浏览器将禁止页面的Javascript访问带有<code>HttpOnly</code>属性的<code>Cookie</code>。许多<code>XSS</code>攻击的目标就是窃取用户<code>Cookie</code>，这些<code>Cookie</code>里往往包含了用户身份认证信息（比如<code>SessionId</code>），一旦被盗，黑客就可以冒充用户身份盗取用户账号。窃取<code>Cookie</code>一般都会依赖JavaScript读取<code>Cookie</code>信息，而<code>HttpOnly</code>标记则会告诉浏览器，被标记上的<code>Cookie</code>是不允许任何脚本读取或修改的，这样即使Web应用产生了<code>XSS</code>漏洞，<code>Cookie</code>信息也能得到较好的保护，达到减轻损失的目的。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/async、defer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1760,211 +1966,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/XSS攻击/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stone">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/31/XSS攻击/" itemprop="url">
-                  XSS攻击
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>XSS – Cross-site scripting</p>
-<p><a href="http://netsecurity.51cto.com/art/201408/448305.htm" target="_blank" rel="external">http://netsecurity.51cto.com/art/201408/448305.htm</a></p>
-<h2 id="XSS攻击分类"><a href="#XSS攻击分类" class="headerlink" title="XSS攻击分类"></a>XSS攻击分类</h2><p><a href="http://blog.csdn.net/ghsau/article/details/17027893" target="_blank" rel="external">http://blog.csdn.net/ghsau/article/details/17027893</a></p>
-<h2 id="防御XSS攻击"><a href="#防御XSS攻击" class="headerlink" title="防御XSS攻击"></a>防御XSS攻击</h2><h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>编码。即根据不可信数据将要被放置到的地方进行相应的编码，比如放到<code>&lt;div&gt;</code>标签之间的时候，需要进行<code>HTML</code>编码，放到<code>&lt;div&gt;</code>标签属性里的时候，需要进行<code>HTML</code>属性编码，等等。</p>
-<p>具体如何编码</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">不可信数据将被放置的地方</th>
-<th>例子</th>
-<th>应该采取的编码</th>
-<th>编码格式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">HTML标签之间</td>
-<td>\<div>不可信数据\</div></td>
-<td>HTML Entity编码</td>
-<td>&amp;–&gt;\&amp;<br>&lt;–&gt;\&lt;<br>&gt;–&gt;\&gt;<br>”–&gt;\&quot;<br>‘–&gt;\&#x27;<br>/–&gt;\&#x2f;</td>
-</tr>
-<tr>
-<td style="text-align:center">HTML标签的属性里</td>
-<td>\<input type="”text”" value="”不可信数据”/"></td>
-<td>HTML Attribute编码</td>
-<td>&#xHH;</td>
-</tr>
-<tr>
-<td style="text-align:center">JavaScript标签里</td>
-<td>\<script> var msg=”不可信数据” \</script></td>
-<td>JavaScript编码</td>
-<td>\xHH</td>
-</tr>
-<tr>
-<td style="text-align:center">HTML页面的URL里</td>
-<td>\<a href="”/page?p=" 不可信数据="" ”="">…\</a></td>
-<td>URL编码</td>
-<td>%HH</td>
-</tr>
-<tr>
-<td style="text-align:center">CSS里</td>
-<td>\<div style="”" width:="" 不可信数据="" ”=""> … \</div></td>
-<td>CSS编码</td>
-<td>\HH</td>
-</tr>
-</tbody>
-</table>
-<h3 id="输入验证"><a href="#输入验证" class="headerlink" title="输入验证"></a>输入验证</h3><p>对用户输入进行数据合法性验证，例如输入<code>email</code>的文本框只允许输入格式正确的<code>email</code>，输入手机号码的文本框只允许填入数字且格式需要正确。</p>
-<p>这类合法性验证至少需要在服务器端进行以防止浏览器端验证被绕过，而为了提高用户体验和减轻服务器压力，最好也在浏览器端进行同样的验证。</p>
-<h3 id="输出验证"><a href="#输出验证" class="headerlink" title="输出验证"></a>输出验证</h3><p>参考<a href="#编码">编码</a></p>
-<h3 id="保护Cookie"><a href="#保护Cookie" class="headerlink" title="保护Cookie"></a>保护Cookie</h3><p>为<code>Cookie</code>加上<code>HttpOnly</code>标记。浏览器将禁止页面的Javascript访问带有<code>HttpOnly</code>属性的<code>Cookie</code>。许多<code>XSS</code>攻击的目标就是窃取用户<code>Cookie</code>，这些<code>Cookie</code>里往往包含了用户身份认证信息（比如<code>SessionId</code>），一旦被盗，黑客就可以冒充用户身份盗取用户账号。窃取<code>Cookie</code>一般都会依赖JavaScript读取<code>Cookie</code>信息，而<code>HttpOnly</code>标记则会告诉浏览器，被标记上的<code>Cookie</code>是不允许任何脚本读取或修改的，这样即使Web应用产生了<code>XSS</code>漏洞，<code>Cookie</code>信息也能得到较好的保护，达到减轻损失的目的。</p>
-
-          
         
       
     </div>

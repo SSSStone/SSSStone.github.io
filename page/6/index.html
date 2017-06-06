@@ -327,7 +327,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/ready与load事件/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/ready在jQuery里的几种写法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -349,8 +349,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/ready与load事件/" itemprop="url">
-                  Ready与Load事件
+                <a class="post-title-link" href="/2017/03/31/ready在jQuery里的几种写法/" itemprop="url">
+                  Ready在JQuery里的几种写法
                 </a>
               
             
@@ -437,16 +437,31 @@
 
       
         
-          <p>jQuery有3种针对文档加载的方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// ...代码...</span></div><div class="line">&#125;)</div><div class="line"><span class="comment">//document ready 简写</span></div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// ...代码...</span></div><div class="line">&#125;)</div><div class="line">$(<span class="built_in">document</span>).load(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// ...代码...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>ready先执行，load后执行。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/ready与load事件/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <blockquote>
+<p>引用自@jimzh<br><a href="https://www.douban.com/note/413622487/" target="_blank" rel="external">https://www.douban.com/note/413622487/</a></p>
+</blockquote>
+<p>1、最常用也是最标准的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(<span class="built_in">document</span>).ready(&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>2、是上面的简写:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>很奇怪？为什么能这样？不是判断<code>document</code>对象是否 <code>ready</code>然后才执行函数的么?<code>document</code>哪去了?我们看下<code>jQuery</code>的源代码:</p>
+<p> <code>jQuery</code>的构造函数；</p>
+<pre><code>var jQuery = function( a, c ) {}
+</code></pre><p><code>$(document).ready()</code>的简写形式，只有在$(function(){…})下才会执行；</p>
+<pre><code>if ( a &amp;&amp; typeof a == &quot;function&quot; &amp;&amp; jQuery.fn.ready ) return jQuery(document).ready(a);
+</code></pre><p>确保参数a非空，默认值为document；</p>
+<pre><code>a = a || ntext || document;
+</code></pre><p>我们再看下$这个方法的参数</p>
+<pre><code>$(selector,context)
+</code></pre><p>第一个为选择器,第二个是容器<br>如果不填就默认为document。</p>
+<p>3、</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">jQuery(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>4、</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">jQuery(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">	alert($(<span class="string">"#ready1"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>第四种方式一般用在处理<code>jQuery</code>的<code>$</code>和别的库冲突的时候用的,通过<code>jQuery.noConflict()</code>这个方法,我们就可以直接在代码中通过<code>jQuery</code>来代替<code>$</code>来使用,但又习惯了使用<code>$</code>怎么办?看下面的代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">jQuery.noConflict();</div><div class="line">jQuery(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">	alert($(<span class="string">"#ready1"</span>l());   <span class="comment">//我们又能用上$符号了</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -1926,7 +1941,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/修改iscroll/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/兼容IE的MVVM框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -1948,8 +1963,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/修改iscroll/" itemprop="url">
-                  修改iscroll.js
+                <a class="post-title-link" href="/2017/03/31/兼容IE的MVVM框架/" itemprop="url">
+                  兼容IE的MVVM框架[转]
                 </a>
               
             
@@ -2000,7 +2015,18 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/工具/" itemprop="url" rel="index">
                     <span itemprop="name">工具</span>
                   </a>
                 </span>
@@ -2036,14 +2062,10 @@
 
       
         
-          <p>修改iscroll部分代码，使其更符合项目需求。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/修改iscroll/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p><a href="http://www.csdn.net/article/2015-09-29/2825826-avalon" target="_blank" rel="external">http://www.csdn.net/article/2015-09-29/2825826-avalon</a></p>
+
+          
         
       
     </div>
