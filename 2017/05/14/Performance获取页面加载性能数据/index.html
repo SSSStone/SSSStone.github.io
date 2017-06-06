@@ -1,0 +1,924 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="性能," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="window.performance 提供了一组精确的数据，经过简单的计算就能得出一些网页性能数据。配合上报一些客户端浏览器的设备类型等数据，就可以实现简单的统计啦！">
+<meta name="keywords" content="性能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Performance获取页面加载性能数据">
+<meta property="og:url" content="http://blog.yancoder.com/2017/05/14/Performance获取页面加载性能数据/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="window.performance 提供了一组精确的数据，经过简单的计算就能得出一些网页性能数据。配合上报一些客户端浏览器的设备类型等数据，就可以实现简单的统计啦！">
+<meta property="og:image" content="http://blog.yancoder.com/images/072454pGM.jpg">
+<meta property="og:image" content="http://blog.yancoder.com/images/072455NuJ.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/072504WLm.jpg">
+<meta property="og:image" content="http://blog.yancoder.com/images/072509yhq.jpg">
+<meta property="og:image" content="http://blog.yancoder.com/images/072511gsM.jpg">
+<meta property="og:image" content="http://blog.yancoder.com/images/072513gda.jpg">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Performance获取页面加载性能数据">
+<meta name="twitter:description" content="window.performance 提供了一组精确的数据，经过简单的计算就能得出一些网页性能数据。配合上报一些客户端浏览器的设备类型等数据，就可以实现简单的统计啦！">
+<meta name="twitter:image" content="http://blog.yancoder.com/images/072454pGM.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/05/14/Performance获取页面加载性能数据/"/>
+
+
+
+
+
+  <title> Performance获取页面加载性能数据 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/05/14/Performance获取页面加载性能数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Performance获取页面加载性能数据
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T22:54:00+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/浏览器/" itemprop="url" rel="index">
+                    <span itemprop="name">浏览器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>window.performance</code> 提供了一组精确的数据，经过简单的计算就能得出一些网页性能数据。<br>配合上报一些客户端浏览器的设备类型等数据，就可以实现简单的统计啦！</p>
+<a id="more"></a>
+<p>转载自AlloyTeam：<a href="http://www.alloyteam.com/2015/09/explore-performance/" target="_blank" rel="external">http://www.alloyteam.com/2015/09/explore-performance/</a></p>
+<h1 id="Performance简介"><a href="#Performance简介" class="headerlink" title="Performance简介"></a>Performance简介</h1><p>在 Chrome 浏览器控制台中执行 window.performance 会出现什么：</p>
+<p><img src="/images/072454pGM.jpg" alt=""></p>
+<h2 id="Performance的属性"><a href="#Performance的属性" class="headerlink" title="Performance的属性"></a>Performance的属性</h2><p>先看下一个请求发出的整个过程中，各种环节的时间顺序：</p>
+<p><img src="/images/072455NuJ.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取 performance 数据</span></div><div class="line"><span class="keyword">var</span> performance = &#123;  </div><div class="line">    <span class="comment">// memory 是非标准属性，只在 Chrome 有</span></div><div class="line">    <span class="comment">// 财富问题：我有多少内存</span></div><div class="line">    memory: &#123;</div><div class="line">        <span class="attr">usedJSHeapSize</span>:  <span class="number">16100000</span>, <span class="comment">// JS 对象（包括V8引擎内部对象）占用的内存，一定小于 totalJSHeapSize</span></div><div class="line">        totalJSHeapSize: <span class="number">35100000</span>, <span class="comment">// 可使用的内存</span></div><div class="line">        jsHeapSizeLimit: <span class="number">793000000</span> <span class="comment">// 内存大小限制</span></div><div class="line">    &#125;,</div><div class="line"> </div><div class="line">    <span class="comment">//  哲学问题：我从哪里来？</span></div><div class="line">    navigation: &#123;</div><div class="line">        <span class="attr">redirectCount</span>: <span class="number">0</span>, <span class="comment">// 如果有重定向的话，页面通过几次重定向跳转而来</span></div><div class="line">        type: <span class="number">0</span>           <span class="comment">// 0   即 TYPE_NAVIGATENEXT 正常进入的页面（非刷新、非重定向等）</span></div><div class="line">                          <span class="comment">// 1   即 TYPE_RELOAD       通过 window.location.reload() 刷新的页面</span></div><div class="line">                          <span class="comment">// 2   即 TYPE_BACK_FORWARD 通过浏览器的前进后退按钮进入的页面（历史记录）</span></div><div class="line">                          <span class="comment">// 255 即 TYPE_UNDEFINED    非以上方式进入的页面</span></div><div class="line">    &#125;,</div><div class="line"> </div><div class="line">    <span class="attr">timing</span>: &#123;</div><div class="line">        <span class="comment">// 在同一个浏览器上下文中，前一个网页（与当前页面不一定同域）unload 的时间戳，如果无前一个网页 unload ，则与 fetchStart 值相等</span></div><div class="line">        navigationStart: <span class="number">1441112691935</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 前一个网页（与当前页面同域）unload 的时间戳，如果无前一个网页 unload 或者前一个网页与当前页面不同域，则值为 0</span></div><div class="line">        unloadEventStart: <span class="number">0</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 和 unloadEventStart 相对应，返回前一个网页 unload 事件绑定的回调函数执行完毕的时间戳</span></div><div class="line">        unloadEventEnd: <span class="number">0</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 第一个 HTTP 重定向发生时的时间。有跳转且是同域名内的重定向才算，否则值为 0 </span></div><div class="line">        redirectStart: <span class="number">0</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 最后一个 HTTP 重定向完成时的时间。有跳转且是同域名内部的重定向才算，否则值为 0 </span></div><div class="line">        redirectEnd: <span class="number">0</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 浏览器准备好使用 HTTP 请求抓取文档的时间，这发生在检查本地缓存之前</span></div><div class="line">        fetchStart: <span class="number">1441112692155</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// DNS 域名查询开始的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</span></div><div class="line">        domainLookupStart: <span class="number">1441112692155</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// DNS 域名查询完成的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等</span></div><div class="line">        domainLookupEnd: <span class="number">1441112692155</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// HTTP（TCP） 开始建立连接的时间，如果是持久连接，则与 fetchStart 值相等</span></div><div class="line">        <span class="comment">// 注意如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接开始的时间</span></div><div class="line">        connectStart: <span class="number">1441112692155</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// HTTP（TCP） 完成建立连接的时间（完成握手），如果是持久连接，则与 fetchStart 值相等</span></div><div class="line">        <span class="comment">// 注意如果在传输层发生了错误且重新建立连接，则这里显示的是新建立的连接完成的时间</span></div><div class="line">        <span class="comment">// 注意这里握手结束，包括安全连接建立完成、SOCKS 授权通过</span></div><div class="line">        connectEnd: <span class="number">1441112692155</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// HTTPS 连接开始的时间，如果不是安全连接，则值为 0</span></div><div class="line">        secureConnectionStart: <span class="number">0</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// HTTP 请求读取真实文档开始的时间（完成建立连接），包括从本地读取缓存</span></div><div class="line">        <span class="comment">// 连接错误重连时，这里显示的也是新建立连接的时间</span></div><div class="line">        requestStart: <span class="number">1441112692158</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// HTTP 开始接收响应的时间（获取到第一个字节），包括从本地读取缓存</span></div><div class="line">        responseStart: <span class="number">1441112692686</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// HTTP 响应全部接收完成的时间（获取到最后一个字节），包括从本地读取缓存</span></div><div class="line">        responseEnd: <span class="number">1441112692687</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 开始解析渲染 DOM 树的时间，此时 Document.readyState 变为 loading，并将抛出 readystatechange 相关事件</span></div><div class="line">        domLoading: <span class="number">1441112692690</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// 完成解析 DOM 树的时间，Document.readyState 变为 interactive，并将抛出 readystatechange 相关事件</span></div><div class="line">        <span class="comment">// 注意只是 DOM 树解析完成，这时候并没有开始加载网页内的资源</span></div><div class="line">        domInteractive: <span class="number">1441112693093</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// DOM 解析完成后，网页内资源加载开始的时间</span></div><div class="line">        <span class="comment">// 在 DOMContentLoaded 事件抛出前发生</span></div><div class="line">        domContentLoadedEventStart: <span class="number">1441112693093</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕）</span></div><div class="line">        domContentLoadedEventEnd: <span class="number">1441112693101</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// DOM 树解析完成，且资源也准备就绪的时间，Document.readyState 变为 complete，并将抛出 readystatechange 相关事件</span></div><div class="line">        domComplete: <span class="number">1441112693214</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// load 事件发送给文档，也即 load 回调函数开始执行的时间</span></div><div class="line">        <span class="comment">// 注意如果没有绑定 load 事件，值为 0</span></div><div class="line">        loadEventStart: <span class="number">1441112693214</span>,</div><div class="line"> </div><div class="line">        <span class="comment">// load 事件的回调函数执行完毕的时间</span></div><div class="line">        loadEventEnd: <span class="number">1441112693215</span></div><div class="line"> </div><div class="line">        <span class="comment">// 字母顺序</span></div><div class="line">        <span class="comment">// connectEnd: 1441112692155,</span></div><div class="line">        <span class="comment">// connectStart: 1441112692155,</span></div><div class="line">        <span class="comment">// domComplete: 1441112693214,</span></div><div class="line">        <span class="comment">// domContentLoadedEventEnd: 1441112693101,</span></div><div class="line">        <span class="comment">// domContentLoadedEventStart: 1441112693093,</span></div><div class="line">        <span class="comment">// domInteractive: 1441112693093,</span></div><div class="line">        <span class="comment">// domLoading: 1441112692690,</span></div><div class="line">        <span class="comment">// domainLookupEnd: 1441112692155,</span></div><div class="line">        <span class="comment">// domainLookupStart: 1441112692155,</span></div><div class="line">        <span class="comment">// fetchStart: 1441112692155,</span></div><div class="line">        <span class="comment">// loadEventEnd: 1441112693215,</span></div><div class="line">        <span class="comment">// loadEventStart: 1441112693214,</span></div><div class="line">        <span class="comment">// navigationStart: 1441112691935,</span></div><div class="line">        <span class="comment">// redirectEnd: 0,</span></div><div class="line">        <span class="comment">// redirectStart: 0,</span></div><div class="line">        <span class="comment">// requestStart: 1441112692158,</span></div><div class="line">        <span class="comment">// responseEnd: 1441112692687,</span></div><div class="line">        <span class="comment">// responseStart: 1441112692686,</span></div><div class="line">        <span class="comment">// secureConnectionStart: 0,</span></div><div class="line">        <span class="comment">// unloadEventEnd: 0,</span></div><div class="line">        <span class="comment">// unloadEventStart: 0</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h1 id="使用performance-timing信息简单计算出网页性能数据"><a href="#使用performance-timing信息简单计算出网页性能数据" class="headerlink" title="使用performance.timing信息简单计算出网页性能数据"></a>使用performance.timing信息简单计算出网页性能数据</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 计算加载时间</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPerformanceTiming</span> (<span class="params"></span>) </span>&#123;  </div><div class="line">    <span class="keyword">var</span> performance = <span class="built_in">window</span>.performance;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span> (!performance) &#123;</div><div class="line">        <span class="comment">// 当前浏览器不支持</span></div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'你的浏览器不支持 performance 接口'</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">var</span> t = performance.timing;</div><div class="line">    <span class="keyword">var</span> times = &#123;&#125;;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】页面加载完成的时间</span></div><div class="line">    <span class="comment">//【原因】这几乎代表了用户等待页面可用的时间</span></div><div class="line">    times.loadPage = t.loadEventEnd - t.navigationStart;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】解析 DOM 树结构的时间</span></div><div class="line">    <span class="comment">//【原因】反省下你的 DOM 树嵌套是不是太多了！</span></div><div class="line">    times.domReady = t.domComplete - t.responseEnd;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】重定向的时间</span></div><div class="line">    <span class="comment">//【原因】拒绝重定向！比如，http://example.com/ 就不该写成 http://example.com</span></div><div class="line">    times.redirect = t.redirectEnd - t.redirectStart;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】DNS 查询时间</span></div><div class="line">    <span class="comment">//【原因】DNS 预加载做了么？页面内是不是使用了太多不同的域名导致域名查询的时间太长？</span></div><div class="line">    <span class="comment">// 可使用 HTML5 Prefetch 预查询 DNS ，见：[HTML5 prefetch](http://segmentfault.com/a/1190000000633364)            </span></div><div class="line">    times.lookupDomain = t.domainLookupEnd - t.domainLookupStart;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】读取页面第一个字节的时间</span></div><div class="line">    <span class="comment">//【原因】这可以理解为用户拿到你的资源占用的时间，加异地机房了么，加CDN 处理了么？加带宽了么？加 CPU 运算速度了么？</span></div><div class="line">    <span class="comment">// TTFB 即 Time To First Byte 的意思</span></div><div class="line">    <span class="comment">// 维基百科：https://en.wikipedia.org/wiki/Time_To_First_Byte</span></div><div class="line">    times.ttfb = t.responseStart - t.navigationStart;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】内容加载完成的时间</span></div><div class="line">    <span class="comment">//【原因】页面内容经过 gzip 压缩了么，静态资源 css/js 等压缩了么？</span></div><div class="line">    times.request = t.responseEnd - t.requestStart;</div><div class="line"> </div><div class="line">    <span class="comment">//【重要】执行 onload 回调函数的时间</span></div><div class="line">    <span class="comment">//【原因】是否太多不必要的操作都放到 onload 回调函数里执行了，考虑过延迟加载、按需加载的策略么？</span></div><div class="line">    times.loadEvent = t.loadEventEnd - t.loadEventStart;</div><div class="line"> </div><div class="line">    <span class="comment">// DNS 缓存时间</span></div><div class="line">    times.appcache = t.domainLookupStart - t.fetchStart;</div><div class="line"> </div><div class="line">    <span class="comment">// 卸载页面的时间</span></div><div class="line">    times.unloadEvent = t.unloadEventEnd - t.unloadEventStart;</div><div class="line"> </div><div class="line">    <span class="comment">// TCP 建立连接完成握手的时间</span></div><div class="line">    times.connect = t.connectEnd - t.connectStart;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> times;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="使用performance-getEntries-获取所有资源请求的时间数据"><a href="#使用performance-getEntries-获取所有资源请求的时间数据" class="headerlink" title="使用performance.getEntries() 获取所有资源请求的时间数据"></a>使用performance.getEntries() 获取所有资源请求的时间数据</h1><p>这个函数返回的将是一个数组，包含了页面中所有的 <code>HTTP</code> 请求，这里拿第一个请求 <code>window.performance.getEntries()[0]</code> 举例。<br>注意 <code>HTTP</code> 请求有可能命中本地缓存，所以请求响应的间隔将非常短。</p>
+<p>可以看到，与 <code>performance.timing</code> 对比： </p>
+<p>没有与 DOM 相关的属性：</p>
+<ul>
+<li>navigationStart</li>
+<li>unloadEventStart</li>
+<li>unloadEventEnd</li>
+<li>domLoading</li>
+<li>domInteractive</li>
+<li>domContentLoadedEventStart</li>
+<li>domContentLoadedEventEnd</li>
+<li>domComplete</li>
+<li>loadEventStart</li>
+<li>loadEventEnd</li>
+</ul>
+<p>新增属性：</p>
+<ul>
+<li>name</li>
+<li>entryType</li>
+<li>initiatorType</li>
+<li>duration</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> entry = &#123;  </div><div class="line">    <span class="comment">// 资源名称，也是资源的绝对路径</span></div><div class="line">    name: <span class="string">"http://cdn.alloyteam.com/wp-content/themes/alloyteam/style.css"</span>,</div><div class="line">    <span class="comment">// 资源类型</span></div><div class="line">    entryType: <span class="string">"resource"</span>,</div><div class="line">    <span class="comment">// 谁发起的请求</span></div><div class="line">    initiatorType: <span class="string">"link"</span>, <span class="comment">// link 即 &lt;link&gt; 标签</span></div><div class="line">                           <span class="comment">// script 即 &lt;script&gt;</span></div><div class="line">                           <span class="comment">// redirect 即重定向</span></div><div class="line">    <span class="comment">// 加载时间</span></div><div class="line">    duration: <span class="number">18.13399999809917</span>,</div><div class="line"> </div><div class="line">    <span class="attr">redirectStart</span>: <span class="number">0</span>,</div><div class="line">    <span class="attr">redirectEnd</span>: <span class="number">0</span>,</div><div class="line"> </div><div class="line">    <span class="attr">fetchStart</span>: <span class="number">424.57699999795295</span>,</div><div class="line"> </div><div class="line">    <span class="attr">domainLookupStart</span>: <span class="number">0</span>,</div><div class="line">    <span class="attr">domainLookupEnd</span>: <span class="number">0</span>,</div><div class="line"> </div><div class="line">    <span class="attr">connectStart</span>: <span class="number">0</span>,</div><div class="line">    <span class="attr">connectEnd</span>: <span class="number">0</span>,</div><div class="line"> </div><div class="line">    <span class="attr">secureConnectionStart</span>: <span class="number">0</span>,</div><div class="line"> </div><div class="line">    <span class="attr">requestStart</span>: <span class="number">0</span>,</div><div class="line"> </div><div class="line">    <span class="attr">responseStart</span>: <span class="number">0</span>,</div><div class="line">    <span class="attr">responseEnd</span>: <span class="number">442.7109999960521</span>,</div><div class="line"> </div><div class="line">    <span class="attr">startTime</span>: <span class="number">424.57699999795295</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>可以像 getPerformanceTiming 获取网页的时间一样，获取某个资源的时间：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 计算加载时间</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getEntryTiming</span> (<span class="params">entry</span>) </span>&#123;  </div><div class="line">    <span class="keyword">var</span> t = entry;</div><div class="line">    <span class="keyword">var</span> times = &#123;&#125;;</div><div class="line"> </div><div class="line">    <span class="comment">// 重定向的时间</span></div><div class="line">    times.redirect = t.redirectEnd - t.redirectStart;</div><div class="line"> </div><div class="line">    <span class="comment">// DNS 查询时间</span></div><div class="line">    times.lookupDomain = t.domainLookupEnd - t.domainLookupStart;</div><div class="line"> </div><div class="line">    <span class="comment">// 内容加载完成的时间</span></div><div class="line">    times.request = t.responseEnd - t.requestStart;</div><div class="line"> </div><div class="line">    <span class="comment">// TCP 建立连接完成握手的时间</span></div><div class="line">    times.connect = t.connectEnd - t.connectStart;</div><div class="line"> </div><div class="line">    <span class="comment">// 挂载 entry 返回</span></div><div class="line">    times.name = entry.name;</div><div class="line">    times.entryType = entry.entryType;</div><div class="line">    times.initiatorType = entry.initiatorType;</div><div class="line">    times.duration = entry.duration;</div><div class="line"> </div><div class="line">    <span class="keyword">return</span> times;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// test</span></div><div class="line"><span class="comment">// var entries = window.performance.getEntries();</span></div><div class="line"><span class="comment">// entries.forEach(function (entry) &#123;</span></div><div class="line"><span class="comment">//     var times = getEntryTiming(entry);</span></div><div class="line"><span class="comment">//     console.log(times);</span></div><div class="line"><span class="comment">// &#125;);</span></div></pre></td></tr></table></figure>
+<h1 id="使用-performance-now-精确计算程序执行时间"><a href="#使用-performance-now-精确计算程序执行时间" class="headerlink" title="使用 performance.now() 精确计算程序执行时间"></a>使用 performance.now() 精确计算程序执行时间</h1><p><code>performance.now()</code> 与 <code>Date.now()</code> 不同的是，返回了以微秒（百万分之一秒）为单位的时间，更加精准。<br>并且与 <code>Date.now()</code> 会受系统程序执行阻塞的影响不同，<code>performance.now()</code> 的时间是以恒定速率递增的，不受系统时间的影响（系统时间可被人为或软件调整）。</p>
+<p>注意:</p>
+<ul>
+<li><code>Date.now()</code> 输出的是 UNIX 时间，即距离 1970 的时间，而 <code>performance.now()</code> 输出的是相对于 <code>performance.timing.navigationStart</code>(页面初始化) 的时间。</li>
+<li>使用 <code>Date.now()</code> 的差值并非绝对精确，因为计算时间时受系统限制（可能阻塞）。但使用 <code>performance.now()</code> 的差值，并不影响我们计算程序执行的精确时间。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 计算程序执行的精确时间</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFunctionTimeWithDate</span> (<span class="params">func</span>) </span>&#123;  </div><div class="line">    <span class="keyword">var</span> timeStart = Data.now();</div><div class="line"> </div><div class="line">    <span class="comment">// 执行开始</span></div><div class="line">    func();</div><div class="line">    <span class="comment">// 执行结束</span></div><div class="line">    <span class="keyword">var</span> timeEnd = Data.now();</div><div class="line"> </div><div class="line">    <span class="comment">// 返回执行时间</span></div><div class="line">    <span class="keyword">return</span> (timeEnd - timeStart);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFunctionTimeWithPerformance</span> (<span class="params">func</span>) </span>&#123;  </div><div class="line">    <span class="keyword">var</span> timeStart = <span class="built_in">window</span>.performance.now();</div><div class="line"> </div><div class="line">    <span class="comment">// 执行开始</span></div><div class="line">    func();</div><div class="line">    <span class="comment">// 执行结束</span></div><div class="line">    <span class="keyword">var</span> timeEnd = <span class="built_in">window</span>.performance.now();</div><div class="line"> </div><div class="line">    <span class="comment">// 返回执行时间</span></div><div class="line">    <span class="keyword">return</span> (timeEnd - timeStart);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="使用-performance-mark-也可以精确计算程序执行时间"><a href="#使用-performance-mark-也可以精确计算程序执行时间" class="headerlink" title="使用 performance.mark() 也可以精确计算程序执行时间"></a>使用 performance.mark() 也可以精确计算程序执行时间</h1><p>使用 <code>performance.mark()</code> 标记各种时间戳（就像在地图上打点），保存为各种测量值（测量地图上的点之间的距离），便可以批量地分析这些数据了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomFunc</span> (<span class="params">n</span>) </span>&#123;  </div><div class="line">    <span class="keyword">if</span> (!n) &#123;</div><div class="line">        <span class="comment">// 生成一个随机数</span></div><div class="line">        n = ~~(<span class="built_in">Math</span>.random() * <span class="number">10000</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> nameStart = <span class="string">'markStart'</span> + n; </div><div class="line">    <span class="keyword">var</span> nameEnd   = <span class="string">'markEnd'</span> + n; </div><div class="line">    <span class="comment">// 函数执行前做个标记</span></div><div class="line">    <span class="built_in">window</span>.performance.mark(nameStart);</div><div class="line"> </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">        <span class="comment">// do nothing</span></div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="comment">// 函数执行后再做个标记</span></div><div class="line">    <span class="built_in">window</span>.performance.mark(nameEnd);</div><div class="line"> </div><div class="line">    <span class="comment">// 然后测量这个两个标记间的时间距离，并保存起来</span></div><div class="line">    <span class="keyword">var</span> name = <span class="string">'measureRandomFunc'</span> + n;</div><div class="line">    <span class="built_in">window</span>.performance.measure(name, nameStart, nameEnd);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// 执行三次看看</span></div><div class="line">randomFunc();  </div><div class="line">randomFunc();  </div><div class="line"><span class="comment">// 指定一个名字</span></div><div class="line">randomFunc(<span class="number">888</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 看下保存起来的标记 mark</span></div><div class="line"><span class="keyword">var</span> marks = <span class="built_in">window</span>.performance.getEntriesByType(<span class="string">'mark'</span>);  </div><div class="line"><span class="built_in">console</span>.log(marks);</div></pre></td></tr></table></figure>
+<p><img src="/images/072504WLm.jpg" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 看下保存起来的测量 measure</span></div><div class="line"><span class="keyword">var</span> measure = <span class="built_in">window</span>.performance.getEntriesByType(<span class="string">'measure'</span>);  </div><div class="line"><span class="built_in">console</span>.log(measure);</div></pre></td></tr></table></figure>
+<p><img src="/images/072509yhq.jpg" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 看下我们自定义的测量</span></div><div class="line"><span class="keyword">var</span> entries = <span class="built_in">window</span>.performance.getEntriesByName(<span class="string">'measureRandomFunc888'</span>);  </div><div class="line"><span class="built_in">console</span>.log(entries);</div></pre></td></tr></table></figure>
+<p><img src="/images/072511gsM.jpg" alt=""></p>
+<p>可以看到，for 循环 measureRandomFunc888 的时候</p>
+<p>结束时间为: 4875.1199999969685</p>
+<p>开始时间为：4875.112999987323</p>
+<p>执行时间为：4875.1199999969685 – 4875.112999987323 = 0.00700000964</p>
+<p>标记和测量用完了可以清除掉：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 清除指定标记</span></div><div class="line"><span class="built_in">window</span>.performance.clearMarks(<span class="string">'markStart888'</span>);  </div><div class="line"><span class="comment">// 清除所有标记</span></div><div class="line"><span class="built_in">window</span>.performance.clearMarks();</div><div class="line"> </div><div class="line"><span class="comment">// 清除指定测量</span></div><div class="line"><span class="built_in">window</span>.performance.clearMeasures(<span class="string">'measureRandomFunc'</span>);  </div><div class="line"><span class="comment">// 清除所有测量</span></div><div class="line"><span class="built_in">window</span>.performance.clearMeasures();</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 计算 domReady 时间</span></div><div class="line"><span class="keyword">var</span> t = performance.timing;</div><div class="line"><span class="keyword">var</span> domReadyTime = t.domComplete - t.responseEnd;  </div><div class="line"><span class="built_in">console</span>.log(domReadyTime);</div><div class="line"></div><div class="line"><span class="comment">// 其实就可以写成：</span></div><div class="line"><span class="built_in">window</span>.performance.measure(<span class="string">'domReady'</span>,<span class="string">'responseEnd'</span> , <span class="string">'domComplete'</span>);  </div><div class="line"><span class="keyword">var</span> domReadyMeasure = <span class="built_in">window</span>.performance.getEntriesByName(<span class="string">'domReady'</span>);  </div><div class="line"><span class="built_in">console</span>.log(domReadyMeasure);</div></pre></td></tr></table></figure>
+<p><img src="/images/072513gda.jpg" alt=""></p>
+<p>当我们需要统计分析用户打开我们网页时的性能如何时，我们将 <code>performance</code> 原始信息或通过简单计算后的信息(如上面写到的 <code>getPerformanceTiming()</code> 和 <code>getEntryTiming()</code>) 上传到服务器，配合其他信息（如 <code>HTTP</code> 请求头信息），就完美啦~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/05/14/Performance获取页面加载性能数据/" title="Performance获取页面加载性能数据">http://blog.yancoder.com/2017/05/14/Performance获取页面加载性能数据/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/性能/" rel="tag"># 性能</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/01/JS排序算法/" rel="next" title="JS排序算法">
+                <i class="fa fa-chevron-left"></i> JS排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/06/自签证书/" rel="prev" title="自签证书">
+                自签证书 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Performance简介"><span class="nav-number">1.</span> <span class="nav-text">Performance简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance的属性"><span class="nav-number">1.1.</span> <span class="nav-text">Performance的属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用performance-timing信息简单计算出网页性能数据"><span class="nav-number">2.</span> <span class="nav-text">使用performance.timing信息简单计算出网页性能数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用performance-getEntries-获取所有资源请求的时间数据"><span class="nav-number">3.</span> <span class="nav-text">使用performance.getEntries() 获取所有资源请求的时间数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-performance-now-精确计算程序执行时间"><span class="nav-number">4.</span> <span class="nav-text">使用 performance.now() 精确计算程序执行时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-performance-mark-也可以精确计算程序执行时间"><span class="nav-number">5.</span> <span class="nav-text">使用 performance.mark() 也可以精确计算程序执行时间</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

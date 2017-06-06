@@ -1,0 +1,982 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="记录各种IP物理地址查询接口。">
+<meta name="keywords" content="IP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP物理地址查询接口">
+<meta property="og:url" content="http://blog.yancoder.com/2017/03/31/IP物理地址查询接口/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="记录各种IP物理地址查询接口。">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IP物理地址查询接口">
+<meta name="twitter:description" content="记录各种IP物理地址查询接口。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/03/31/IP物理地址查询接口/"/>
+
+
+
+
+
+  <title> IP物理地址查询接口 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/IP物理地址查询接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                IP物理地址查询接口
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录各种IP物理地址查询接口。</p>
+<a id="more"></a>
+<h2 id="淘宝IP地址库"><a href="#淘宝IP地址库" class="headerlink" title="淘宝IP地址库"></a>淘宝IP地址库</h2><p><a href="http://ip.taobao.com/" target="_blank" rel="external">http://ip.taobao.com/</a></p>
+<p>提供国家、省、市、县、运营商全方位信息，信息维度广，格式规范<br>提供完善的统计分析报表，省准确度超过99.8%，市准确度超过96.8%，数据质量有保障。<br>不好用！！！</p>
+<ul>
+<li>请求接口（GET）：<a href="http://ip.taobao.com/service/getIpInfo.php?ip=[ip地址" target="_blank" rel="external">http://ip.taobao.com/service/getIpInfo.php?ip=[ip地址</a>]</li>
+<li>返回数据格式：（json格式的）国家 、省（自治区或直辖市）、市（县）、运营商。例如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;code&quot;:0,</div><div class="line">	&quot;data&quot;:&#123;</div><div class="line">		&quot;ip&quot;:&quot;210.75.225.254&quot;,</div><div class="line">		&quot;country&quot;:&quot;\u4e2d\u56fd&quot;,</div><div class="line">		&quot;area&quot;:&quot;\u534e\u5317&quot;,</div><div class="line">		&quot;region&quot;:&quot;\u5317\u4eac\u5e02&quot;,</div><div class="line">		&quot;city&quot;:&quot;\u5317\u4eac\u5e02&quot;,</div><div class="line">		&quot;county&quot;:&quot;&quot;,</div><div class="line">		&quot;isp&quot;:&quot;\u7535\u4fe1&quot;,</div><div class="line">		&quot;country_id&quot;:&quot;86&quot;,</div><div class="line">		&quot;area_id&quot;:&quot;100000&quot;,</div><div class="line">		&quot;region_id&quot;:&quot;110000&quot;,</div><div class="line">		&quot;city_id&quot;:&quot;110000&quot;,</div><div class="line">		&quot;county_id&quot;:&quot;-1&quot;,</div><div class="line">		&quot;isp_id&quot;:&quot;100017&quot;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">&#123;</div><div class="line">	&quot;code&quot;: 0,</div><div class="line">	&quot;data&quot;: &#123;</div><div class="line">		&quot;ip&quot;: &quot;210.75.225.254&quot;,</div><div class="line">		&quot;country&quot;: &quot;中国&quot;,</div><div class="line">		&quot;area&quot;: &quot;华北&quot;,</div><div class="line">		&quot;region&quot;: &quot;北京市&quot;,</div><div class="line">		&quot;city&quot;: &quot;北京市&quot;,</div><div class="line">		&quot;county&quot;: &quot;&quot;,</div><div class="line">		&quot;isp&quot;: &quot;电信&quot;,</div><div class="line">		&quot;country_id&quot;: &quot;86&quot;,</div><div class="line">		&quot;area_id&quot;: &quot;100000&quot;,</div><div class="line">		&quot;region_id&quot;: &quot;110000&quot;,</div><div class="line">		&quot;city_id&quot;: &quot;110000&quot;,</div><div class="line">		&quot;county_id&quot;: &quot;-1&quot;,</div><div class="line">		&quot;isp_id&quot;: &quot;100017&quot;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">// 注：其中code的值的含义为，0：成功，1：失败。</div></pre></td></tr></table></figure>
+<ul>
+<li>淘宝IP接口使用示例PHP版：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$ip=get_ip_data();</div><div class="line">function get_ip_data()&#123;</div><div class="line">	$ip=file_get_contents(&quot;http://ip.taobao.com/service/getIpInfo.php?ip=&quot;.get_client_ip());</div><div class="line">	$ip = json_decode($ip);</div><div class="line">	if($ip-&gt;code)&#123;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	$data = (array) $ip-&gt;data;</div><div class="line">	print_r($data);//return $data;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//取客户端 ip</div><div class="line">function get_client_ip()&#123;</div><div class="line">	if (isset($_SERVER[&apos;HTTP_CLIENT_IP&apos;]) and !empty($_SERVER[&apos;HTTP_CLIENT_IP&apos;]))&#123;</div><div class="line">		return $_SERVER[&apos;HTTP_CLIENT_IP&apos;];</div><div class="line">	&#125;</div><div class="line">	if (isset($_SERVER[&apos;HTTP_X_FORWARDED_FOR&apos;]) and !empty($_SERVER[&apos;HTTP_X_FORWARDED_FOR&apos;]))&#123;</div><div class="line">		return strtok($_SERVER[&apos;HTTP_X_FORWARDED_FOR&apos;], &apos;,&apos;);</div><div class="line">	&#125;</div><div class="line">	if (isset($_SERVER[&apos;HTTP_PROXY_USER&apos;]) and !empty($_SERVER[&apos;HTTP_PROXY_USER&apos;]))&#123;</div><div class="line">		return $_SERVER[&apos;HTTP_PROXY_USER&apos;];</div><div class="line">	&#125;</div><div class="line">	if (isset($_SERVER[&apos;REMOTE_ADDR&apos;]) and !empty($_SERVER[&apos;REMOTE_ADDR&apos;]))&#123;</div><div class="line">		return $_SERVER[&apos;REMOTE_ADDR&apos;];</div><div class="line">	&#125; else &#123;</div><div class="line">		return &quot;0.0.0.0&quot;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<h2 id="搜狐IP地址查询接口（默认编码GBK）"><a href="#搜狐IP地址查询接口（默认编码GBK）" class="headerlink" title="搜狐IP地址查询接口（默认编码GBK）"></a>搜狐IP地址查询接口（默认编码GBK）</h2><p><a href="http://pv.sohu.com/cityjson?ie=utf-8" target="_blank" rel="external">http://pv.sohu.com/cityjson?ie=utf-8</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 返回格式</span></div><div class="line"><span class="keyword">var</span> returnCitySN = &#123;<span class="string">"cip"</span>: <span class="string">"113.90.82.47"</span>, <span class="string">"cid"</span>: <span class="string">"440300"</span>, <span class="string">"cname"</span>: <span class="string">"广东省深圳市"</span>&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 使用方法</span></div><div class="line">$.getScript(<span class="string">'http://pv.sohu.com/cityjson?ie=utf-8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(returnCitySN)&#125;)</div></pre></td></tr></table></figure>
+<h2 id="百度IP地址查询接口"><a href="#百度IP地址查询接口" class="headerlink" title="百度IP地址查询接口"></a>百度IP地址查询接口</h2><p><a href="http://apis.baidu.com/apistore/iplookupservice/iplookup" target="_blank" rel="external">http://apis.baidu.com/apistore/iplookupservice/iplookup</a></p>
+<p>（暂时没测试）</p>
+<p>接口说明地址：<a href="http://apistore.baidu.com/apiworks/servicedetail/114.html" target="_blank" rel="external">http://apistore.baidu.com/apiworks/servicedetail/114.html</a></p>
+<ul>
+<li>需要key，很不方便</li>
+</ul>
+<p>请求参数(apikey) :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">必填</th>
+<th style="text-align:center">参数位置</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">apikey</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">header</td>
+<td style="text-align:center">API密钥</td>
+<td style="text-align:center">您自己的apikey</td>
+</tr>
+</tbody>
+</table>
+<p>请求参数(urlParam) :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">必填</th>
+<th style="text-align:center">参数位置</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ip</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">urlParam</td>
+<td style="text-align:center">ip地址</td>
+<td style="text-align:center">127.0.0.1</td>
+</tr>
+</tbody>
+</table>
+<p>返回格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;errNum&quot;: 0,</div><div class="line">    &quot;errMsg&quot;: &quot;success&quot;,</div><div class="line">    &quot;retData&quot;: &#123;</div><div class="line">        &quot;ip&quot;: &quot;117.89.35.58&quot;, //IP地址</div><div class="line">        &quot;country&quot;: &quot;中国&quot;, //国家 </div><div class="line">        &quot;province&quot;: &quot;江苏&quot;, //省份 国外的默认值为none</div><div class="line">        &quot;city&quot;: &quot;南京&quot;, //城市  国外的默认值为none</div><div class="line">        &quot;district&quot;: &quot;鼓楼&quot;,// 地区 国外的默认值为none</div><div class="line">        &quot;carrier&quot;: &quot;中国电信&quot; //运营商  特殊IP显示为未知</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="新浪IP地址查询接口"><a href="#新浪IP地址查询接口" class="headerlink" title="新浪IP地址查询接口"></a>新浪IP地址查询接口</h2><p><a href="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&amp;ip=[ip地址" target="_blank" rel="external">http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&amp;ip=[ip地址</a>]</p>
+<p>注：参数format可设置返回格式：js/json；参数ip可选查询IP；</p>
+<p>返回格式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> remote_ip_info =&#123;</div><div class="line">	<span class="string">"ret"</span>:<span class="number">1</span>,</div><div class="line">	<span class="string">"start"</span>:<span class="string">"125.40.0.0"</span>,</div><div class="line">	<span class="string">"end"</span>:<span class="string">"125.40.111.255"</span>,</div><div class="line">	<span class="string">"country"</span>:<span class="string">"\u4e2d\u56fd"</span>,</div><div class="line">	<span class="string">"province"</span>:<span class="string">"\u6cb3\u5357"</span>,</div><div class="line">	<span class="string">"city"</span>:<span class="string">"\u90d1\u5dde"</span>,</div><div class="line">	<span class="string">"district"</span>:<span class="string">""</span>,</div><div class="line">	<span class="string">"isp"</span>:<span class="string">"\u8054\u901a"</span>,</div><div class="line">	<span class="string">"type"</span>:<span class="string">""</span>,</div><div class="line">	<span class="string">"desc"</span>:<span class="string">""</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>下面的实例用到了JQuery下的getScript()方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> uip = <span class="string">'125.40.0.0'</span>;</div><div class="line">$.getScript(<span class="string">'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&amp;ip='</span>+uip, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> ipData = <span class="string">""</span>;</div><div class="line">	<span class="keyword">if</span> (remote_ip_info.ret == <span class="string">'1'</span>)&#123;</div><div class="line">		ipData += <span class="string">"IP 详细信息：&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"IP："</span> + uip + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"国家："</span> + remote_ip_info.country + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"省份："</span> + remote_ip_info.province + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"城市："</span> + remote_ip_info.city + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"区："</span> + remote_ip_info.district + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"ISP："</span> + remote_ip_info.isp + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"类型："</span> + remote_ip_info.type + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		ipData += <span class="string">"其他："</span> + remote_ip_info.desc + <span class="string">"&lt;br&gt;"</span>;</div><div class="line">		$(<span class="string">"#sina_ip_info"</span>).html(ipData); <span class="comment">//显示处理后的数据</span></div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		alert(<span class="string">'错误'</span>, <span class="string">'没有找到匹配的 IP 地址信息！'</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="百度的-LBS-服务"><a href="#百度的-LBS-服务" class="headerlink" title="百度的 LBS 服务"></a>百度的 LBS 服务</h2><p><a href="http://developer.baidu.com/map/ip-location-api.htm" target="_blank" rel="external">http://developer.baidu.com/map/ip-location-api.htm</a></p>
+<p>百度的 LBS 服务。支持根据 IP 查找位置信息。以上地址是相关文档</p>
+<p>示例：</p>
+<p><a href="http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&amp;ip=202.198.16.3" target="_blank" rel="external">http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&amp;ip=202.198.16.3</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ip</td>
+<td style="text-align:center">IP地址</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">可选，IP不出现，或者出现且为空字符串的情况下，会使用当前访问者的IP地址作为定位参数。</td>
+</tr>
+<tr>
+<td style="text-align:center">ak</td>
+<td style="text-align:center">开发者密钥</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">必选，登录API控制台，申请AK，作为访问的依据。</td>
+</tr>
+<tr>
+<td style="text-align:center">sn</td>
+<td style="text-align:center">用户的权限签名</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">可选，若用户所用AK的校验方式为SN校验时该参数必须。</td>
+</tr>
+<tr>
+<td style="text-align:center">coor</td>
+<td style="text-align:center">输出的坐标格式</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">可选，coor不出现时，默认为百度墨卡托坐标；coor=bd09ll时，返回为百度经纬度坐标。</td>
+</tr>
+</tbody>
+</table>
+<p>返回值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	address: &quot;CN|吉林|长春|None|CERNET|1|None&quot;,</div><div class="line">	content: &#123;</div><div class="line">		address_detail: &#123;</div><div class="line">			province: &quot;吉林省&quot;,</div><div class="line">			city: &quot;长春市&quot;,</div><div class="line">			district: &quot;&quot;,</div><div class="line">			street: &quot;&quot;,</div><div class="line">			street_number: &quot;&quot;,</div><div class="line">			city_code: 53</div><div class="line">		&#125;,</div><div class="line">		address: &quot;吉林省长春市&quot;,</div><div class="line">		point: &#123;</div><div class="line">			y: &quot;5419815.34&quot;,</div><div class="line">			x: &quot;13950002.65&quot;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	status: 0</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="太平洋IP地址库API接口"><a href="#太平洋IP地址库API接口" class="headerlink" title="太平洋IP地址库API接口"></a>太平洋IP地址库API接口</h2><p>接口说明：<a href="http://whois.pconline.com.cn/" target="_blank" rel="external">http://whois.pconline.com.cn/</a></p>
+<p>调用方法非常丰富，提供多种JS嵌入调用。</p>
+<h2 id="126-IP解析接口"><a href="#126-IP解析接口" class="headerlink" title="126 IP解析接口"></a>126 IP解析接口</h2><p><a href="http://ip.ws.126.net/ipquery?ip=[59.37.164.179" target="_blank" rel="external">http://ip.ws.126.net/ipquery?ip=[59.37.164.179</a>]</p>
+<p>ip：可选参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var lo=&quot;广东省&quot;, lc=&quot;江门市&quot;; var localAddress=&#123;city:&quot;江门市&quot;, province:&quot;广东省&quot;&#125;</div></pre></td></tr></table></figure>
+<h2 id="聚合数据IP解析接口"><a href="#聚合数据IP解析接口" class="headerlink" title="聚合数据IP解析接口"></a>聚合数据IP解析接口</h2><p><a href="https://www.juhe.cn/docs/api/id/1" target="_blank" rel="external">https://www.juhe.cn/docs/api/id/1</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/03/31/IP物理地址查询接口/" title="IP物理地址查询接口">http://blog.yancoder.com/2017/03/31/IP物理地址查询接口/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IP/" rel="tag"># IP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/JS中变量和函数声明hoist/" rel="next" title="JS中对变量和函数声明的hoist">
+                <i class="fa fa-chevron-left"></i> JS中对变量和函数声明的hoist
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/JSON.stringify/" rel="prev" title="JSON.stringify">
+                JSON.stringify <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#淘宝IP地址库"><span class="nav-number">1.</span> <span class="nav-text">淘宝IP地址库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜狐IP地址查询接口（默认编码GBK）"><span class="nav-number">2.</span> <span class="nav-text">搜狐IP地址查询接口（默认编码GBK）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百度IP地址查询接口"><span class="nav-number">3.</span> <span class="nav-text">百度IP地址查询接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新浪IP地址查询接口"><span class="nav-number">4.</span> <span class="nav-text">新浪IP地址查询接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百度的-LBS-服务"><span class="nav-number">5.</span> <span class="nav-text">百度的 LBS 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#太平洋IP地址库API接口"><span class="nav-number">6.</span> <span class="nav-text">太平洋IP地址库API接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#126-IP解析接口"><span class="nav-number">7.</span> <span class="nav-text">126 IP解析接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合数据IP解析接口"><span class="nav-number">8.</span> <span class="nav-text">聚合数据IP解析接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

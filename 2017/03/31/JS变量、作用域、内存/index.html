@@ -1,0 +1,931 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="JS变量在 ECMAScript 中，变量可以存在两种类型的值，即原始值和引用值。 类型原始值存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。 引用值存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS变量、作用域、内存">
+<meta property="og:url" content="http://blog.yancoder.com/2017/03/31/JS变量、作用域、内存/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="JS变量在 ECMAScript 中，变量可以存在两种类型的值，即原始值和引用值。 类型原始值存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。 引用值存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。">
+<meta property="og:image" content="http://blog.yancoder.com/images/1459333061208.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/1459333261607.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/1459333317914.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/1459333475624.png">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS变量、作用域、内存">
+<meta name="twitter:description" content="JS变量在 ECMAScript 中，变量可以存在两种类型的值，即原始值和引用值。 类型原始值存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。 引用值存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。">
+<meta name="twitter:image" content="http://blog.yancoder.com/images/1459333061208.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/03/31/JS变量、作用域、内存/"/>
+
+
+
+
+
+  <title> JS变量、作用域、内存 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS变量、作用域、内存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JS变量、作用域、内存
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JS变量"><a href="#JS变量" class="headerlink" title="JS变量"></a>JS变量</h2><p>在 ECMAScript 中，变量可以存在两种类型的值，即原始值和引用值。</p>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="原始值"><a href="#原始值" class="headerlink" title="原始值"></a>原始值</h4><p>存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。</p>
+<h4 id="引用值"><a href="#引用值" class="headerlink" title="引用值"></a>引用值</h4><p>存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存处。</p>
+<a id="more"></a>
+<p>为变量赋值时，ECMAScript 的解释程序必须判断该值是原始类型，还是引用类型。要实现这一点，解释程序则需尝试判断该值是否为 ECMAScript 的原始类型之一，即 Undefined、Null、Boolean、Number 和 String 型。由于这些原始类型占据的空间是固定的，所以可将他们存储在较小的内存区域 - 栈中。这样存储便于迅速查寻变量的值。</p>
+<p>如果一个值是引用类型的，那么它的存储空间将从堆中分配。由于引用值的大小会改变，所以不能把它放在栈中，否则会降低变量查寻的速度。相反，放在变量的栈空间中的值是该对象存储在堆中的地址。地址的大小是固定的，所以把它存储在栈中对变量性能无任何负面影响。如下图所示：</p>
+<p><img src="/images/1459333061208.png" alt=""></p>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><pre><code>alert (typeof sTemp); 
+</code></pre><p>对变量或值调用 typeof 运算符将返回下列值之一：</p>
+<ul>
+<li>undefined - 如果变量是 Undefined 类型的</li>
+<li>boolean - 如果变量是 Boolean 类型的</li>
+<li>number - 如果变量是 Number 类型的</li>
+<li>string - 如果变量是 String 类型的</li>
+<li>object - 如果变量是一种引用类型或 Null 类型的</li>
+</ul>
+<h3 id="访问机制的不同"><a href="#访问机制的不同" class="headerlink" title="访问机制的不同"></a>访问机制的不同</h3><p>不同的内存分配机制也带来了不同的访问机制。</p>
+<blockquote>
+<p>部分内容引用自：<br>作者：苏墨橘<br>链接：<a href="http://www.zhihu.com/question/27114726/answer/35481766" target="_blank" rel="external">http://www.zhihu.com/question/27114726/answer/35481766</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+</blockquote>
+<h4 id="赋值时的不同"><a href="#赋值时的不同" class="headerlink" title="赋值时的不同"></a>赋值时的不同</h4><p><strong>原始值赋值</strong></p>
+<p>在将一个保存着原始值的变量复制给另一个变量时，会将原始值的副本赋值给新变量，此后这两个变量是完全独立的，他们只是拥有相同的<code>value</code>而已。</p>
+<p><img src="/images/1459333261607.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> man = <span class="string">"Stone"</span>; </div><div class="line"><span class="keyword">var</span> man2 = man; </div><div class="line"><span class="comment">//两个是Stone</span></div><div class="line"><span class="built_in">console</span>.log(man);</div><div class="line"><span class="built_in">console</span>.log(man2);</div><div class="line"></div><div class="line">man = <span class="string">"BigStone"</span>;</div><div class="line"><span class="comment">//man是BigStone，man2是Stone</span></div><div class="line"><span class="built_in">console</span>.log(man);</div><div class="line"><span class="built_in">console</span>.log(man2);</div></pre></td></tr></table></figure>
+<p><strong>引用值赋值</strong></p>
+<p>在将一个保存着对象内存地址的变量复制给另一个变量时，会把这个内存地址赋值给新变量，也就是说这两个变量都指向了堆内存中的同一个对象，他们中任何一个作出的改变都会反映在另一个身上。<br>（这里要理解的一点就是，复制对象时并不会在堆内存中新生成一个一模一样的对象，只是多了一个保存指向这个对象指针的变量罢了）</p>
+<p><img src="/images/1459333317914.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//man指向了栈内存的空间地址</span></div><div class="line"><span class="keyword">var</span> man = <span class="keyword">new</span> <span class="built_in">Object</span>(); </div><div class="line">man.name = <span class="string">"Jack"</span>;</div><div class="line"><span class="comment">//man2获得了man的指向地址</span></div><div class="line"><span class="keyword">var</span> man2 = man; </div><div class="line"><span class="comment">//两个是Jack</span></div><div class="line"><span class="built_in">console</span>.log(man.name);</div><div class="line"><span class="built_in">console</span>.log(man2.name);</div><div class="line"></div><div class="line">man.name = <span class="string">"Stone"</span>;</div><div class="line"><span class="comment">//两个都是Stone</span></div><div class="line"><span class="built_in">console</span>.log(man);</div><div class="line"><span class="built_in">console</span>.log(man2);</div><div class="line"></div><div class="line">man2.name = <span class="string">"BigStone"</span>;</div><div class="line"><span class="comment">//两个都是BigStone</span></div><div class="line"><span class="built_in">console</span>.log(man);</div><div class="line"><span class="built_in">console</span>.log(man2);</div></pre></td></tr></table></figure>
+<h4 id="参数传递的不同"><a href="#参数传递的不同" class="headerlink" title="参数传递的不同"></a>参数传递的不同</h4><blockquote>
+<ol>
+<li><a href="http://bosn.me/js/js-call-by-sharing/" target="_blank" rel="external">http://bosn.me/js/js-call-by-sharing/</a></li>
+<li>ECMAScript中所有函数的参数都是<strong>按值来传递</strong>的。但是为什么涉及到原始类型与引用类型的值时仍然有区别呢，还不就是因为内存分配时的差别。（这里和复制变量时遵循的机制完全一样的嘛，你可以简单地理解为传递参数的时候，就是把实参复制给形参的过程）</li>
+</ol>
+</blockquote>
+<p><strong>原始值</strong></p>
+<p>只是把变量里的值传递给参数，之后参数和这个变量互不影响。</p>
+<p><strong>引用值</strong></p>
+<p>对象变量它里面的值是这个对象在堆内存中的内存地址，这一点你要时刻铭记在心！因此它传递的值也就是这个内存地址，这也就是为什么函数内部对这个参数的修改会体现在外部的原因了，因为它们都指向同一个对象呀。</p>
+<p><img src="/images/1459333475624.png" alt=""></p>
+<p>所以，如果是按引用传递的话，是把第二格中的内容（也就是变量本身）整个传递进去（就不会有第四格的存在了）。<br>但事实是变量把它里面的值传递（复制）给了参数，让这个参数也指向原对象。</p>
+<p>因此如果在函数内部给这个参数赋值另一个对象时，这个参数就会更改它的值为新对象的内存地址指向新的对象，但此时原来的变量仍然指向原来的对象，这时候他们是相互独立的；但如果这个参数是改变对象内部的属性的话，这个改变会体现在外部，因为他们共同指向的这个对象被修改了呀！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">	name = <span class="string">"BigStone"</span>;</div><div class="line">	<span class="keyword">return</span> name;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> name = <span class="string">"Stone"</span>;</div><div class="line"><span class="keyword">var</span> name2 = test(name);</div><div class="line"><span class="comment">//name=Stone,name2=BigStone</span></div><div class="line"><span class="built_in">console</span>.log(name);</div><div class="line"><span class="built_in">console</span>.log(name2);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">	obj.name = <span class="string">"BigStone"</span>;</div><div class="line">	<span class="keyword">return</span> obj;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> name1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">name1.name = <span class="string">"Stone"</span>;</div><div class="line"><span class="keyword">var</span> name2 = test(name1);</div><div class="line"><span class="comment">//name1和name2都变成了BigStone</span></div><div class="line"><span class="built_in">console</span>.log(name1);</div><div class="line"><span class="built_in">console</span>.log(name2);</div></pre></td></tr></table></figure>
+<h2 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h2><p>执行环境是<code>javascript</code>中最为重要的概念之一，执行环境定义了变量或函数有权访问其他数据。</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>变量没有在函数内声明或者声明的时候没有带var就是全局变量，拥有全局作用域，window对象的所有属性拥有全局作用域；在代码任何地方都可以访问，函数内部声明并且以var修饰的变量就是局部变量，只能在函数体内使用，函数的参数虽然没有使用var但仍然是局部变量。</p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>全局执行环境是最外围的执行环境，在web浏览器中，全局执行环境是window对象，因此，所有的全局变量的函数都是作为window的属性和方法创建的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Stone"</span>;           <span class="comment">//定义全局变量</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Stone"</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//全局变量，最外围，属于window属性</span></div><div class="line">alert(<span class="built_in">window</span>.name);</div><div class="line"><span class="comment">//全局函数，最外围，属于window方法</span></div><div class="line">alert(<span class="built_in">window</span>.setName());</div></pre></td></tr></table></figure>
+<p>当执行环境内的代码执行完毕后，该环境被销毁，保存其中的变量和函数也随之销毁，如果是全局环境，需所有程序执行完毕或网页完毕后才会销毁。</p>
+<h3 id="去掉var的局部变量"><a href="#去掉var的局部变量" class="headerlink" title="去掉var的局部变量"></a>去掉var的局部变量</h3><p>去掉var变成了全局变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Jack"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//去掉var变成了全局变量</span></div><div class="line">    name = <span class="string">"Stone"</span>;</div><div class="line">&#125;</div><div class="line">setName();</div><div class="line">alert(name);<span class="comment">//弹出Stone</span></div></pre></td></tr></table></figure>
+<h3 id="传参是局部变量"><a href="#传参是局部变量" class="headerlink" title="传参是局部变量"></a>传参是局部变量</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Jack"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">name</span>)</span>&#123;    <span class="comment">//通过传参，也是局部变量</span></div><div class="line">    alert(name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">setName(<span class="string">"￼Stone"</span>);<span class="comment">//弹出Stone</span></div><div class="line">alert(name);<span class="comment">//弹出Jack</span></div></pre></td></tr></table></figure>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Jack"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//setYear()方法的作用域在setName()内</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setYear</span>(<span class="params"></span>)</span>&#123;    </div><div class="line">        <span class="keyword">return</span> <span class="number">21</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">alert(setYear());<span class="comment">//无法访问，出错</span></div></pre></td></tr></table></figure>
+<p>可以通过如下方法进行访问：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Jack"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//setYear()方法的作用域在setName()内</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setYear</span>(<span class="params"></span>)</span>&#123;            </div><div class="line">	    <span class="keyword">return</span> <span class="number">21</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> setYear();</div><div class="line">&#125;</div><div class="line">alert(setName()); <span class="comment">//弹出21</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Jack"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//setYear()方法的作用域在setName()内</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setYear</span>(<span class="params"></span>)</span>&#123;    </div><div class="line">	    <span class="comment">//变量b的作用域在setYear()内</span></div><div class="line">        <span class="keyword">var</span> b = <span class="string">"hi"</span>;     </div><div class="line">        <span class="keyword">return</span> <span class="number">21</span>;</div><div class="line">    &#125;</div><div class="line">    alert(b);<span class="comment">//无法访问 </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当代码在一个环境中执行的时候，就会形成一种叫做<strong>作用域链</strong>的东西，它的用途是保证对执行环境中有访问权限的变量和函数进行有序访问（指按照规则层次来访问），作用域链的前端，就是执行环境的变量对象。</p>
+<h3 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//if语句的花括号没有作用域的功能。</span></div><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;                       </div><div class="line">	<span class="keyword">var</span> name = <span class="string">"Stone"</span>;</div><div class="line">&#125;</div><div class="line">alert(name);<span class="comment">//弹出 Stone</span></div></pre></td></tr></table></figure>
+<p>for循环语句也是如此。</p>
+<h3 id="变量的查询"><a href="#变量的查询" class="headerlink" title="变量的查询"></a>变量的查询</h3><p>在变量的查询中，访问局部变量要比全局变量来得快。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"Jack"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> name = <span class="string">"Stone"</span>;</div><div class="line">	<span class="keyword">return</span> name;  <span class="comment">//从底层向上搜索变量</span></div><div class="line">&#125;</div><div class="line">alert(setName()); <span class="comment">//弹出Stone</span></div></pre></td></tr></table></figure>
+<p>每个环境都可以向上搜索作用域链，以查询变量和函数名；但任何环境都不能通过向下搜索作用域链而进入另一个执行环境。</p>
+<h2 id="内存问题"><a href="#内存问题" class="headerlink" title="内存问题"></a>内存问题</h2><p><code>javascript</code>具有自动垃圾回收机制，一旦数据不再使用，可以将其设为<code>&quot;null&quot;</code>来释放引用</p>
+<h3 id="循环引用"><a href="#循环引用" class="headerlink" title="循环引用"></a>循环引用</h3><p>一个很简单的例子：一个DOM对象被一个<code>Javascript</code>对象引用，与此同时又引用同一个或其它的<code>Javascript</code>对象，这个DOM对象可能会引发内存泄露。这个DOM对象的引用将不会在脚本停止的时候被垃圾回收器回收。要想破坏循环引用，引用DOM元素的对象或DOM对象的引用需要被赋值为null。</p>
+<h3 id="闭包-1"><a href="#闭包-1" class="headerlink" title="闭包"></a>闭包</h3><p>在闭包中引入闭包外部的变量时，当闭包结束时此对象无法被垃圾回收（GC）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> largeStr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>).join(<span class="string">'x'</span>);</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">return</span> largeStr;</div><div class="line">	&#125;</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+<h3 id="DOM泄露"><a href="#DOM泄露" class="headerlink" title="DOM泄露"></a>DOM泄露</h3><p>当原有的COM被移除时，子结点引用没有被移除则无法回收。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> select = <span class="built_in">document</span>.querySelector;</div><div class="line"><span class="keyword">var</span> treeRef = select(<span class="string">'#tree'</span>);</div><div class="line"></div><div class="line"><span class="comment">//在COM树中leafRef是treeFre的一个子结点</span></div><div class="line"><span class="keyword">var</span> leafRef = select(<span class="string">'#leaf'</span>); </div><div class="line"><span class="keyword">var</span> body = select(<span class="string">'body'</span>);</div><div class="line"></div><div class="line">body.removeChild(treeRef);</div><div class="line"></div><div class="line"><span class="comment">//#tree不能被回收入，因为treeRef还在</span></div><div class="line"><span class="comment">//解决方法:</span></div><div class="line">treeRef = <span class="literal">null</span>;</div><div class="line"><span class="comment">//tree还不能被回收，因为叶子结果leafRef还在</span></div><div class="line"></div><div class="line">leafRef = <span class="literal">null</span>;</div><div class="line"><span class="comment">//现在#tree可以被释放了</span></div></pre></td></tr></table></figure>
+<h3 id="Timers计时器泄露"><a href="#Timers计时器泄露" class="headerlink" title="Timers计时器泄露"></a>Timers计时器泄露</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">90000</span>; i++) &#123;</div><div class="line">	<span class="keyword">var</span> buggyObject = &#123;</div><div class="line">		<span class="attr">callAgain</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">			<span class="keyword">var</span> ref = <span class="keyword">this</span>;</div><div class="line">			<span class="keyword">var</span> val = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                ref.callAgain();</div><div class="line">            &#125;, <span class="number">90000</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    buggyObject.callAgain();</div><div class="line">    <span class="comment">//虽然你想回收但是timer还在</span></div><div class="line">    buggyObject = <span class="literal">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/03/31/JS变量、作用域、内存/" title="JS变量、作用域、内存">http://blog.yancoder.com/2017/03/31/JS变量、作用域、内存/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/JS原型链/" rel="next" title="JS原型链">
+                <i class="fa fa-chevron-left"></i> JS原型链
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/JS事件处理机制/" rel="prev" title="JS事件处理机制">
+                JS事件处理机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS变量"><span class="nav-number">1.</span> <span class="nav-text">JS变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型"><span class="nav-number">1.1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原始值"><span class="nav-number">1.1.1.</span> <span class="nav-text">原始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引用值"><span class="nav-number">1.1.2.</span> <span class="nav-text">引用值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeof"><span class="nav-number">1.2.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问机制的不同"><span class="nav-number">1.3.</span> <span class="nav-text">访问机制的不同</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值时的不同"><span class="nav-number">1.3.1.</span> <span class="nav-text">赋值时的不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数传递的不同"><span class="nav-number">1.3.2.</span> <span class="nav-text">参数传递的不同</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行环境及作用域"><span class="nav-number">2.</span> <span class="nav-text">执行环境及作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">2.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局变量"><span class="nav-number">2.2.</span> <span class="nav-text">全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去掉var的局部变量"><span class="nav-number">2.3.</span> <span class="nav-text">去掉var的局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传参是局部变量"><span class="nav-number">2.4.</span> <span class="nav-text">传参是局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">2.5.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有块级作用域"><span class="nav-number">2.6.</span> <span class="nav-text">没有块级作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的查询"><span class="nav-number">2.7.</span> <span class="nav-text">变量的查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存问题"><span class="nav-number">3.</span> <span class="nav-text">内存问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环引用"><span class="nav-number">3.1.</span> <span class="nav-text">循环引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包-1"><span class="nav-number">3.2.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM泄露"><span class="nav-number">3.3.</span> <span class="nav-text">DOM泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timers计时器泄露"><span class="nav-number">3.4.</span> <span class="nav-text">Timers计时器泄露</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

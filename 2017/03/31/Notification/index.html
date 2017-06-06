@@ -1,0 +1,950 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Notification," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Constructornew Notification() Creates a new instance of the Notification object. 123Notification(title, options)//@param &amp;#123;String&amp;#125; title 要显示的通知标题//@param &amp;#123;Object&amp;#125; options 备选项参数，键值对">
+<meta name="keywords" content="Notification">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notification实现浏览器提醒">
+<meta property="og:url" content="http://blog.yancoder.com/2017/03/31/Notification/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="Constructornew Notification() Creates a new instance of the Notification object. 123Notification(title, options)//@param &amp;#123;String&amp;#125; title 要显示的通知标题//@param &amp;#123;Object&amp;#125; options 备选项参数，键值对">
+<meta property="og:image" content="http://blog.yancoder.com/images/20150309221457532.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/20150309221509013.png">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notification实现浏览器提醒">
+<meta name="twitter:description" content="Constructornew Notification() Creates a new instance of the Notification object. 123Notification(title, options)//@param &amp;#123;String&amp;#125; title 要显示的通知标题//@param &amp;#123;Object&amp;#125; options 备选项参数，键值对">
+<meta name="twitter:image" content="http://blog.yancoder.com/images/20150309221457532.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/03/31/Notification/"/>
+
+
+
+
+
+  <title> Notification实现浏览器提醒 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/Notification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Notification实现浏览器提醒
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript应用/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript应用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h2><p><code>new Notification()</code></p>
+<p>Creates a new instance of the Notification object.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Notification(title, options)</div><div class="line">//@param &#123;String&#125; title 要显示的通知标题</div><div class="line">//@param &#123;Object&#125; options 备选项参数，键值对</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p><code>Notification.permission</code></p>
+<p>A string representing the current permission to display notifications. Possible value are: denied (the user refuses to have notifications displayed), granted (the user accepts having notifications displayed), or default (the user choice is unknown and therefore the browser will act as if the value were denied).</p>
+<p><code>Notification.actions</code></p>
+<p>The actions array of the notification as specified in the options parameter of the constructor.</p>
+<p><code>Notification.badge</code></p>
+<p>The URL of the image used to represent the notification when there is not enough space to display thenotification itself.</p>
+<p><code>Notification.body</code></p>
+<p>The body string of the notification as specified in the options parameter of the constructor.</p>
+<p><code>Notification.data</code></p>
+<p>Returns a structured clone of the notification’s data.</p>
+<p><code>Notification.dir</code></p>
+<p>The text direction of the notification as specified in the options parameter of the constructor.</p>
+<ul>
+<li><strong>auto</strong>: adopts the browser’s language setting behaviour (the default.)</li>
+<li><strong>ltr</strong>: left to right.</li>
+<li><strong>rtl</strong> : right to left.</li>
+</ul>
+<p>Note: Most browsers seem to ignore explicit ltr and rtl settings, and just go with the browser-wide setting.</p>
+<p><code>Notification.lang</code></p>
+<p>The language code of the notification as specified in the options parameter of the constructor.</p>
+<p><code>Notification.tag</code></p>
+<p>The ID of the notification (if any) as specified in the options parameter of the constructor.<br>标记当前通知的标签。</p>
+<ul>
+<li>The idea of notification tags is that more than one notification can share the same tag, linking them together. One notification can then be programmatically replaced with another to avoid the users’ screen being filled up with a huge number of similar notifications.</li>
+</ul>
+<p><code>Notification.renotify</code></p>
+<p>布尔值。新通知出现的时候是否替换之前的。如果设为true，则表示替换，表示当前标记的通知只会出现一个。true参数要想其作用，必须tag需要设置属性值。</p>
+<p><code>Notification.icon</code></p>
+<p>The URL of the image used as an icon of the notification as specified in the options parameter of the constructor.</p>
+<p><code>Notification.requireInteraction</code></p>
+<p>A Boolean indicating that on devices with sufficiently large screens, a notification should remain active until the user clicks or dismisses it.</p>
+<p><code>Notification.silent</code></p>
+<p>Specifies whether the notification should be silent, i.e. no sounds or vibrations should be issued, regardless of the device settings.<br>布尔值。通知出现的时候，是否要有声音。默认false, 表示无声。</p>
+<p><code>Notification.sound</code></p>
+<p>字符串。音频地址。表示通知出现要播放的声音资源。</p>
+<p><code>Notification.timestamp</code></p>
+<p>Specifies the time at which a notification is created or applicable (past, present, or future).</p>
+<p><code>Notification.title</code></p>
+<p>The title of the notification as specified in the first parameter of the constructor.</p>
+<p><code>Notification.vibrate</code></p>
+<p>Specifies a vibration pattern for devices with vibration hardware to emit.<br>通知显示时候，设备震动硬件需要的振动模式。所谓振动模式，指的是一个描述交替时间的数组，分别表示振动和不振动的毫秒数，一直交替下去。例如[200, 100, 200]表示设备振动200毫秒，然后停止100毫秒，再振动200毫秒。</p>
+<p><code>Notification.noscreen</code></p>
+<p>布尔值。是否不再屏幕上显示通知信息。默认false, 表示要在屏幕上显示通知内容。</p>
+<h3 id="Event-handlers"><a href="#Event-handlers" class="headerlink" title="Event handlers"></a>Event handlers</h3><p><code>Notification.onclick</code></p>
+<p>A handler for the click event. It is triggered each time the user clicks on the notification.</p>
+<p><code>Notification.onerror</code></p>
+<p>A handler for the error event. It is triggered each time the notification encounters an error.</p>
+<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><h3 id="Static-methods"><a href="#Static-methods" class="headerlink" title="Static methods"></a>Static methods</h3><p>These methods are available only on the Notification object itself.</p>
+<p><code>Notification.requestPermission()</code></p>
+<p>Requests permission from the user to display notifications.</p>
+<ul>
+<li><strong>granted</strong>: The user has explicitly granted permission for the current origin to display system notifications.</li>
+<li><strong>denied</strong>: The user has explicitly denied permission for the current origin to display system notifications.</li>
+<li><strong>default</strong>: The user decision is unknown; in this case the application will act as if permission was denied.</li>
+</ul>
+<h3 id="Instance-methods"><a href="#Instance-methods" class="headerlink" title="Instance methods"></a>Instance methods</h3><p>These properties are available only on an instance of the Notification object or through its prototype. The Notification object also inherits from the EventTarget interface.</p>
+<p><code>Notification.close()</code></p>
+<p>Programmatically closes a notification.</p>
+<h2 id="Notification应用"><a href="#Notification应用" class="headerlink" title="Notification应用"></a>Notification应用</h2><blockquote>
+<p><a href="http://blog.csdn.net/liuhe688/article/details/41971215" target="_blank" rel="external">http://blog.csdn.net/liuhe688/article/details/41971215</a></p>
+</blockquote>
+<p>Web Notifications是HTML5中一个令人欣喜的新特性，它支持开发者配置和显示桌面通知，为用户提供更好的体验，最令人称赞的是，即使用户忙于其他工作时也可以收到来自页面的消息通知，例如一个新邮件的提醒，或者一个在线聊天室收到的消息提醒等等。<br>接下来，我们就试着一步一步创建我们自己的消息通知。<br>要创建消息通知，首先我们要创建一个消息框，这非常很简单，直接使用window对象下面的Notification类即可，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n = <span class="keyword">new</span> Notification(<span class="string">"sir, you got a message"</span>, &#123;  </div><div class="line">    <span class="attr">icon</span>: <span class="string">'img/icon.png'</span>,  </div><div class="line">    <span class="attr">body</span>: <span class="string">'you will have a meeting 5 minutes later.'</span>  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在Notification这个类的构造函数中，有两个重要的参数，第一个是消息的标题，第二个是消息体对象，其中包括消息框的图标（icon）和消息内容（body）。<br>在执行完以上代码后，我们就成功地创建了一个消息框实例，在Chrome下面它最终会显示成这样：</p>
+<p><img src="/images/20150309221457532.png" alt=""></p>
+<p>到这里我们已经成功了一半，但能不能正确地显示出这个消息框，最终还取决于用户的授权。鉴于浏览器的安全机制，只有用户同意网页弹出消息通知框，消息通知才能够真正的显示出来。所以现在我们要做的就是申请用户授权。<br>Notification类提供了一个<code>requestPermission</code>方法，用来请求用户授权，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Notification.requestPermission(<span class="function"><span class="keyword">function</span>(<span class="params">status</span>) </span>&#123;  </div><div class="line">    <span class="comment">//status是授权状态，如果用户允许显示桌面通知，则status为'granted'  </span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'status: '</span> + status);  </div><div class="line">  </div><div class="line">    <span class="comment">//permission只读属性  </span></div><div class="line">    <span class="keyword">var</span> permission = Notification.permission;  </div><div class="line">    <span class="comment">//default 用户没有接收或拒绝授权请求 不能显示通知  </span></div><div class="line">    <span class="comment">//granted 用户接受授权请求 允许显示通知  </span></div><div class="line">    <span class="comment">//denied  用户拒绝授权请求 不允许显示通知  </span></div><div class="line">  </div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'permission: '</span> + permission);  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>当这段代码执行时，浏览器会询问用户，是否允许该站点显示消息通知，如下图所示：</p>
+<p><img src="/images/20150309221509013.png" alt=""></p>
+<p>如果用户点击了左边的Block按钮，无论我们如何创建Notification实例，消息始终是无法显示出来的；只有用户选择了Allow按钮，代码才能正确执行并且显示出消息框来。</p>
+<p>正如上面代码中所描述的那样，<code>requestPermission</code>函数执行完后，会进入一个回调函数，该回调函数可以传递一个<code>status</code>参数，表示在用户做出选择后，最终的授权状态。<br>如果用户点击了授权提示右边的关闭按钮，相当于忽视了授权请求，此时<code>status</code>为<code>default</code>，在<code>default</code>状态下是无法显示消息的；<br>如果用户点击了Block按钮拒绝授权请求，则<code>status</code>会是<code>denied</code>状态，自然是无法显示消息；<br>如果用户点击了Allow按钮接受授权请求，则此时<code>status</code>会变成<code>granted</code>状态，只有在<code>granted</code>状态下才可以正确显示消息。</p>
+<p>同时，在执行完授权请求后，浏览器会将权限状态赋到Notification的<code>permission</code>属性上面，该属性对于开发者来讲是只读的，它的值跟上述的status值是一样的。所以如果我们要显示一个消息通知，可以先判断一下是否拥有权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (Notification.permission === &apos;granted&apos;) &#123;  </div><div class="line">    //show notification  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正如上面描述的那样，当权限为<code>granted</code>时，我们就可以显示消息通知了。但是单纯的显示一个消息框是没有任何吸引力的，所以消息通知应该具有一定的交互性，在显示消息的前前后后都应该有事件的参与。Notification一开始就制定好了一系列事件函数，开发者可以很方面的使用这些函数处理用户交互：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">var n = new Notification(&quot;sir, you got a message&quot;, &#123;  </div><div class="line">    icon: &apos;img/icon.png&apos;,  </div><div class="line">    body: &apos;you will have a meeting 5 minutes later.&apos;  </div><div class="line">&#125;);  </div><div class="line">  </div><div class="line">//onshow函数在消息框显示时会被调用  </div><div class="line">//可以做一些数据记录及定时操作等  </div><div class="line">n.onshow = function() &#123;  </div><div class="line">    console.log(&apos;notification shows up&apos;);  </div><div class="line">    //5秒后关闭消息框  </div><div class="line">    setTimeout(function() &#123;  </div><div class="line">        n.close();  </div><div class="line">    &#125;, 5000);  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line">//消息框被点击时被调用  </div><div class="line">//可以打开相关的视图，同时关闭该消息框等操作  </div><div class="line">n.onclick = function() &#123;  </div><div class="line">    alert(&apos;open the associated view&apos;);  </div><div class="line">    //opening the view...  </div><div class="line">    n.close();  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line">//当有错误发生时会onerror函数会被调用  </div><div class="line">//如果没有granted授权，创建Notification对象实例时，也会执行onerror函数  </div><div class="line">n.onerror = function() &#123;  </div><div class="line">    console.log(&apos;notification encounters an error&apos;);  </div><div class="line">    //do something useful  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line">//一个消息框关闭时onclose函数会被调用  </div><div class="line">n.onclose = function() &#123;  </div><div class="line">    console.log(&apos;notification is closed&apos;);  </div><div class="line">    //do something useful  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我们可以看到，Notification有4个常用的函数可以用来处理事件交互，<code>onshow</code>函数可以在消息展示时执行，<code>onclick</code>函数可以在用户点击消息后被调用，<br><code>onclose</code>函数是在消息框被关闭时被调用，<code>onerror</code>函数是发生错误时被调用，上面也提到了，如果没有被授权而继续创建消息通知，也会执行<code>onerror</code>函数。<br>掌握了这几个函数的应用，基本上可以很好地处理消息事件了。</p>
+<p>然后我们要把上面讲的几个步骤的代码组织起来，形成一个JavaScript对象，如下面代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">var NotificationHandler = &#123;  </div><div class="line">    isNotificationSupported: &apos;Notification&apos; in window,  </div><div class="line">    isPermissionGranted: function() &#123;  </div><div class="line">        return Notification.permission === &apos;granted&apos;;  </div><div class="line">    &#125;,  </div><div class="line">    requestPermission: function() &#123;  </div><div class="line">        if (!this.isNotificationSupported) &#123;  </div><div class="line">            console.log(&apos;the current browser does not support Notification API&apos;);  </div><div class="line">            return;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        Notification.requestPermission(function(status) &#123;  </div><div class="line">            //status是授权状态，如果用户允许显示桌面通知，则status为&apos;granted&apos;  </div><div class="line">            console.log(&apos;status: &apos; + status);  </div><div class="line">  </div><div class="line">            //permission只读属性  </div><div class="line">            var permission = Notification.permission;  </div><div class="line">            //default 用户没有接收或拒绝授权 不能显示通知  </div><div class="line">            //granted 用户接受授权 允许显示通知  </div><div class="line">            //denied  用户拒绝授权 不允许显示通知  </div><div class="line">  </div><div class="line">            console.log(&apos;permission: &apos; + permission);  </div><div class="line">        &#125;);  </div><div class="line">    &#125;,  </div><div class="line">    showNotification: function() &#123;  </div><div class="line">        if (!this.isNotificationSupported) &#123;  </div><div class="line">            console.log(&apos;the current browser does not support Notification API&apos;);  </div><div class="line">            return;  </div><div class="line">        &#125;  </div><div class="line">        if (!this.isPermissionGranted()) &#123;  </div><div class="line">            console.log(&apos;the current page has not been granted for notification&apos;);  </div><div class="line">            return;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        var n = new Notification(&quot;sir, you got a message&quot;, &#123;  </div><div class="line">            icon: &apos;img/icon.png&apos;,  </div><div class="line">            body: &apos;you will have a meeting 5 minutes later.&apos;  </div><div class="line">        &#125;);  </div><div class="line">  </div><div class="line">        //onshow函数在消息框显示时会被调用  </div><div class="line">        //可以做一些数据记录及定时操作等  </div><div class="line">        n.onshow = function() &#123;  </div><div class="line">            console.log(&apos;notification shows up&apos;);  </div><div class="line">            //5秒后关闭消息框  </div><div class="line">            setTimeout(function() &#123;  </div><div class="line">                n.close();  </div><div class="line">            &#125;, 5000);  </div><div class="line">        &#125;;  </div><div class="line">  </div><div class="line">        //消息框被点击时被调用  </div><div class="line">        //可以打开相关的视图，同时关闭该消息框等操作  </div><div class="line">        n.onclick = function() &#123;  </div><div class="line">            alert(&apos;open the associated view&apos;);  </div><div class="line">            //opening the view...  </div><div class="line">            n.close();  </div><div class="line">        &#125;;  </div><div class="line">  </div><div class="line">        //当有错误发生时会onerror函数会被调用  </div><div class="line">        //如果没有granted授权，创建Notification对象实例时，也会执行onerror函数  </div><div class="line">        n.onerror = function() &#123;  </div><div class="line">            console.log(&apos;notification encounters an error&apos;);  </div><div class="line">            //do something useful  </div><div class="line">        &#125;;  </div><div class="line">  </div><div class="line">        //一个消息框关闭时onclose函数会被调用  </div><div class="line">        n.onclose = function() &#123;  </div><div class="line">            console.log(&apos;notification is closed&apos;);  </div><div class="line">            //do something useful  </div><div class="line">        &#125;;  </div><div class="line">    &#125;  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line">document.addEventListener(&apos;load&apos;, function() &#123;  </div><div class="line">    //try to request permission when page has been loaded.  </div><div class="line">    NotificationHandler.requestPermission();  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>我们看到，上面代码创建了一个NotificationHandler的对象，来管理消息相关的事件逻辑，通常我们的流程是这样的：<br>在页面加载完之后调用<code>requestPermission</code>函数请求用户授权，然后页面代码执行一段时间之后，需要显示一个消息时，再调用<code>showNotification</code>函数显示这个消息，<br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">setTimeout(function() &#123;  </div><div class="line">    //if there has new mail, show notification  </div><div class="line">    NotificationHandler.showNotification();  </div><div class="line">&#125;, 5000);</div></pre></td></tr></table></figure>
+<p>需要注意的是，并不是所有的浏览器都支持Notification的，所以我们添加了一个<code>isNotificationSupported</code>属性，用来识别消息通知是否被浏览器所支持，<br>在上面的代码中，如果识别到浏览器不支持这个API，就直接返回了。</p>
+<blockquote>
+<p>部分内容引用自：<a href="https://developer.mozilla.org/en-US/docs/Web/API/Notification" target="_blank" rel="external">https://developer.mozilla.org/en-US/docs/Web/API/Notification</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/03/31/Notification/" title="Notification实现浏览器提醒">http://blog.yancoder.com/2017/03/31/Notification/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Notification/" rel="tag"># Notification</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/WebStorm+Git/" rel="next" title="WebStorm添加Git支持">
+                <i class="fa fa-chevron-left"></i> WebStorm添加Git支持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/Node.js调用c++组件/" rel="prev" title="Node.js调用C++组件">
+                Node.js调用C++组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Constructor"><span class="nav-number">1.</span> <span class="nav-text">Constructor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Properties"><span class="nav-number">2.</span> <span class="nav-text">Properties</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Event-handlers"><span class="nav-number">2.1.</span> <span class="nav-text">Event handlers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Methods"><span class="nav-number">3.</span> <span class="nav-text">Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-methods"><span class="nav-number">3.1.</span> <span class="nav-text">Static methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Instance-methods"><span class="nav-number">3.2.</span> <span class="nav-text">Instance methods</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notification应用"><span class="nav-number">4.</span> <span class="nav-text">Notification应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

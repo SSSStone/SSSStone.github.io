@@ -1,0 +1,970 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript事件," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是事件事件(Event)是JavaScript应用跳动的心脏 ，也是把所有东西粘在一起的胶水。当我们与浏览器中 Web 页面进行某些类型的交互时，事件就发生了。事件可能是用户在某些内容上的点击、鼠标经过某个特定元素或按下键盘上的某些按键。事件还可能是 Web 浏览器中发生的事情，比如说某个 Web 页面加载完成，或者是用户滚动窗口或改变窗口大小。通过使用 JavaScript ，你可以监听特定">
+<meta name="keywords" content="JavaScript事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS事件处理机制">
+<meta property="og:url" content="http://blog.yancoder.com/2017/03/31/JS事件处理机制/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="什么是事件事件(Event)是JavaScript应用跳动的心脏 ，也是把所有东西粘在一起的胶水。当我们与浏览器中 Web 页面进行某些类型的交互时，事件就发生了。事件可能是用户在某些内容上的点击、鼠标经过某个特定元素或按下键盘上的某些按键。事件还可能是 Web 浏览器中发生的事情，比如说某个 Web 页面加载完成，或者是用户滚动窗口或改变窗口大小。通过使用 JavaScript ，你可以监听特定">
+<meta property="og:image" content="http://blog.yancoder.com/images/01.jpg">
+<meta property="og:image" content="http://blog.yancoder.com/images/02.jpg">
+<meta property="og:image" content="http://blog.yancoder.com/images/03.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/04.png">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS事件处理机制">
+<meta name="twitter:description" content="什么是事件事件(Event)是JavaScript应用跳动的心脏 ，也是把所有东西粘在一起的胶水。当我们与浏览器中 Web 页面进行某些类型的交互时，事件就发生了。事件可能是用户在某些内容上的点击、鼠标经过某个特定元素或按下键盘上的某些按键。事件还可能是 Web 浏览器中发生的事情，比如说某个 Web 页面加载完成，或者是用户滚动窗口或改变窗口大小。通过使用 JavaScript ，你可以监听特定">
+<meta name="twitter:image" content="http://blog.yancoder.com/images/01.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/03/31/JS事件处理机制/"/>
+
+
+
+
+
+  <title> JS事件处理机制 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS事件处理机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JS事件处理机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是事件"><a href="#什么是事件" class="headerlink" title="什么是事件"></a>什么是事件</h2><p><strong>事件(Event)</strong>是JavaScript应用跳动的心脏 ，也是把所有东西粘在一起的胶水。当我们与浏览器中 Web 页面进行某些类型的交互时，事件就发生了。事件可能是用户在某些内容上的点击、鼠标经过某个特定元素或按下键盘上的某些按键。事件还可能是 Web 浏览器中发生的事情，比如说某个 Web 页面加载完成，或者是用户滚动窗口或改变窗口大小。<br>通过使用 JavaScript ，你可以监听特定事件的发生，并规定让某些事件发生以对这些事件做出响应。</p>
+<a id="more"></a>
+<h2 id="事件的发展"><a href="#事件的发展" class="headerlink" title="事件的发展"></a>事件的发展</h2><p>在漫长的演变史，我们已经告别了内嵌式的事件处理方式（直接将事件处理器放在 HTML 元素之内来使用）。今天的事件，它已是DOM的重要组成部分，遗憾的是， IE继续保留它最早在IE4.0中实现的事件模型，以后的IE版本中也没有做太大的改变，这也就是说IE还是使用的是一种专有的事件模型（冒泡型）,而其它的主流浏览器直到DOM 级别 3 规定定案后，才陆陆续续支持DOM标准的事件处理模型 — <strong>捕获型与冒泡型</strong>。</p>
+<p>历史原因是：W3C 规范 在DOM 级别 1中并没有定义任何的事件，直到发布于 2000 年 11 月 的DOM 级别 2 才定义了一小部分子集，DOM 级别 2中已经提供了提供了一种更详细的更细致的方式以控制 Web 页面中的事件，最后，完整的事件是在2004年 DOM 级别 3的规定中才最终定案。因为IE4是1995推出的并已实现了自己的事件模型（冒泡型），当时根本就没有DOM标准，不过在以后的DOM标准规范过程中已经把IE的事件模型吸收到了其中。</p>
+<p>目前除IE浏览器外，其它主流的Firefox, Opera, Safari都支持标准的DOM事件处理模型。IE仍然使用自己专有的事件模型，即冒泡型，它事件模型的一部份被DOM标准采用，这点对于开发者来说也是有好处的，只有使用</p>
+<p>DOM标准，IE都共有的事件处理方式才能有效的跨浏览器。</p>
+<h2 id="DOM事件流"><a href="#DOM事件流" class="headerlink" title="DOM事件流"></a>DOM事件流</h2><p>DOM(文档对象模型)结构是一个树型结构，当一个HTML元素产生一个事件时，该事件会在元素结点与根节点之间按特定的顺序传播，路径所经过的节点都会收到该事件，这个传播过程可称为DOM事件流。</p>
+<p>事件顺序有两种类型：事件捕捉和事件冒泡。</p>
+<h3 id="冒泡型事件"><a href="#冒泡型事件" class="headerlink" title="冒泡型事件"></a>冒泡型事件</h3><p>(Event Bubbling)</p>
+<p>这是IE浏览器对事件模型的实现，也是最容易理解的。冒泡，顾名思义，事件像个水中的气泡一样一直往上冒，直到顶端。从DOM树型结构上理解，就是事件由叶子节点沿祖先结点一直向上传递直到根节点；从浏览器界面视图HTML元素排列层次上理解就是事件由具有从属关系的最确定的目标元素一直传递到最不确定的目标元素.冒泡技术.冒泡型事件的基本思想,事件按照从特定的事件目标开始到最不确定的事件目标.</p>
+<h3 id="捕获型事件"><a href="#捕获型事件" class="headerlink" title="捕获型事件"></a>捕获型事件</h3><p>(Event Capturing)</p>
+<p>Netscape 的实现，它与冒泡型刚好相反，由DOM树最顶层元素一直到最精确的元素，这个事件模型对于开发者来说有点费解，因为直观上的理解应该如同冒泡型，事件传递应该由最确定的元素，即事件产生元素开始。</p>
+<p><img src="/images/01.jpg" alt="01"></p>
+<h3 id="DOM标准的事件模型"><a href="#DOM标准的事件模型" class="headerlink" title="DOM标准的事件模型"></a>DOM标准的事件模型</h3><p>我们已经对上面两个不同的事件模型进行了解释和对比。DOM标准同时支持两种事件模型，即捕获型事件与冒泡型事件，但是，捕获型事件先发生。两种事件流都会触发DOM中的所有对象，从document对象开始，也在document对象结束（大部分兼容标准的浏览器会继续将事件是捕捉/冒泡延续到window对象）。</p>
+<p><img src="/images/02.jpg" alt="02"></p>
+<p>如图：首先是捕获式传递事件，接着是冒泡式传递，所以，如果一个处理函数既注册了捕获型事件的监听，又注册冒泡型事件监听，那么在DOM事件模型中它就会被调用两次。</p>
+<p>DOM标准的事件模型最独特的性质是,文本节点也会触发事件(在IE不会)。</p>
+<p><img src="/images/03.png" alt="03"></p>
+<h2 id="事件传送"><a href="#事件传送" class="headerlink" title="事件传送"></a>事件传送</h2><p>显然，如果为一个超链接添加了click事件监听器，那么当该链接被点击时该事件监听器就会被执行。但如果把该事件监听器指派给了包含该链接的p元素或者位于DOM树顶端的document节点，那么点击该链接也同样会触发该事件监听器。这是因为事件不仅仅对触发的目标元素产生影响，它们还会对沿着DOM结构的所有元素产生影响。这就是大家所熟悉的事件转送。</p>
+<p>W3C事件模型中明确地指出了事件转送的原理。事件传送可以分为3个阶段。</p>
+<p><img src="/images/04.png" alt="04"></p>
+<p>如图：标准的事件转送模式</p>
+<ol>
+<li><p>在事件捕捉（Capturing）阶段，事件将沿着DOM树向下转送，目标节点的每一个祖先节点，直至目标节点。例如，若用户单击了一个超链接，则该单击事件将从document节点转送到html元素，body元素以及包含该链接的p元素。<br>在此过程中，浏览器都会检测针对该事件的捕捉事件监听器，并且运行这件事件监听器。</p>
+</li>
+<li><p>在目标（target）阶段，浏览器在查找到已经指定给目标事件的事件监听器之后，就会运行 该事件监听器。目标节点就是触发事件的DOM节点。例如，如果用户单击一个超链接，那么该链接就是目标节点（此时的目标节点实际上是超链接内的文本节点）。</p>
+</li>
+<li><p>在冒泡（Bubbling）阶段，事件将沿着DOM树向上转送，再次逐个访问目标元素的祖先节点到document节点。该过程中的每一步。浏览器都将检测那些不是捕捉事件监听器的事件监听器，并执行它们。</p>
+</li>
+</ol>
+<blockquote>
+<p>并非所有的事件都会经过冒泡阶段的。</p>
+<p>所有的事件都要经过捕捉阶段和目标阶段，但是有些事件会跳过冒泡阶段。例如，让元素获得输入焦点的focus事件以及失去输入焦点的blur事件就都不会冒泡。</p>
+</blockquote>
+<h2 id="事件句柄和事件监听器"><a href="#事件句柄和事件监听器" class="headerlink" title="事件句柄和事件监听器"></a>事件句柄和事件监听器</h2><h3 id="事件句柄"><a href="#事件句柄" class="headerlink" title="事件句柄"></a>事件句柄</h3><p>事件句柄（又称事件处理函数，DOM称之为事件监听函数），用于响应某个事件而调用的函数称为事件处理函数。</p>
+<p>每一个事件均对应一个事件句柄，在程序执行时，将相应的函数或语句指定给事件句柄，则在该事件发生时，浏览器便执行指定的函数或语句，从而实现网页内容与用户操作的交互。当浏览器检测到某事件发生时，便查找该事件对应的事件句柄有没有被赋值，如果有，则执行该事件句柄。</p>
+<p>我们认为响应点击事件的函数是onclick事件处理函数。以前，事件处理函数有两种分配方式：在JavaScript中或者在HTML中。</p>
+<p>如果在JavaScript 中分配事件处理函数， 则需要首先获得要处理的对象的一引用，然后将函数赋值给对应的事件处理函数属性，请看一个简单的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> link=<span class="built_in">document</span>.getElementById(<span class="string">"mylink"</span>);</div><div class="line">link.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	alert(<span class="string">"I was clicked !"</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>不过事件处理函数只有在元素载入完成之后才能将事件句柄赋给元素，不然会有异常。</p>
+<p>如果在HTML中分配事件句柄的话，则直接通过HTML属性来设置事件处理函数就行了，并在其中包含合适的脚本作为特性值就可以了，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span> <span class="attr">onclick</span>=<span class="string">"JavaScript code here"</span>&gt;</span>......<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这种JavaScript 代码和通过HTML的style属性直接将CSS属性赋给元素类似。这样会代码看起来一团糟，也违背了将实现动态行为的代码与显示文档静态内容的代码相分离的原则。从1998年开始，这种写法就过时了。</p>
+<p>这种传统的事件绑定技术，优缺点是显然的：</p>
+<ul>
+<li>简单方便，在HTML中直接书写处理函数的代码块，在JS中给元素对应事件属性赋值即可。</li>
+<li>IE与DOM标准都支持的一种方法，它在IE与DOM标准中都是在事件冒泡过程中被调用的。</li>
+<li>可以在处理函数块内直接用this引用注册事件的元素，this引用的是当前元素。</li>
+<li>要给元素注册多个监听器，就不能用这方法了。</li>
+</ul>
+<h3 id="事件监听器"><a href="#事件监听器" class="headerlink" title="事件监听器"></a>事件监听器</h3><p>除了前面已经介绍的简单事件句柄之外，现在大多数浏览器都内置了一些更高级的事件处理方式，即，事件监听器，这种处理方式就不受一个元素只能绑定一个事件句柄的限制。</p>
+<p>我们已经知道了事件句柄与事件监听器的最大不同之处是使用事件句柄时一次只能插接一个事件句柄，但对于事件监听器，一次可以插接多个。</p>
+<h4 id="IE下的事件监听器"><a href="#IE下的事件监听器" class="headerlink" title="IE下的事件监听器"></a>IE下的事件监听器</h4><p>IE提供的却是一种自有的，完全不同的甚至存在BUG的事件监听器，因此如果要让脚本在本浏览器中正常运行的话，就必须使用IE所支持的事件监听器。另外，Safari 浏览器中的事件监听器有时也存在一点不同。</p>
+<p>在IE中，每个元素和window对象都有两个方法：<code>attachEvent</code>方法和<code>detachEvent</code>方法。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">element.attachEvent(<span class="string">"onevent"</span>,eventListener);</div></pre></td></tr></table></figure>
+<p>此方法的意思是在IE中要想给一个元素的事件附加事件处理函数，必须调用<code>attachEvent</code>方法才能创建一个事件监听器。</p>
+<p><code>attachEvent</code>方法允许外界注册该元素多个事件监听器。<br><code>attachEvent</code>接受两个参数。第一个参数是事件类型名，第二个参数<code>eventListener</code>是回调处理函数。这里得说明一下，有个经常会出错的地方，IE下利用attachEvent注册的处理函数调用时this指向不再是先前注册事件的元素，这时的this为window对象。还有一点是此方法的事件类型名称必须加上一个”on”的前缀（如onclick）。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">element.attachEvent(<span class="string">"onevent"</span>,eventListener);</div></pre></td></tr></table></figure>
+<p>要想移除先前元素注册的事件监听器,可以使用<code>detachEvent</code>方法进行删除，参数相同。</p>
+<h4 id="DOM标准下的事件监听器"><a href="#DOM标准下的事件监听器" class="headerlink" title="DOM标准下的事件监听器"></a>DOM标准下的事件监听器</h4><p>在支持W3C标准事件监听器的浏览器中，对每个支持事件的对象都可以使用<code>addEventListener</code>方法。该方法既支持注册冒泡型事件处理，又支持捕获型事件处理。所以与IE浏览器中注册元素事件监听器方式有所不同的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//标准语法 </span></div><div class="line">element.addEventListener(<span class="string">'event'</span>, eventListener, useCapture);</div><div class="line"><span class="comment">//默认</span></div><div class="line">element.addEventListener(<span class="string">'event'</span>, eventListener, <span class="literal">false</span>);</div></pre></td></tr></table></figure>
+<p><code>addEventListener</code>方法接受三个参数。<br>第一个参数是事件类型名，值得注意的是，这里事件类型名称与IE的不同，事件类型名是没’on’开头的;<br>第二个参数<code>eventListener</code>是回调处理函数（即监听器函数）;<br>第三个参数注明该处理回调函数是在事件传递过程中的捕获阶段被调用还是冒泡阶段被调用 ，通常此参数通常会设置为<code>false</code>（为false时是冒泡）,那么，如果将其值设置为<code>true</code>，那就创建一个捕捉事件监听器。</p>
+<p>移除已注册的事件监听器调用element的<code>removeEventListener</code>方法即可，参数相同。</p>
+<p>通过<code>addEventListener</code>方法添加的事件处理函数，必须使用<code>removeEventListener</code>方法才能删除，而且要求参数与添加事件处理函数时<code>addEventListener</code>方法的参数完全一致（包括<code>useCapture</code>参数），否则将不能成功删除事件处理函数。</p>
+<h4 id="跨浏览器的注册与移除元素事件监听器方案"><a href="#跨浏览器的注册与移除元素事件监听器方案" class="headerlink" title="跨浏览器的注册与移除元素事件监听器方案"></a>跨浏览器的注册与移除元素事件监听器方案</h4><p>我们现在已经知道，对于支持<code>addEventListener</code>方法的浏览器，只要需要事件监听器脚本就都需要调用<code>addEventListener</code>方法；而对于不支持该方法的IE浏览器，使用事件监听器时则需要调用<code>attachEvent</code>方法。要确保浏览器使用正确的方法其实并不困难，只需要通过一个<code>if-else</code>语句来检测当前浏览器中是否存在<code>addEventListener</code>方法或<code>attachEvent</code>方法即可。<br>这样的方式就可以实现一个跨浏览器的注册与移除元素事件监听器方案:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> EventUtil = &#123;</div><div class="line">	<span class="comment">//注册</span></div><div class="line">	addHandler: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, handler</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span> (element.addEventListener)&#123;</div><div class="line">			element.addEventListener(type, handler, <span class="literal">false</span>);</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent)&#123;</div><div class="line">			element.attachEvent(<span class="string">"on"</span> + type, handler);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			element[<span class="string">"on"</span> + type] = handler;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="comment">//移除注册</span></div><div class="line">	removeHandler: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, handler</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span> (element.removeEventListener)&#123;</div><div class="line">			element.removeEventListener(type, handler, <span class="literal">false</span>);</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent)&#123;</div><div class="line">			element.detachEvent(<span class="string">"on"</span> + type, handler);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			element[<span class="string">"on"</span> + type] = <span class="literal">null</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;             </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="事件对象引用"><a href="#事件对象引用" class="headerlink" title="事件对象引用"></a>事件对象引用</h2><p>为了更好的处理事件，你可以根据所发生的事件的特定属性来采取不同的操作。</p>
+<p>如事件模型一样，IE 和其他浏览器处理方法不同：IE 使用一个叫做 event 的全局事件对象来处理对象（它可以在全局变量window.event中找到），而其它所有浏览器采用的 W3C 推荐的方式，则使用独立的包含事件对象的参数传递。</p>
+<p>跨浏览器实现这样的功能时，最常见的问题就是<strong>获取事件本身的引用及获取该事件的目标元素的引用</strong>。</p>
+<p>下面这段代码就为你解决了这个问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> EventUtil =&#123;</div><div class="line">	<span class="attr">getEvent</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> event ? event : <span class="built_in">window</span>.event;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">getTarget</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> event.target || event.srcElement;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="停止事件冒泡和阻止事件的默认行为"><a href="#停止事件冒泡和阻止事件的默认行为" class="headerlink" title="停止事件冒泡和阻止事件的默认行为"></a>停止事件冒泡和阻止事件的默认行为</h2><p>“停止事件冒泡“和”阻止浏览器的默认行为“，这两个概念非常重要，它们对复杂的应用程序处理非常有用。</p>
+<h3 id="停止事件冒泡"><a href="#停止事件冒泡" class="headerlink" title="停止事件冒泡"></a>停止事件冒泡</h3><p>停止事件冒泡是指，停止冒泡型事件的进一步传递（取消事件传递,不只是停止IE和DOM标准共有的冒泡型事件，我们还可以停止支持DOM标准浏览器的捕捉型事件，用topPropagation()方法）。例如上图中的冒泡型事件传递中，在body处理停止事件传递后，位于上层的document的事件监听器就不再收到通知，不再被处理。</p>
+<h3 id="停止事件冒泡的处理方法"><a href="#停止事件冒泡的处理方法" class="headerlink" title="停止事件冒泡的处理方法"></a>停止事件冒泡的处理方法</h3><p>在IE下 ，通过设置event对象的<code>cancelBubble</code>为<code>true</code>即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">someHandle</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">window</span>.event.cancelBubble = <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>DOM标准通过调用event对象的<code>stopPropagation()</code>方法即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">someHandle</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">	event.stopPropagation();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因些，跨浏览器的停止事件传递的方法是:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">someHandle</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">	event = event || <span class="built_in">window</span>.event;</div><div class="line">	<span class="keyword">if</span>(event.stopPropagation)&#123;</div><div class="line">		event.stopPropagation();</div><div class="line">	&#125;<span class="keyword">else</span> &#123;</div><div class="line">		event.cancelBubble = <span class="literal">true</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="阻止事件的默认行为"><a href="#阻止事件的默认行为" class="headerlink" title="阻止事件的默认行为"></a>阻止事件的默认行为</h3><p>停止事件的默认行为是指，通常浏览器在事件传递并处理完后会执行与该事件关联的默认动作（如果存在这样的动作）。例如，如果表单中input type 属性是 “submit”，点击后在事件传播完浏览器就自动提交表单。又例如，input 元素的 keydown 事件发生并处理后，浏览器默认会将用户键入的字符自动追加到 input 元素的值中。</p>
+<h3 id="阻止事件的默认行为的处理方法"><a href="#阻止事件的默认行为的处理方法" class="headerlink" title="阻止事件的默认行为的处理方法"></a>阻止事件的默认行为的处理方法</h3><p>就像事件模型和事件对象差异一样，在IE和其它所有浏览器中阻止事件的默认行为的方法也不同。</p>
+<p>在IE下,通过设置event对象的<code>returnValue</code>为<code>false</code>即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">someHandle</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">window</span>.event.returnValue = <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>DOM标准通过调用event对象的<code>preventDefault()</code>方法即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">someHandle</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">	event.preventDefault();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因些，跨浏览器的取消事件传递后的默认处理方法是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">someHandle</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">	event = event || <span class="built_in">window</span>.event;</div><div class="line">	<span class="keyword">if</span>(event.preventDefault)&#123;</div><div class="line">		event.preventDefault();</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		event.returnValue = <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="完整的事件处理兼容性函数"><a href="#完整的事件处理兼容性函数" class="headerlink" title="完整的事件处理兼容性函数"></a>完整的事件处理兼容性函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> EventUtil = &#123;</div><div class="line">	<span class="attr">addHandler</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, handler</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span> (element.addEventListener)&#123;</div><div class="line">			element.addEventListener(type, handler, <span class="literal">false</span>);</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent)&#123;</div><div class="line">			element.attachEvent(<span class="string">"on"</span> + type, handler);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			element[<span class="string">"on"</span> + type] = handler;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">removeHandler</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, handler</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span> (element.removeEventListener)&#123;</div><div class="line">			element.removeEventListener(type, handler, <span class="literal">false</span>);</div><div class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent)&#123;</div><div class="line">			element.detachEvent(<span class="string">"on"</span> + type, handler);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			element[<span class="string">"on"</span> + type] = <span class="literal">null</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">getEvent</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> event ? event : <span class="built_in">window</span>.event;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">getTarget</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> event.target || event.srcElement;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">preventDefault</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span> (event.preventDefault)&#123;</div><div class="line">			event.preventDefault();</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			event.returnValue = <span class="literal">false</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">stopPropagation</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span> (event.stopPropagation)&#123;</div><div class="line">			event.stopPropagation();</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			event.cancelBubble = <span class="literal">true</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="捕获型事件模型与冒泡型事件模型的应用场合"><a href="#捕获型事件模型与冒泡型事件模型的应用场合" class="headerlink" title="捕获型事件模型与冒泡型事件模型的应用场合"></a>捕获型事件模型与冒泡型事件模型的应用场合</h2><p>标准事件模型为我们提供了两种方案，可能很多朋友分不清这两种不同模型有啥好处，为什么不只采取一种模型。</p>
+<h3 id="捕获型应用场合"><a href="#捕获型应用场合" class="headerlink" title="捕获型应用场合"></a>捕获型应用场合</h3><p>捕获型事件传递由最不精确的祖先元素一直到最精确的事件源元素，传递方式与操作系统中的全局快捷键与应用程序快捷键相似。</p>
+<p>当一个系统组合键发生时，如果注册了系统全局快捷键监听器，该事件就先被操作系统层捕获，全局监听器就先于应用程序快捷键监听器得到通知，也就是全局的先获得控制权，它有权阻止事件的进一步传递。所以捕获型事件模型适用于作全局范围内的监听，这里的全局是相对的全局，相对于某个顶层结点与该结点所有子孙结点形成的集合范围。</p>
+<p>例如你想作全局的点击事件监听，相对于document结点与document下所有的子结点，在某个条件下要求所有的子结点点击无效，这种情况下冒泡模型就解决不了了，而捕获型却非常适合，可以在最顶层结点添加捕获型事件监听器，伪码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">globalClickListener</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span>(canEventPass == <span class="literal">false</span>) &#123;</div><div class="line">		<span class="comment">//取消事件进一步向子结点传递和冒泡传递</span></div><div class="line">		event.stopPropagation();</div><div class="line">		<span class="comment">//取消浏览器事件后的默认执行</span></div><div class="line">		event.preventDefault();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，当canEventPass条件为假时，document下所有的子结点click注册事件都不会被浏览器处理。</p>
+<h3 id="冒泡型的应用场合"><a href="#冒泡型的应用场合" class="headerlink" title="冒泡型的应用场合"></a>冒泡型的应用场合</h3><p>可以说我们平时用的都是冒泡事件模型，因为IE只支持这模型。这里还是说说，在恰当利用该模型可以提高脚本性能。在元素一些频繁触发的事件中，如onmousemove,onmouseover,onmouseout,如果明确事件处理后没必要进一步传递，那么就可以大胆的取消它。此外，对于子结点事件监听器的处理会对父层监听器处理造成负面影响的，也应该在子结点监听器中禁止事件进一步向上传递以消除影响。</p>
+<h2 id="综合案例分析"><a href="#综合案例分析" class="headerlink" title="综合案例分析"></a>综合案例分析</h2><p>最后结合下面HTML代码作分析:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onclick</span>=<span class="string">"alert('current is body');"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div0"</span> <span class="attr">onclick</span>=<span class="string">"alert('current is '+this.id)"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div1"</span> <span class="attr">onclick</span>=<span class="string">"alert('current is '+this.id)"</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div2"</span> <span class="attr">onclick</span>=<span class="string">"alert('current is '+this.id)"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"event_source"</span> <span class="attr">onclick</span>=<span class="string">"alert('current is '+this.id)"</span> <span class="attr">style</span>=<span class="string">"height:200px;width:200px;background-color:red;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>HTML运行后点击红色区域,这是最里层的DIV,根据上面说明,无论是DOM标准还是IE,直接写在<code>html</code>里的监听处理函数是事件冒泡传递时调用的,由最里层一直往上传递,所以会先后出现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">current is event_source</div><div class="line">current is div2</div><div class="line">current is div1</div><div class="line">current is div0</div><div class="line">current is body</div></pre></td></tr></table></figure>
+<p>添加以下片段:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> div2 = <span class="built_in">document</span>.getElementById(<span class="string">'div2'</span>);</div><div class="line">EventUtil.addHandler(div2, <span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">	event = EventUtil.getEvent(event);</div><div class="line">	EventUtil.stopPropagation(event);</div><div class="line">&#125;, <span class="literal">false</span>);</div></pre></td></tr></table></figure>
+<p>当点击红色区域后，根据上面说明，在泡冒泡处理期间，事件传递到<code>div2</code>后被停止传递了，所以<code>div2</code>上层的元素收不到通知，所以会先后出现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">current is event_source</div><div class="line">current is div2</div></pre></td></tr></table></figure>
+<p>在支持DOM标准的浏览器中,添加以下代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">	event.stopPropagation();</div><div class="line">&#125;, <span class="literal">true</span>);</div></pre></td></tr></table></figure>
+<p>以上代码中的监听函数由于是捕获型传递时被调用的，所以点击红色区域后，虽然事件源是<code>ID</code>为<code>event_source</code>的元素，但捕获型选传递，从最顶层开始，<code>body</code>结点监听函数先被调用，并且取消了事件进一步向下传递，所以只会出现<code>current is body</code>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/03/31/JS事件处理机制/" title="JS事件处理机制">http://blog.yancoder.com/2017/03/31/JS事件处理机制/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript事件/" rel="tag"># JavaScript事件</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/JS变量、作用域、内存/" rel="next" title="JS变量、作用域、内存">
+                <i class="fa fa-chevron-left"></i> JS变量、作用域、内存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/JS严格模式详解/" rel="prev" title="JS严格模式详解[转]">
+                JS严格模式详解[转] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是事件"><span class="nav-number">1.</span> <span class="nav-text">什么是事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件的发展"><span class="nav-number">2.</span> <span class="nav-text">事件的发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM事件流"><span class="nav-number">3.</span> <span class="nav-text">DOM事件流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡型事件"><span class="nav-number">3.1.</span> <span class="nav-text">冒泡型事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获型事件"><span class="nav-number">3.2.</span> <span class="nav-text">捕获型事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM标准的事件模型"><span class="nav-number">3.3.</span> <span class="nav-text">DOM标准的事件模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件传送"><span class="nav-number">4.</span> <span class="nav-text">事件传送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件句柄和事件监听器"><span class="nav-number">5.</span> <span class="nav-text">事件句柄和事件监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件句柄"><span class="nav-number">5.1.</span> <span class="nav-text">事件句柄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件监听器"><span class="nav-number">5.2.</span> <span class="nav-text">事件监听器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IE下的事件监听器"><span class="nav-number">5.2.1.</span> <span class="nav-text">IE下的事件监听器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM标准下的事件监听器"><span class="nav-number">5.2.2.</span> <span class="nav-text">DOM标准下的事件监听器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跨浏览器的注册与移除元素事件监听器方案"><span class="nav-number">5.2.3.</span> <span class="nav-text">跨浏览器的注册与移除元素事件监听器方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件对象引用"><span class="nav-number">6.</span> <span class="nav-text">事件对象引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止事件冒泡和阻止事件的默认行为"><span class="nav-number">7.</span> <span class="nav-text">停止事件冒泡和阻止事件的默认行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#停止事件冒泡"><span class="nav-number">7.1.</span> <span class="nav-text">停止事件冒泡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止事件冒泡的处理方法"><span class="nav-number">7.2.</span> <span class="nav-text">停止事件冒泡的处理方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻止事件的默认行为"><span class="nav-number">7.3.</span> <span class="nav-text">阻止事件的默认行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻止事件的默认行为的处理方法"><span class="nav-number">7.4.</span> <span class="nav-text">阻止事件的默认行为的处理方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整的事件处理兼容性函数"><span class="nav-number">8.</span> <span class="nav-text">完整的事件处理兼容性函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获型事件模型与冒泡型事件模型的应用场合"><span class="nav-number">9.</span> <span class="nav-text">捕获型事件模型与冒泡型事件模型的应用场合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获型应用场合"><span class="nav-number">9.1.</span> <span class="nav-text">捕获型应用场合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡型的应用场合"><span class="nav-number">9.2.</span> <span class="nav-text">冒泡型的应用场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合案例分析"><span class="nav-number">10.</span> <span class="nav-text">综合案例分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,982 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="面试," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="2017春招说来就来，从2月6号急匆匆赶来学校看书到3月中旬第一面，到月末去深圳腾大345面，第一次走完一个完整的面试流程。">
+<meta name="keywords" content="面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017年春季校招">
+<meta property="og:url" content="http://blog.yancoder.com/2017/03/31/2017腾讯实习面试/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="2017春招说来就来，从2月6号急匆匆赶来学校看书到3月中旬第一面，到月末去深圳腾大345面，第一次走完一个完整的面试流程。">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2017年春季校招">
+<meta name="twitter:description" content="2017春招说来就来，从2月6号急匆匆赶来学校看书到3月中旬第一面，到月末去深圳腾大345面，第一次走完一个完整的面试流程。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/03/31/2017腾讯实习面试/"/>
+
+
+
+
+
+  <title> 2017年春季校招 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/2017腾讯实习面试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2017年春季校招
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>2017春招说来就来，从2月6号急匆匆赶来学校看书到3月中旬第一面，到月末去深圳腾大345面，第一次走完一个完整的面试流程。</p>
+<a id="more"></a>
+<h2 id="广州腾讯一面"><a href="#广州腾讯一面" class="headerlink" title="广州腾讯一面"></a>广州腾讯一面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">问题1</div><div class="line">完成一个函数,接受数组作为参数,数组元素为整数或者数组,数组元素包含整数或数组,函数返回扁平化后的数组</div><div class="line">如：[1, [2, [ [3, 4], 5], 6]] =&gt; [1, 2, 3, 4, 5, 6]</div><div class="line">增加数据去重功能</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatArr</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> len = arr.length, i, newArr = [];</div><div class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;len; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span>(arr[i]) === <span class="string">"number"</span>)&#123;</div><div class="line">            newArr.push(arr[i]);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            newArr = newArr.concat(fool(arr[i]));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> newArr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> list1 = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]];</div><div class="line"><span class="keyword">let</span> list2 = [<span class="number">0</span>, [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, [<span class="number">4</span>, [<span class="number">5</span>, [<span class="number">6</span>]]]]]]];</div><div class="line"></div><div class="line"><span class="keyword">const</span> flatten = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> arr.reduce(</div><div class="line">        <span class="function">(<span class="params">acc, val</span>) =&gt;</span> &#123;</div><div class="line">            <span class="keyword">return</span> acc.concat(<span class="built_in">Array</span>.isArray(val) ? flatten(val) : val)</div><div class="line">        &#125;, []</div><div class="line">    );</div><div class="line">&#125;;</div><div class="line"></div><div class="line">flatten(list1); </div><div class="line"><span class="comment">// [0, 1, 2, 3, 4, 5]</span></div><div class="line">flatten(list2); </div><div class="line"><span class="comment">// [ 0, 1, 2, 3, 4, 5, 6 ]</span></div></pre></td></tr></table></figure>
+<p><a href="数组去重.md">数组去重</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">问题2</div><div class="line">使用原生javascript给下面列表中的li节点绑定点击事件,点击时创建一个Object对象,兼容IE和标准浏览器</div><div class="line">&lt;ul id=&quot;nav&quot;&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;http://11111&quot;&gt;111&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;http://2222&quot;&gt;222&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;http://333&quot;&gt;333&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;http://444&quot;&gt;444&lt;/a&gt;&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line"></div><div class="line">Object:&#123;</div><div class="line">    &quot;index&quot;: 1,</div><div class="line">    &quot;name&quot;: &quot;111&quot;,</div><div class="line">    &quot;link&quot;: &quot;http://1111&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addHandler</span>(<span class="params">ele, type, handler</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(ele.addEventListener) &#123;</div><div class="line">        ele.addEventListener(type, handler, <span class="literal">false</span>);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ele.attachEvent)&#123;</div><div class="line">        ele.attachEvent(<span class="string">"on"</span>+type, handler);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        ele[<span class="string">"on"</span>+type] = handler;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">preventDefault</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span> (event.preventDefault)&#123;</div><div class="line">        event.preventDefault();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        event.returnValue = <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ulDom = <span class="built_in">document</span>.getElementById(<span class="string">"nav"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObj</span>(<span class="params">index, name, link</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="string">"index"</span>: index,</div><div class="line">        <span class="string">"name"</span>: name,</div><div class="line">        <span class="string">"link"</span>: link</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">clickHandler</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> targetDom;</div><div class="line">    <span class="keyword">if</span> (e.target.tagName == <span class="string">"A"</span>) &#123;</div><div class="line">        targetDom = e.target;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        targetDom = e.target.children;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> index = <span class="number">1</span>, ele = targetDom.parentElement;</div><div class="line">    <span class="keyword">while</span>(ele.previousElementSibling)&#123;</div><div class="line">        index++;</div><div class="line">        ele = ele.previousElementSibling;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> text = targetDom.innerText,</div><div class="line">        href = targetDom.href;</div><div class="line">    <span class="keyword">var</span> obj = createObj(index,text,href);</div><div class="line"></div><div class="line">    preventDefault(e);</div><div class="line">    <span class="keyword">return</span> obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line">addHandler(ulDom, <span class="string">"click"</span>, clickHandler);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">问题3</div><div class="line">写一个模块，外部调用这个模块，请求参数是时间戳， 模块输出要求如下：</div><div class="line">1、今天的时间，统一用24小时写作03：00、15：04这样</div><div class="line">2、昨天的时间，统一写昨天</div><div class="line">3、昨天之前的时间，但在本周之内的时间，统一用周一、周二、周三这样来写</div><div class="line">4、上周的时间，统一写作15/3/4、15/5/17这样。依次是年/月/日，</div><div class="line">注意当月和日是个位数的时候，不需要用0占位让他变成两位</div><div class="line">5、其他显示 null</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseDate</span>(<span class="params">date</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> dateStr = <span class="string">""</span>, timeStr = <span class="string">""</span>;</div><div class="line">    <span class="keyword">var</span> weekDayName = &#123;</div><div class="line">        <span class="string">"1"</span>: <span class="string">"周一"</span>,</div><div class="line">        <span class="string">"2"</span>: <span class="string">"周二"</span>,</div><div class="line">        <span class="string">"3"</span>: <span class="string">"周三"</span>,</div><div class="line">        <span class="string">"4"</span>: <span class="string">"周四"</span>,</div><div class="line">        <span class="string">"5"</span>: <span class="string">"周五"</span>,</div><div class="line">        <span class="string">"6"</span>: <span class="string">"周六"</span>,</div><div class="line">        <span class="string">"0"</span>: <span class="string">"周日"</span></div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">var</span> nowDateTime = <span class="keyword">new</span> <span class="built_in">Date</span>(), dateTime = <span class="keyword">new</span> <span class="built_in">Date</span>(date);</div><div class="line">    <span class="keyword">var</span> nowWeek = <span class="built_in">Math</span>.ceil((nowDateTime.getTime()/<span class="number">1000</span>/<span class="number">60</span>/<span class="number">60</span>/<span class="number">24</span>+<span class="number">4</span>)/<span class="number">7</span>), week = <span class="built_in">Math</span>.ceil((dateTime.getTime()/<span class="number">1000</span>/<span class="number">60</span>/<span class="number">60</span>/<span class="number">24</span>+<span class="number">4</span>)/<span class="number">7</span>);</div><div class="line">    <span class="keyword">var</span> nowWeekDay = nowDateTime.getDay(), weekDay = dateTime.getDay();</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (date &gt; nowDateTime.getTime()) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">if</span> (nowWeek - week == <span class="number">1</span>) &#123;</div><div class="line">        <span class="comment">// 上周的时间</span></div><div class="line">        dateStr = dateTime.getYear().toString().substring(<span class="number">1</span>,<span class="number">3</span>)+<span class="string">"/"</span>+(dateTime.getMonth()+<span class="number">1</span>)+<span class="string">"/"</span>+dateTime.getDate()+<span class="string">" "</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nowWeek - week &gt; <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nowWeek == week) &#123;</div><div class="line">        <span class="comment">// 本周时间</span></div><div class="line">        <span class="keyword">if</span> (nowWeekDay - weekDay &gt; <span class="number">1</span>) &#123;</div><div class="line">            <span class="comment">// 昨天之前</span></div><div class="line">            dateStr = weekDayName[weekDay]+<span class="string">" "</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nowWeekDay - weekDay == <span class="number">1</span>) &#123;</div><div class="line">            <span class="comment">// 昨天</span></div><div class="line">            dateStr = <span class="string">"昨天 "</span>;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nowWeekDay == weekDay)&#123;</div><div class="line">            <span class="comment">// 今天</span></div><div class="line">            dateStr = <span class="string">"今天 "</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (dateTime.getHours() &lt; <span class="number">10</span>) &#123;</div><div class="line">        timeStr = <span class="string">"0"</span>+dateTime.getHours();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        timeStr = dateTime.getHours();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (dateTime.getMinutes() &lt; <span class="number">10</span>) &#123;</div><div class="line">        timeStr += <span class="string">":0"</span>+dateTime.getMinutes();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        timeStr += <span class="string">":"</span>+dateTime.getMinutes();</div><div class="line">    &#125;</div><div class="line">    dateStr += timeStr;</div><div class="line">    <span class="keyword">return</span> dateStr;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(parseDate(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2017</span>,<span class="number">2</span>,<span class="number">5</span>).getTime()));</div></pre></td></tr></table></figure>
+<h2 id="深圳腾讯一面"><a href="#深圳腾讯一面" class="headerlink" title="深圳腾讯一面"></a>深圳腾讯一面</h2><blockquote>
+<p>自我介绍</p>
+</blockquote>
+<p>略</p>
+<blockquote>
+<p>项目经历</p>
+</blockquote>
+<p>略</p>
+<blockquote>
+<p>服务器主动推送方案</p>
+</blockquote>
+<p><a href="../../../服务器主动推送数据的方式.md">长连接、轮询、WebSocket、Commet</a></p>
+<blockquote>
+<p>API在各个版本中的兼容性问题</p>
+</blockquote>
+<p><a href="http://caniuse.com/" target="_blank" rel="external">HTML CSS方面的浏览器支持情况</a></p>
+<p><a href="http://node.green/" target="_blank" rel="external">Node.js各个版本的支持情况</a></p>
+<blockquote>
+<p>跨域</p>
+</blockquote>
+<p><a href="../../../跨域访问总结.md">个人关于跨域的总结</a></p>
+<blockquote>
+<p>JSONP的安全性</p>
+</blockquote>
+<p><a href="JSONP安全性总结.md">JSONP安全性总结</a></p>
+<blockquote>
+<p>前端开发工程化</p>
+</blockquote>
+<p><a href="前端开发工程化.md">前端开发工程化</a></p>
+<p>gulp的使用</p>
+<p>模块化开发思想 <a href="CommonJS、RequireJS(AMD">CommonJS、RequireJS(AMD)、SeaJS(CMD)解析</a>、SeaJS(CMD)解析.md)</p>
+<blockquote>
+<p>前端异步加载的实现方法</p>
+</blockquote>
+<p><a href="前端异步加载的实现方法.md">前端异步加载的实现方法</a></p>
+<h2 id="深圳腾讯二面"><a href="#深圳腾讯二面" class="headerlink" title="深圳腾讯二面"></a>深圳腾讯二面</h2><p>晚上九点的电话面试，当时正在激烈地打BOSS，撸装备=.=，完全没有心理准备。</p>
+<p>整个面试过程问题很基础，但是自己的表现很不理想，很多了解甚至熟悉的知识点都没有作出很好的回答。</p>
+<blockquote>
+<p>XHTML和HTML的区别</p>
+</blockquote>
+<ul>
+<li>XHTML 元素必须被正确地嵌套。</li>
+<li>XHTML 元素必须被关闭。</li>
+<li>标签名必须用小写字母。</li>
+<li>XHTML 文档必须拥有根元素。</li>
+</ul>
+<blockquote>
+<p>同源安全策略</p>
+<p>跨域</p>
+<p>跨域安全性问题 及 其实际应用</p>
+<p>对MySQL的了解</p>
+</blockquote>
+<p><a href="MySql索引.md">索引</a></p>
+<blockquote>
+<p>接触过的web容器</p>
+<p>Nginx</p>
+<p>反向代理</p>
+</blockquote>
+<p><a href="http://bbs.51cto.com/thread-967852-1-1.html" target="_blank" rel="external">正向代理、反向代理</a></p>
+<blockquote>
+<p>302和304</p>
+<p>缓存策略的实现</p>
+</blockquote>
+<p><a href="../../../浏览器缓存策略.md">浏览器缓存策略</a></p>
+<blockquote>
+<p>三次握手、四次挥手</p>
+<p>web端微信扫码登录方案</p>
+<p>服务器推送方案</p>
+<p>高并发优化方案</p>
+</blockquote>
+<h2 id="深圳腾讯总监面"><a href="#深圳腾讯总监面" class="headerlink" title="深圳腾讯总监面"></a>深圳腾讯总监面</h2><p>TEG三位总监一起面=.=</p>
+<blockquote>
+<p>首先一个半小时完成4道笔试题</p>
+<p>自我介绍</p>
+</blockquote>
+<p>深究兴业文件调度项目的具体内容与实现</p>
+<blockquote>
+<p>Node.js高并发优化方案</p>
+</blockquote>
+<p>答得不好</p>
+<blockquote>
+<p>HTTPS相关问题</p>
+</blockquote>
+<p>和HTTP的区别、加密方法、SSL证书的了解</p>
+<blockquote>
+<p><a href="从浏览器输入%20URL%20到页面渲染发生了什么事.md">从浏览器输入URL到页面渲染发生了什么事</a></p>
+</blockquote>
+<h2 id="深圳腾讯BOSS面"><a href="#深圳腾讯BOSS面" class="headerlink" title="深圳腾讯BOSS面"></a>深圳腾讯BOSS面</h2><blockquote>
+<p>自我介绍</p>
+</blockquote>
+<p>重点聊了一下Node.js的异步实现方案</p>
+<blockquote>
+<p>Node对前端开发的影响</p>
+<p><a href="前端开发工程化.md">前端开发工程化</a></p>
+<p>人生规划</p>
+</blockquote>
+<h2 id="HR面"><a href="#HR面" class="headerlink" title="HR面"></a>HR面</h2><p>重点考察员工的稳定性、忠诚度等方面。</p>
+<p>作为北方人为什么会选择深圳</p>
+<p>问了手里有没有offer</p>
+<p>如果有BAT网易今日头条等公司的机会，会如何选择</p>
+<p>然后跟我BB了一堆腾讯TEG团队文化等方面的内容</p>
+<p>HR大姐姐很漂亮(=.=这是重点么？)</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/03/31/2017腾讯实习面试/" title="2017年春季校招">http://blog.yancoder.com/2017/03/31/2017腾讯实习面试/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/JS数组遍历优化/" rel="next" title="JS数组遍历优化">
+                <i class="fa fa-chevron-left"></i> JS数组遍历优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/JS执行顺序/" rel="prev" title="JS执行顺序">
+                JS执行顺序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#广州腾讯一面"><span class="nav-number">1.</span> <span class="nav-text">广州腾讯一面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深圳腾讯一面"><span class="nav-number">2.</span> <span class="nav-text">深圳腾讯一面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深圳腾讯二面"><span class="nav-number">3.</span> <span class="nav-text">深圳腾讯二面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深圳腾讯总监面"><span class="nav-number">4.</span> <span class="nav-text">深圳腾讯总监面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深圳腾讯BOSS面"><span class="nav-number">5.</span> <span class="nav-text">深圳腾讯BOSS面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HR面"><span class="nav-number">6.</span> <span class="nav-text">HR面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

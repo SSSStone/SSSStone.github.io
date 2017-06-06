@@ -1,0 +1,876 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Date," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="初始化Date()参数形式123456new Date(&quot;month dd, yyyy hh:mm:ss&quot;);new Date(&quot;month dd, yyyy&quot;);new Date(&quot;2017/2/28&quot;);new Date(yyyy, mth, dd, hh, mm, ss);new Date(yyyy, mth, dd);new Date(ms);">
+<meta name="keywords" content="Date">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS日期初始化与格式化">
+<meta property="og:url" content="http://blog.yancoder.com/2017/03/31/Date()初始化与格式化/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="初始化Date()参数形式123456new Date(&quot;month dd, yyyy hh:mm:ss&quot;);new Date(&quot;month dd, yyyy&quot;);new Date(&quot;2017/2/28&quot;);new Date(yyyy, mth, dd, hh, mm, ss);new Date(yyyy, mth, dd);new Date(ms);">
+<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS日期初始化与格式化">
+<meta name="twitter:description" content="初始化Date()参数形式123456new Date(&quot;month dd, yyyy hh:mm:ss&quot;);new Date(&quot;month dd, yyyy&quot;);new Date(&quot;2017/2/28&quot;);new Date(yyyy, mth, dd, hh, mm, ss);new Date(yyyy, mth, dd);new Date(ms);">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/03/31/Date()初始化与格式化/"/>
+
+
+
+
+
+  <title> JS日期初始化与格式化 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/Date()初始化与格式化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JS日期初始化与格式化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript应用/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript应用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="初始化Date"><a href="#初始化Date" class="headerlink" title="初始化Date()"></a>初始化Date()</h2><h3 id="参数形式"><a href="#参数形式" class="headerlink" title="参数形式"></a>参数形式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"month dd, yyyy hh:mm:ss"</span>);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"month dd, yyyy"</span>);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"2017/2/28"</span>);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(yyyy, mth, dd, hh, mm, ss);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(yyyy, mth, dd);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(ms);</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="标记的含义"><a href="#标记的含义" class="headerlink" title="标记的含义"></a>标记的含义</h3><p><strong>month</strong>：用英文 表示月份名称，从January到December</p>
+<p>January February March April May June July August September October December</p>
+<p><strong>mth</strong>：用整数表示月份，从0（1月）到11（12月） </p>
+<p><strong>dd</strong>：表示一个 月中的第几天，从1到31 </p>
+<p><strong>yyyy</strong>：四位数表示的年份 </p>
+<p><strong>hh</strong>：小时数，从0（午夜）到23（晚11点） </p>
+<p><strong>mm</strong>： 分钟数，从0到59的整数 </p>
+<p><strong>ss</strong>：秒数，从0到59的整数 </p>
+<p><strong>ms</strong>：毫秒数，为大于等于0的整数;需要创建的时间和 GMT时间1970年1月1日之间相差的毫秒数</p>
+<h2 id="格式化Date"><a href="#格式化Date" class="headerlink" title="格式化Date()"></a>格式化Date()</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 对Date的扩展，将 Date 转化为指定格式的String  </span></div><div class="line"><span class="comment">// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，  </span></div><div class="line"><span class="comment">// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)  </span></div><div class="line"><span class="comment">// 例子：  </span></div><div class="line"><span class="comment">// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==&gt; 2006-07-02 08:09:04.423  </span></div><div class="line"><span class="comment">// (new Date()).Format("yyyy-M-d h:m:s.S")   ==&gt; 2006-7-2 8:9:4.18  </span></div><div class="line"></div><div class="line"><span class="built_in">Date</span>.prototype.Format = <span class="function"><span class="keyword">function</span>(<span class="params">format</span>) </span>&#123; </div><div class="line">    <span class="keyword">var</span> o = &#123;  </div><div class="line">        <span class="string">"M+"</span> : <span class="keyword">this</span>.getMonth()+<span class="number">1</span>,         <span class="comment">//月份  </span></div><div class="line">        <span class="string">"d+"</span> : <span class="keyword">this</span>.getDate(),            <span class="comment">//日  </span></div><div class="line">        <span class="string">"h+"</span> : <span class="keyword">this</span>.getHours(),           <span class="comment">//小时  </span></div><div class="line">        <span class="string">"m+"</span> : <span class="keyword">this</span>.getMinutes(),         <span class="comment">//分  </span></div><div class="line">        <span class="string">"s+"</span> : <span class="keyword">this</span>.getSeconds(),         <span class="comment">//秒  </span></div><div class="line">        <span class="string">"q+"</span> : <span class="built_in">Math</span>.floor((<span class="keyword">this</span>.getMonth()+<span class="number">3</span>)/<span class="number">3</span>), <span class="comment">//季度  </span></div><div class="line">        <span class="string">"S"</span> : <span class="keyword">this</span>.getMilliseconds()       <span class="comment">//毫秒  </span></div><div class="line">    &#125;;  </div><div class="line">    <span class="keyword">if</span>(<span class="regexp">/(y+)/</span>.test(format))  </div><div class="line">        format = format.replace(<span class="built_in">RegExp</span>.$<span class="number">1</span>, (<span class="keyword">this</span>.getFullYear()+<span class="string">""</span>).substr(<span class="number">4</span> - <span class="built_in">RegExp</span>.$<span class="number">1.</span>length));  </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> o)  </div><div class="line">        <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"("</span>+ k +<span class="string">")"</span>).test(format))  </div><div class="line">            format = format.replace(<span class="built_in">RegExp</span>.$<span class="number">1</span>, (<span class="built_in">RegExp</span>.$<span class="number">1.</span>length==<span class="number">1</span>) ? (o[k]) : ((<span class="string">"00"</span>+ o[k]).substr((<span class="string">""</span>+ o[k]).length)));  </div><div class="line">    <span class="keyword">return</span> format;  </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 调用方法</span></div><div class="line"><span class="keyword">var</span> time = <span class="keyword">new</span> <span class="built_in">Date</span>().Format(<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</div></pre></td></tr></table></figure>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**   </span></div><div class="line"> * 对Date的扩展，将 Date 转化为指定格式的String   </div><div class="line"> * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q) 可以用 1-2 个占位符   </div><div class="line"> * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)   </div><div class="line"> * eg:   </div><div class="line"> * (new Date()).pattern("yyyy-MM-dd hh:mm:ss.S") ==&gt; 2006-07-02 08:09:04.423   </div><div class="line"> * (new Date()).pattern("yyyy-MM-dd E HH:mm:ss") ==&gt; 2009-03-10 二 20:09:04   </div><div class="line"> * (new Date()).pattern("yyyy-MM-dd EE hh:mm:ss") ==&gt; 2009-03-10 周二 08:09:04   </div><div class="line"> * (new Date()).pattern("yyyy-MM-dd EEE hh:mm:ss") ==&gt; 2009-03-10 星期二 08:09:04   </div><div class="line"> * (new Date()).pattern("yyyy-M-d h:m:s.S") ==&gt; 2006-7-2 8:9:4.18   </div><div class="line"> */   </div><div class="line"><span class="built_in">Date</span>.prototype.pattern=<span class="function"><span class="keyword">function</span>(<span class="params">fmt</span>) </span>&#123;     </div><div class="line">    <span class="keyword">var</span> o = &#123;     </div><div class="line">        <span class="string">"M+"</span> : <span class="keyword">this</span>.getMonth()+<span class="number">1</span>, <span class="comment">//月份     </span></div><div class="line">        <span class="string">"d+"</span> : <span class="keyword">this</span>.getDate(), <span class="comment">//日     </span></div><div class="line">        <span class="string">"h+"</span> : <span class="keyword">this</span>.getHours()%<span class="number">12</span> == <span class="number">0</span> ? <span class="number">12</span> : <span class="keyword">this</span>.getHours()%<span class="number">12</span>, <span class="comment">//小时     </span></div><div class="line">        <span class="string">"H+"</span> : <span class="keyword">this</span>.getHours(), <span class="comment">//小时     </span></div><div class="line">        <span class="string">"m+"</span> : <span class="keyword">this</span>.getMinutes(), <span class="comment">//分     </span></div><div class="line">        <span class="string">"s+"</span> : <span class="keyword">this</span>.getSeconds(), <span class="comment">//秒     </span></div><div class="line">        <span class="string">"q+"</span> : <span class="built_in">Math</span>.floor((<span class="keyword">this</span>.getMonth()+<span class="number">3</span>)/<span class="number">3</span>), <span class="comment">//季度     </span></div><div class="line">        <span class="string">"S"</span> : <span class="keyword">this</span>.getMilliseconds() <span class="comment">//毫秒    </span></div><div class="line">    &#125;;     </div><div class="line">    <span class="keyword">var</span> week = &#123;     </div><div class="line">        <span class="string">"0"</span> : <span class="string">"\u65e5"</span>,     </div><div class="line">        <span class="string">"1"</span> : <span class="string">"\u4e00"</span>,     </div><div class="line">        <span class="string">"2"</span> : <span class="string">"\u4e8c"</span>,     </div><div class="line">        <span class="string">"3"</span> : <span class="string">"\u4e09"</span>,     </div><div class="line">        <span class="string">"4"</span> : <span class="string">"\u56db"</span>,     </div><div class="line">        <span class="string">"5"</span> : <span class="string">"\u4e94"</span>,     </div><div class="line">        <span class="string">"6"</span> : <span class="string">"\u516d"</span></div><div class="line">    &#125;;     </div><div class="line">    <span class="keyword">if</span>(<span class="regexp">/(y+)/</span>.test(fmt))&#123;     </div><div class="line">        fmt=fmt.replace(<span class="built_in">RegExp</span>.$<span class="number">1</span>, (<span class="keyword">this</span>.getFullYear()+<span class="string">""</span>).substr(<span class="number">4</span> - <span class="built_in">RegExp</span>.$<span class="number">1.</span>length));     </div><div class="line">    &#125;     </div><div class="line">    <span class="keyword">if</span>(<span class="regexp">/(E+)/</span>.test(fmt))&#123;     </div><div class="line">        fmt=fmt.replace(<span class="built_in">RegExp</span>.$<span class="number">1</span>, ((<span class="built_in">RegExp</span>.$<span class="number">1.</span>length&gt;<span class="number">1</span>) ? (<span class="built_in">RegExp</span>.$<span class="number">1.</span>length&gt;<span class="number">2</span> ? <span class="string">"\u661f\u671f"</span> : <span class="string">"\u5468"</span>) : <span class="string">""</span>)+week[<span class="keyword">this</span>.getDay()+<span class="string">""</span>]);     </div><div class="line">    &#125;     </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> o)&#123;     </div><div class="line">        <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"("</span>+ k +<span class="string">")"</span>).test(fmt))&#123;     </div><div class="line">            fmt = fmt.replace(<span class="built_in">RegExp</span>.$<span class="number">1</span>, (<span class="built_in">RegExp</span>.$<span class="number">1.</span>length==<span class="number">1</span>) ? (o[k]) : ((<span class="string">"00"</span>+ o[k]).substr((<span class="string">""</span>+ o[k]).length)));     </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> fmt;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="获取周次"><a href="#获取周次" class="headerlink" title="获取周次"></a>获取周次</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isSameWeek</span>(<span class="params">old,now</span>)</span>&#123;  </div><div class="line">    <span class="keyword">var</span> oneDayTime = <span class="number">1000</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span>;  </div><div class="line">    <span class="keyword">var</span> old_count =<span class="built_in">parseInt</span>(old.getTime()/oneDayTime);  </div><div class="line">    <span class="keyword">var</span> now_other =<span class="built_in">parseInt</span>(now.getTime()/oneDayTime);  </div><div class="line">        <span class="keyword">return</span> <span class="built_in">parseInt</span>((old_count+<span class="number">4</span>)/<span class="number">7</span>) == <span class="built_in">parseInt</span>((now_other+<span class="number">4</span>)/<span class="number">7</span>);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>思路: 因为1970年1月1日是周四，所以<code>（天数+4）/7</code>取整，就是周数。</p>
+<p>如果相同就是同一周反之就不是。</p>
+<p>ps：是以星期一作为每周的第一天的。如果星期日作为每周第一天，则<code>（天数+5）/7</code></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/03/31/Date()初始化与格式化/" title="JS日期初始化与格式化">http://blog.yancoder.com/2017/03/31/Date()初始化与格式化/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Date/" rel="tag"># Date</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/Cookie和Session/" rel="next" title="Cookie和Session的解析和异同[转]">
+                <i class="fa fa-chevron-left"></i> Cookie和Session的解析和异同[转]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/Cookie操作/" rel="prev" title="Cookie操作">
+                Cookie操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">87</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化Date"><span class="nav-number">1.</span> <span class="nav-text">初始化Date()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数形式"><span class="nav-number">1.1.</span> <span class="nav-text">参数形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记的含义"><span class="nav-number">1.2.</span> <span class="nav-text">标记的含义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化Date"><span class="nav-number">2.</span> <span class="nav-text">格式化Date()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">2.1.</span> <span class="nav-text">方法一</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">3.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取周次"><span class="nav-number">4.</span> <span class="nav-text">获取周次</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
