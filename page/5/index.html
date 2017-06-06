@@ -327,7 +327,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/clone/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/Promise详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -349,8 +349,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/clone/" itemprop="url">
-                  复制JS的5中数据类型
+                <a class="post-title-link" href="/2017/03/31/Promise详解/" itemprop="url">
+                  Promise详解
                 </a>
               
             
@@ -401,8 +401,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript应用/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript应用</span>
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
                   </a>
                 </span>
 
@@ -437,10 +437,11 @@
 
       
         
-          <p>对JavaScript中的5种主要的数据类型（包括Number、String、Object、Array、Boolean）进行值复制</p>
+          <h2 id="Promise应用"><a href="#Promise应用" class="headerlink" title="Promise应用"></a>Promise应用</h2><p><img src="/images/20170317145804.png" alt=""></p>
+<p><code>Promise</code>是一个构造函数，自己身上有<code>all</code>、<code>reject</code>、<code>resolve</code>这几个方法，原型上有<code>then</code>、<code>catch</code>等方法。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/clone/#more" rel="contents">
+            <a class="btn" href="/2017/03/31/Promise详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -805,7 +806,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/CSRF攻击/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/Ajax笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -827,8 +828,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/CSRF攻击/" itemprop="url">
-                  CSRF攻击
+                <a class="post-title-link" href="/2017/03/31/Ajax笔记/" itemprop="url">
+                  Ajax笔记
                 </a>
               
             
@@ -879,8 +880,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript原理</span>
                   </a>
                 </span>
 
@@ -915,11 +916,12 @@
 
       
         
-          <p>CSRF（Cross-site request forgery），中文名称：跨站请求伪造。</p>
-<h2 id="图解CSRF"><a href="#图解CSRF" class="headerlink" title="图解CSRF"></a>图解CSRF</h2><p><img src="/images/20170328141745.png" alt=""></p>
+          <p>Ajax的具体实现。</p>
+<h2 id="Ajax请求流程"><a href="#Ajax请求流程" class="headerlink" title="Ajax请求流程"></a>Ajax请求流程</h2><h3 id="如何创建XHR对象"><a href="#如何创建XHR对象" class="headerlink" title="如何创建XHR对象"></a>如何创建XHR对象</h3><p>按标准，<code>new XMLHttpRequest()</code> 即可得到。</p>
+<p>考虑低版本IE浏览器，可以<code>new window.ActiveXObject(Mircosoft.XMLHttp)</code>。新版本JQuery已经不支持IE6。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/CSRF攻击/#more" rel="contents">
+            <a class="btn" href="/2017/03/31/Ajax笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1445,165 +1447,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/nvm搭建node开发环境/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stone">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/31/nvm搭建node开发环境/" itemprop="url">
-                  快速搭建Node.js开发环境以及加速npm
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash</div></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/nvm搭建node开发环境/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/margin塌陷问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1722,6 +1565,165 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/31/margin塌陷问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/nvm搭建node开发环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/nvm搭建node开发环境/" itemprop="url">
+                  快速搭建Node.js开发环境以及加速npm
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/31/nvm搭建node开发环境/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
