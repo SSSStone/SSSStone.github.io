@@ -11,15 +11,15 @@ categories:
 
 ![](/images/20170317145804.png)
 
-`Promise`是一个构造函数，自己身上有`all`、`reject`、`resolve`这几个方法，原型上有`then`、`catch`等方法。
+`Promise` 是一个构造函数，自己身上有 `all`、`reject`、`resolve` 这几个方法，原型上有 `then`、`catch` 等方法。
 
 <!-- more -->
 
 ### Promise基础应用
 
-`Promise`的构造函数接收一个参数，是函数，并且传入两个参数：`resolve`，`reject`，分别表示异步操作执行成功后的回调函数和异步操作执行失败后的回调函数。
+`Promise` 的构造函数接收一个参数，是函数，并且传入两个参数： `resolve` 和 `reject` ，分别表示异步操作执行成功后的回调函数和异步操作执行失败后的回调函数。
 
-这里用“成功”和“失败”来描述并不准确，按照标准来讲，`resolve`是将`Promise`的状态置为`fullfiled`，`reject`是将`Promise`的状态置为`rejected`。
+这里用“成功”和“失败”来描述并不准确，按照标准来讲，`resolve` 是将 `Promise` 的状态置为 `fullfiled` ， `reject` 是将 `Promise` 的状态置为 `rejected` 。
 
 ```javascript
 var p = new Promise(function(resolve, reject){
@@ -35,13 +35,13 @@ var p = new Promise(function(resolve, reject){
 
 ![](/images/20170317150633.png)
 
-可以看到`Promise`的状态改变过程。
+可以看到 `Promise` 的状态改变过程。
 
 注意：
 
->只是`new`了一个对象，并没有调用它，我们传进去的函数就已经执行了。
+>只是 `new` 了一个对象，并没有调用它，我们传进去的函数就已经执行了。
 
-所以我们用`Promise`的时候一般是包在一个函数中，在需要的时候去运行这个函数，如：
+所以我们用 `Promise` 的时候一般是包在一个函数中，在需要的时候去运行这个函数，如：
 
 ```javascript
 function runAsync(){
@@ -56,7 +56,7 @@ function runAsync(){
 runAsync()
 ```
 
-在我们包装好的函数最后，会`return`出`Promise`对象，也就是说，执行这个函数我们得到了一个`Promise`对象。
+在我们包装好的函数最后，会 `return` 出 `Promise` 对象，也就是说，执行这个函数我们得到了一个 `Promise` 对象。
 
 而`Promise`对象上有`then`和`catch`方法。
 
@@ -66,9 +66,9 @@ runAsync().then(function(data){
     // 可以用传过来的数据data进行其他操作
 });
 ```
-在`runAsync()`的返回上直接调用`then`方法，`then`接收一个参数，是函数，并且会拿到我们在`runAsync`中调用`resolve`时传的的参数。运行这段代码，会在2秒后输出“执行完成”，紧接着输出“随便什么数据”。
+在 `runAsync()` 的返回上直接调用 `then` 方法，`then` 接收一个参数，是函数，并且会拿到我们在 `runAsync` 中调用 `resolve` 时传的的参数。运行这段代码，会在2秒后输出“执行完成”，紧接着输出“随便什么数据”。
 
-原来`then`里面的函数就跟我们平时的回调函数一个意思，能够在runAsync这个异步任务执行完成之后被执行。这就是Promise的作用了，简单来讲，就是能把原来的回调写法分离出来，在异步操作执行完后，用链式调用的方式执行回调函数。
+原来 `then` 里面的函数就跟我们平时的回调函数一个意思，能够在 `runAsync` 这个异步任务执行完成之后被执行。这就是 `Promise` 的作用了，简单来讲，就是能把原来的回调写法分离出来，在异步操作执行完后，用链式调用的方式执行回调函数。
 
 若要实现同样的效果：
 
@@ -87,7 +87,7 @@ runAsync(function(data){
 
 ### 链式调用
 
-从表面上看，`Promise`只是能够简化层层回调的写法，而实质上，`Promise`的精髓是“状态”，用维护状态、传递状态的方式来使得回调函数能够及时调用，它比传递callback函数要简单、灵活的多。所以使用`Promise`的正确场景是这样的：
+从表面上看，`Promise` 只是能够简化层层回调的写法，而实质上，`Promise` 的精髓是“状态”，用维护状态、传递状态的方式来使得回调函数能够及时调用，它比传递 `callback` 函数要简单、灵活的多。所以使用 `Promise` 的正确场景是这样的：
 
 ```javascript
 function runAsync1(){
@@ -141,9 +141,9 @@ runAsync1()
 随便什么数据3
 ```
 
-[为什么可以链式调用](#x-为promise)
+[为什么可以链式调用](#x-为-Promise)
 
-在then方法中，你也可以直接`return`数据而不是`Promise`对象，在后面的then中就可以接收到数据了，比如我们把上面的代码修改成这样：
+在 `then` 方法中，你也可以直接 `return` 数据而不是 `Promise` 对象，在后面的 `then` 中就可以接收到数据了，比如我们把上面的代码修改成这样：
 
 ```javascript
 runAsync1()
@@ -217,7 +217,7 @@ getNumber()
 ```
 
 1. 效果和写在then的第二个参数里面一样。
-2. 另外一个作用：在执行`resolve`的回调（也就是上面`then`中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会报错卡死js，而是会进到这个`catch`方法中。
+2. 另外一个作用：在执行 `resolve` 的回调（也就是上面 `then` 中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会报错卡死js，而是会进到这个 `catch` 方法中。
 
 ```javascript
 getNumber()
@@ -238,11 +238,11 @@ rejected
 ReferenceError: somedata is not defined
 ```
 
-错误原因传到了`reason`参数中。即便是有错误的代码也不会报错了，这与我们的`try/catch`语句有相同的功能。
+错误原因传到了 `reason` 参数中。即便是有错误的代码也不会报错了，这与我们的 `try/catch` 语句有相同的功能。
 
 ### all的用法
 
-`Promise`的`all`方法提供了并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调。
+`Promise` 的 `all` 方法提供了并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调。
 
 ```javascript
 Promise
@@ -264,7 +264,7 @@ Promise
 
 ### race的用法
 
-`all`方法的效果实际上是「谁跑的慢，以谁为准执行回调」，那么相对的就有另一个方法「谁跑的快，以谁为准执行回调」，这就是race方法，这个词本来就是赛跑的意思。
+`all` 方法的效果实际上是「谁跑的慢，以谁为准执行回调」，那么相对的就有另一个方法「谁跑的快，以谁为准执行回调」，这就是race方法，这个词本来就是赛跑的意思。
 
 ```javascript
 Promise
@@ -282,37 +282,37 @@ Promise
 
 注意：
 
-在then里面的回调开始执行时，`runAsync2()`和`runAsync3()`并没有停止，仍旧再执行。于是再过1秒后，输出了他们结束的标志。
+在then里面的回调开始执行时，`runAsync2()` 和 `runAsync3()` 并没有停止，仍旧再执行。于是再过1秒后，输出了他们结束的标志。
 
 ## Promise规范
 
 ### Promise的状态
 
-一个`Promise`的当前状态必须为以下三种状态中的一种：**等待态（Pending）**、**执行态（Fulfilled）**和**拒绝态（Rejected）**。
+一个 `Promise` 的当前状态必须为以下三种状态中的一种：**等待态（Pending）**、**执行态（Fulfilled）**和**拒绝态（Rejected）**。
 
 #### 等待态（Pending）
 
-处于等待态时，`promise`需满足以下条件：
+处于等待态时，`promise` 需满足以下条件：
 
 - 可以迁移至执行态或拒绝态
 
 #### 执行态（Fulfilled）
 
-处于执行态时，`promise`需满足以下条件：
+处于执行态时，`promise` 需满足以下条件：
 
 - 不能迁移至其他任何状态
 - 必须拥有一个不可变的终值
 
 #### 拒绝态（Rejected）
 
-处于拒绝态时，`promise`需满足以下条件：
+处于拒绝态时，`promise` 需满足以下条件：
 
 - 不能迁移至其他任何状态
-- 必须拥有一个确定的据因（表示一个`promise`的拒绝原因）
+- 必须拥有一个确定的据因（表示一个 `promise` 的拒绝原因）
 
 ### Then方法
 
-一个`promise`必须提供一个`then`方法以访问其当前值、终值和据因。
+一个 `promise` 必须提供一个 `then` 方法以访问其当前值、终值和据因。
 
 `promise` 的 `then` 方法接受两个参数：
 
