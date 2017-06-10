@@ -87,19 +87,19 @@
 
 
 
-<meta name="description" content="Promise应用 Promise是一个构造函数，自己身上有all、reject、resolve这几个方法，原型上有then、catch等方法。">
+<meta name="description" content="Promise应用 Promise 是一个构造函数，自己身上有 all、reject、resolve 这几个方法，原型上有 then、catch 等方法。">
 <meta name="keywords" content="Promise">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Promise详解">
 <meta property="og:url" content="http://blog.yancoder.com/2017/03/31/Promise详解/index.html">
 <meta property="og:site_name" content="Stone">
-<meta property="og:description" content="Promise应用 Promise是一个构造函数，自己身上有all、reject、resolve这几个方法，原型上有then、catch等方法。">
+<meta property="og:description" content="Promise应用 Promise 是一个构造函数，自己身上有 all、reject、resolve 这几个方法，原型上有 then、catch 等方法。">
 <meta property="og:image" content="http://blog.yancoder.com/images/20170317145804.png">
 <meta property="og:image" content="http://blog.yancoder.com/images/20170317150633.png">
-<meta property="og:updated_time" content="2017-06-03T16:28:27.000Z">
+<meta property="og:updated_time" content="2017-06-10T09:11:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Promise详解">
-<meta name="twitter:description" content="Promise应用 Promise是一个构造函数，自己身上有all、reject、resolve这几个方法，原型上有then、catch等方法。">
+<meta name="twitter:description" content="Promise应用 Promise 是一个构造函数，自己身上有 all、reject、resolve 这几个方法，原型上有 then、catch 等方法。">
 <meta name="twitter:image" content="http://blog.yancoder.com/images/20170317145804.png">
 
 
@@ -382,8 +382,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-10T17:11:08+08:00">
+                2017-06-10
               </time>
             
           </span>
@@ -437,65 +437,65 @@
 
       
         <h2 id="Promise应用"><a href="#Promise应用" class="headerlink" title="Promise应用"></a>Promise应用</h2><p><img src="/images/20170317145804.png" alt=""></p>
-<p><code>Promise</code>是一个构造函数，自己身上有<code>all</code>、<code>reject</code>、<code>resolve</code>这几个方法，原型上有<code>then</code>、<code>catch</code>等方法。</p>
+<p><code>Promise</code> 是一个构造函数，自己身上有 <code>all</code>、<code>reject</code>、<code>resolve</code> 这几个方法，原型上有 <code>then</code>、<code>catch</code> 等方法。</p>
 <a id="more"></a>
-<h3 id="Promise基础应用"><a href="#Promise基础应用" class="headerlink" title="Promise基础应用"></a>Promise基础应用</h3><p><code>Promise</code>的构造函数接收一个参数，是函数，并且传入两个参数：<code>resolve</code>，<code>reject</code>，分别表示异步操作执行成功后的回调函数和异步操作执行失败后的回调函数。</p>
-<p>这里用“成功”和“失败”来描述并不准确，按照标准来讲，<code>resolve</code>是将<code>Promise</code>的状态置为<code>fullfiled</code>，<code>reject</code>是将<code>Promise</code>的状态置为<code>rejected</code>。</p>
+<h3 id="Promise基础应用"><a href="#Promise基础应用" class="headerlink" title="Promise基础应用"></a>Promise基础应用</h3><p><code>Promise</code> 的构造函数接收一个参数，是函数，并且传入两个参数： <code>resolve</code> 和 <code>reject</code> ，分别表示异步操作执行成功后的回调函数和异步操作执行失败后的回调函数。</p>
+<p>这里用“成功”和“失败”来描述并不准确，按照标准来讲，<code>resolve</code> 是将 <code>Promise</code> 的状态置为 <code>fullfiled</code> ， <code>reject</code> 是将 <code>Promise</code> 的状态置为 <code>rejected</code> 。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</div><div class="line">    <span class="comment">//做一些异步操作</span></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'执行完成'</span>);</div><div class="line">        resolve(<span class="string">'随便什么数据'</span>);</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>运行结果</p>
 <p><img src="/images/20170317150633.png" alt=""></p>
-<p>可以看到<code>Promise</code>的状态改变过程。</p>
+<p>可以看到 <code>Promise</code> 的状态改变过程。</p>
 <p>注意：</p>
 <blockquote>
-<p>只是<code>new</code>了一个对象，并没有调用它，我们传进去的函数就已经执行了。</p>
+<p>只是 <code>new</code> 了一个对象，并没有调用它，我们传进去的函数就已经执行了。</p>
 </blockquote>
-<p>所以我们用<code>Promise</code>的时候一般是包在一个函数中，在需要的时候去运行这个函数，如：</p>
+<p>所以我们用 <code>Promise</code> 的时候一般是包在一个函数中，在需要的时候去运行这个函数，如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">runAsync</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</div><div class="line">        <span class="comment">//做一些异步操作</span></div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'执行完成'</span>);</div><div class="line">            resolve(<span class="string">'随便什么数据'</span>);</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;);      </div><div class="line">&#125;</div><div class="line">runAsync()</div></pre></td></tr></table></figure>
-<p>在我们包装好的函数最后，会<code>return</code>出<code>Promise</code>对象，也就是说，执行这个函数我们得到了一个<code>Promise</code>对象。</p>
+<p>在我们包装好的函数最后，会 <code>return</code> 出 <code>Promise</code> 对象，也就是说，执行这个函数我们得到了一个 <code>Promise</code> 对象。</p>
 <p>而<code>Promise</code>对象上有<code>then</code>和<code>catch</code>方法。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">runAsync().then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="comment">// 可以用传过来的数据data进行其他操作</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>在<code>runAsync()</code>的返回上直接调用<code>then</code>方法，<code>then</code>接收一个参数，是函数，并且会拿到我们在<code>runAsync</code>中调用<code>resolve</code>时传的的参数。运行这段代码，会在2秒后输出“执行完成”，紧接着输出“随便什么数据”。</p>
-<p>原来<code>then</code>里面的函数就跟我们平时的回调函数一个意思，能够在runAsync这个异步任务执行完成之后被执行。这就是Promise的作用了，简单来讲，就是能把原来的回调写法分离出来，在异步操作执行完后，用链式调用的方式执行回调函数。</p>
+<p>在 <code>runAsync()</code> 的返回上直接调用 <code>then</code> 方法，<code>then</code> 接收一个参数，是函数，并且会拿到我们在 <code>runAsync</code> 中调用 <code>resolve</code> 时传的的参数。运行这段代码，会在2秒后输出“执行完成”，紧接着输出“随便什么数据”。</p>
+<p>原来 <code>then</code> 里面的函数就跟我们平时的回调函数一个意思，能够在 <code>runAsync</code> 这个异步任务执行完成之后被执行。这就是 <code>Promise</code> 的作用了，简单来讲，就是能把原来的回调写法分离出来，在异步操作执行完后，用链式调用的方式执行回调函数。</p>
 <p>若要实现同样的效果：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">runAsync</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'执行完成'</span>);</div><div class="line">        callback(<span class="string">'随便什么数据'</span>);</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">runAsync(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h3 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h3><p>从表面上看，<code>Promise</code>只是能够简化层层回调的写法，而实质上，<code>Promise</code>的精髓是“状态”，用维护状态、传递状态的方式来使得回调函数能够及时调用，它比传递callback函数要简单、灵活的多。所以使用<code>Promise</code>的正确场景是这样的：</p>
+<h3 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h3><p>从表面上看，<code>Promise</code> 只是能够简化层层回调的写法，而实质上，<code>Promise</code> 的精髓是“状态”，用维护状态、传递状态的方式来使得回调函数能够及时调用，它比传递 <code>callback</code> 函数要简单、灵活的多。所以使用 <code>Promise</code> 的正确场景是这样的：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">runAsync1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</div><div class="line">        <span class="comment">//做一些异步操作</span></div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'异步任务1执行完成'</span>);</div><div class="line">            resolve(<span class="string">'随便什么数据1'</span>);</div><div class="line">        &#125;, <span class="number">1000</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">runAsync2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</div><div class="line">        <span class="comment">//做一些异步操作</span></div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'异步任务2执行完成'</span>);</div><div class="line">            resolve(<span class="string">'随便什么数据2'</span>);</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;);          </div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">runAsync3</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</div><div class="line">        <span class="comment">//做一些异步操作</span></div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'异步任务3执行完成'</span>);</div><div class="line">            resolve(<span class="string">'随便什么数据3'</span>);</div><div class="line">        &#125;, <span class="number">3000</span>);</div><div class="line">    &#125;);            </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 调用</span></div><div class="line">runAsync1()</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="keyword">return</span> runAsync2();</div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="keyword">return</span> runAsync3();</div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 结果</span></div><div class="line">异步任务<span class="number">1</span>执行完成</div><div class="line">随便什么数据<span class="number">1</span></div><div class="line">异步任务<span class="number">2</span>执行完成</div><div class="line">随便什么数据<span class="number">2</span></div><div class="line">异步任务<span class="number">3</span>执行完成</div><div class="line">随便什么数据<span class="number">3</span></div></pre></td></tr></table></figure>
-<p><a href="#x-为promise">为什么可以链式调用</a></p>
-<p>在then方法中，你也可以直接<code>return</code>数据而不是<code>Promise</code>对象，在后面的then中就可以接收到数据了，比如我们把上面的代码修改成这样：</p>
+<p><a href="#x-为-Promise">为什么可以链式调用</a></p>
+<p>在 <code>then</code> 方法中，你也可以直接 <code>return</code> 数据而不是 <code>Promise</code> 对象，在后面的 <code>then</code> 中就可以接收到数据了，比如我们把上面的代码修改成这样：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">runAsync1()</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="keyword">return</span> runAsync2();</div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="keyword">return</span> <span class="string">'直接返回数据'</span>;  <span class="comment">//这里直接返回数据</span></div><div class="line">&#125;)</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 执行结果</span></div><div class="line">异步任务<span class="number">1</span>执行完成</div><div class="line">随便什么数据<span class="number">1</span></div><div class="line">异步任务<span class="number">2</span>执行完成</div><div class="line">随便什么数据<span class="number">2</span></div><div class="line">直接返回数据</div></pre></td></tr></table></figure>
 <p><a href="#x-为对象或函数">这里是为什么？</a></p>
 <h3 id="执行失败回调处理"><a href="#执行失败回调处理" class="headerlink" title="执行失败回调处理"></a>执行失败回调处理</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNumber</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</div><div class="line">        <span class="comment">//做一些异步操作</span></div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">var</span> num = <span class="built_in">Math</span>.ceil(<span class="built_in">Math</span>.random()*<span class="number">10</span>); <span class="comment">//生成1-10的随机数</span></div><div class="line">            <span class="keyword">if</span>(num&lt;=<span class="number">5</span>)&#123;</div><div class="line">                resolve(num);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                reject(<span class="string">'数字太大了'</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">2000</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">getNumber()</div><div class="line">.then(</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'resolved'</span>);</div><div class="line">        <span class="built_in">console</span>.log(data);</div><div class="line">    &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">reason</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'rejected'</span>);</div><div class="line">        <span class="built_in">console</span>.log(reason);</div><div class="line">    &#125;</div><div class="line">);</div><div class="line"></div><div class="line"><span class="comment">// 执行结果有两种</span></div><div class="line"><span class="comment">// 1. resolved 3  </span></div><div class="line"><span class="comment">// 2. rejected 数字太大了</span></div></pre></td></tr></table></figure>
 <h3 id="catch的用法"><a href="#catch的用法" class="headerlink" title="catch的用法"></a>catch的用法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">getNumber()</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'resolved'</span>);</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;)</div><div class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">reason</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'rejected'</span>);</div><div class="line">    <span class="built_in">console</span>.log(reason);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <ol>
 <li>效果和写在then的第二个参数里面一样。</li>
-<li>另外一个作用：在执行<code>resolve</code>的回调（也就是上面<code>then</code>中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会报错卡死js，而是会进到这个<code>catch</code>方法中。</li>
+<li>另外一个作用：在执行 <code>resolve</code> 的回调（也就是上面 <code>then</code> 中的第一个参数）时，如果抛出异常了（代码出错了），那么并不会报错卡死js，而是会进到这个 <code>catch</code> 方法中。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">getNumber()</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'resolved'</span>);</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    <span class="built_in">console</span>.log(somedata); <span class="comment">//此处的somedata未定义</span></div><div class="line">&#125;)</div><div class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">reason</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'rejected'</span>);</div><div class="line">    <span class="built_in">console</span>.log(reason);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 结果</span></div><div class="line">resolved</div><div class="line"><span class="number">3</span></div><div class="line">rejected</div><div class="line"><span class="built_in">ReferenceError</span>: somedata is not defined</div></pre></td></tr></table></figure>
-<p>错误原因传到了<code>reason</code>参数中。即便是有错误的代码也不会报错了，这与我们的<code>try/catch</code>语句有相同的功能。</p>
-<h3 id="all的用法"><a href="#all的用法" class="headerlink" title="all的用法"></a>all的用法</h3><p><code>Promise</code>的<code>all</code>方法提供了并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调。</p>
+<p>错误原因传到了 <code>reason</code> 参数中。即便是有错误的代码也不会报错了，这与我们的 <code>try/catch</code> 语句有相同的功能。</p>
+<h3 id="all的用法"><a href="#all的用法" class="headerlink" title="all的用法"></a>all的用法</h3><p><code>Promise</code> 的 <code>all</code> 方法提供了并行执行异步操作的能力，并且在所有异步操作执行完后才执行回调。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Promise</span></div><div class="line">.all([runAsync1(), runAsync2(), runAsync3()])</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">results</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(results);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 输出</span></div><div class="line">异步任务<span class="number">1</span>执行完成</div><div class="line">异步任务<span class="number">2</span>执行完成</div><div class="line">异步任务<span class="number">3</span>执行完成</div><div class="line">[<span class="string">"随便什么数据1"</span>, <span class="string">"随便什么数据2"</span>, <span class="string">"随便什么数据3"</span>]</div></pre></td></tr></table></figure>
 <p>应用场景：</p>
 <p>页面加载过程中，c要依赖a、b等加载完成。</p>
-<h3 id="race的用法"><a href="#race的用法" class="headerlink" title="race的用法"></a>race的用法</h3><p><code>all</code>方法的效果实际上是「谁跑的慢，以谁为准执行回调」，那么相对的就有另一个方法「谁跑的快，以谁为准执行回调」，这就是race方法，这个词本来就是赛跑的意思。</p>
+<h3 id="race的用法"><a href="#race的用法" class="headerlink" title="race的用法"></a>race的用法</h3><p><code>all</code> 方法的效果实际上是「谁跑的慢，以谁为准执行回调」，那么相对的就有另一个方法「谁跑的快，以谁为准执行回调」，这就是race方法，这个词本来就是赛跑的意思。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Promise</span></div><div class="line">.race([runAsync1(), runAsync2(), runAsync3()])</div><div class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">results</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(results);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 输出</span></div><div class="line">异步任务<span class="number">1</span>执行完成</div><div class="line">随便什么数据<span class="number">1</span></div><div class="line">异步任务<span class="number">2</span>执行完成</div><div class="line">异步任务<span class="number">3</span>执行完成</div></pre></td></tr></table></figure>
 <p>注意：</p>
-<p>在then里面的回调开始执行时，<code>runAsync2()</code>和<code>runAsync3()</code>并没有停止，仍旧再执行。于是再过1秒后，输出了他们结束的标志。</p>
-<h2 id="Promise规范"><a href="#Promise规范" class="headerlink" title="Promise规范"></a>Promise规范</h2><h3 id="Promise的状态"><a href="#Promise的状态" class="headerlink" title="Promise的状态"></a>Promise的状态</h3><p>一个<code>Promise</code>的当前状态必须为以下三种状态中的一种：<strong>等待态（Pending）</strong>、<strong>执行态（Fulfilled）</strong>和<strong>拒绝态（Rejected）</strong>。</p>
-<h4 id="等待态（Pending）"><a href="#等待态（Pending）" class="headerlink" title="等待态（Pending）"></a>等待态（Pending）</h4><p>处于等待态时，<code>promise</code>需满足以下条件：</p>
+<p>在then里面的回调开始执行时，<code>runAsync2()</code> 和 <code>runAsync3()</code> 并没有停止，仍旧再执行。于是再过1秒后，输出了他们结束的标志。</p>
+<h2 id="Promise规范"><a href="#Promise规范" class="headerlink" title="Promise规范"></a>Promise规范</h2><h3 id="Promise的状态"><a href="#Promise的状态" class="headerlink" title="Promise的状态"></a>Promise的状态</h3><p>一个 <code>Promise</code> 的当前状态必须为以下三种状态中的一种：<strong>等待态（Pending）</strong>、<strong>执行态（Fulfilled）</strong>和<strong>拒绝态（Rejected）</strong>。</p>
+<h4 id="等待态（Pending）"><a href="#等待态（Pending）" class="headerlink" title="等待态（Pending）"></a>等待态（Pending）</h4><p>处于等待态时，<code>promise</code> 需满足以下条件：</p>
 <ul>
 <li>可以迁移至执行态或拒绝态</li>
 </ul>
-<h4 id="执行态（Fulfilled）"><a href="#执行态（Fulfilled）" class="headerlink" title="执行态（Fulfilled）"></a>执行态（Fulfilled）</h4><p>处于执行态时，<code>promise</code>需满足以下条件：</p>
+<h4 id="执行态（Fulfilled）"><a href="#执行态（Fulfilled）" class="headerlink" title="执行态（Fulfilled）"></a>执行态（Fulfilled）</h4><p>处于执行态时，<code>promise</code> 需满足以下条件：</p>
 <ul>
 <li>不能迁移至其他任何状态</li>
 <li>必须拥有一个不可变的终值</li>
 </ul>
-<h4 id="拒绝态（Rejected）"><a href="#拒绝态（Rejected）" class="headerlink" title="拒绝态（Rejected）"></a>拒绝态（Rejected）</h4><p>处于拒绝态时，<code>promise</code>需满足以下条件：</p>
+<h4 id="拒绝态（Rejected）"><a href="#拒绝态（Rejected）" class="headerlink" title="拒绝态（Rejected）"></a>拒绝态（Rejected）</h4><p>处于拒绝态时，<code>promise</code> 需满足以下条件：</p>
 <ul>
 <li>不能迁移至其他任何状态</li>
-<li>必须拥有一个确定的据因（表示一个<code>promise</code>的拒绝原因）</li>
+<li>必须拥有一个确定的据因（表示一个 <code>promise</code> 的拒绝原因）</li>
 </ul>
-<h3 id="Then方法"><a href="#Then方法" class="headerlink" title="Then方法"></a>Then方法</h3><p>一个<code>promise</code>必须提供一个<code>then</code>方法以访问其当前值、终值和据因。</p>
+<h3 id="Then方法"><a href="#Then方法" class="headerlink" title="Then方法"></a>Then方法</h3><p>一个 <code>promise</code> 必须提供一个 <code>then</code> 方法以访问其当前值、终值和据因。</p>
 <p><code>promise</code> 的 <code>then</code> 方法接受两个参数：</p>
 <pre><code>promise.then(onFulfilled, onRejected)
 </code></pre><h4 id="参数可选"><a href="#参数可选" class="headerlink" title="参数可选"></a>参数可选</h4><p><code>onFulfilled</code> 和 <code>onRejected</code> 都是可选参数。</p>
@@ -619,8 +619,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/31/WebStorm+Git/" rel="next" title="WebStorm添加Git支持">
-                <i class="fa fa-chevron-left"></i> WebStorm添加Git支持
+              <a href="/2017/03/31/Ajax笔记/" rel="next" title="Ajax笔记">
+                <i class="fa fa-chevron-left"></i> Ajax笔记
               </a>
             
           </div>
@@ -629,8 +629,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/31/Ajax笔记/" rel="prev" title="Ajax笔记">
-                Ajax笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/31/Node.js调用c++组件/" rel="prev" title="Node.js调用C++组件">
+                Node.js调用C++组件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -725,7 +725,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -764,6 +764,18 @@
               
                 <li class="links-of-blogroll-item">
                   <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cnodejs.org" title="Cnode" target="_blank">Cnode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.v2ex.com" title="V2EX" target="_blank">V2EX</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com" title="AlloyTeam" target="_blank">AlloyTeam</a>
                 </li>
               
             </ul>

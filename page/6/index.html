@@ -327,6 +327,170 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/setTimeout和setImmediate以及process.nextTick的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/setTimeout和setImmediate以及process.nextTick的区别/" itemprop="url">
+                  setTimeout和setImmediate以及process.nextTick的区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="观察者优先级"><a href="#观察者优先级" class="headerlink" title="观察者优先级"></a>观察者优先级</h2><p>idle观察者 &gt; IO观察者 &gt; check观察者</p>
+<ul>
+<li><code>process.nextTick()</code>属于idle观察者</li>
+<li><code>setTimeout()</code>属于IO观察者</li>
+<li><code>setImmediate()</code>属于check观察者</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/31/setTimeout和setImmediate以及process.nextTick的区别/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/ready在jQuery里的几种写法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -462,170 +626,6 @@
 <p>第四种方式一般用在处理<code>jQuery</code>的<code>$</code>和别的库冲突的时候用的,通过<code>jQuery.noConflict()</code>这个方法,我们就可以直接在代码中通过<code>jQuery</code>来代替<code>$</code>来使用,但又习惯了使用<code>$</code>怎么办?看下面的代码:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">jQuery.noConflict();</div><div class="line">jQuery(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">	alert($(<span class="string">"#ready1"</span>l());   <span class="comment">//我们又能用上$符号了</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
           
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/setTimeout和setImmediate以及process.nextTick的区别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stone">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/31/setTimeout和setImmediate以及process.nextTick的区别/" itemprop="url">
-                  setTimeout和setImmediate以及process.nextTick的区别
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Node-js/" itemprop="url" rel="index">
-                    <span itemprop="name">Node.js</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="观察者优先级"><a href="#观察者优先级" class="headerlink" title="观察者优先级"></a>观察者优先级</h2><p>idle观察者 &gt; IO观察者 &gt; check观察者</p>
-<ul>
-<li><code>process.nextTick()</code>属于idle观察者</li>
-<li><code>setTimeout()</code>属于IO观察者</li>
-<li><code>setImmediate()</code>属于check观察者</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/setTimeout和setImmediate以及process.nextTick的区别/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1154,7 +1154,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/with()语句/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/zabbix安装说明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -1176,8 +1176,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/with()语句/" itemprop="url">
-                  with()用法
+                <a class="post-title-link" href="/2017/03/31/zabbix安装说明/" itemprop="url">
+                  zabbix安装说明
                 </a>
               
             
@@ -1228,8 +1228,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript原理</span>
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
                   </a>
                 </span>
 
@@ -1264,14 +1275,139 @@
 
       
         
-          <p>with语句主要用来临时扩展作用域链，将语句中的对象添加到作用域的头部。<br>with语句结束后，作用域链恢复正常。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/with()语句/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h2 id="基本说明"><a href="#基本说明" class="headerlink" title="基本说明"></a>基本说明</h2><h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><ul>
+<li>系统环境：Centos7.2</li>
+<li>数据库：MySQL（PostgreSQL）</li>
+<li>Zabbix版本：3.2</li>
+</ul>
+<h3 id="官方文档地址"><a href="#官方文档地址" class="headerlink" title="官方文档地址"></a>官方文档地址</h3><p><a href="https://www.zabbix.com/documentation/3.2/manual/installation/install_from_packages" target="_blank" rel="external">zabbix安装说明</a></p>
+<h2 id="Server安装"><a href="#Server安装" class="headerlink" title="Server安装"></a>Server安装</h2><p>使用Yum安装。</p>
+<ol>
+<li><p>导入源</p>
+<p> <code># rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm</code></p>
+</li>
+<li><p>安装zabbix包</p>
+<p> <code>yum install zabbix-server-mysql zabbix-web-mysql</code></p>
+</li>
+<li><p>安装MySQL数据库</p>
+<p> CentOS 7的yum源中没有正常安装mysql时的mysql-sever文件，需要去官网上下载。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</div><div class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</div><div class="line"># yum install mysql-community-server</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>成功安装之后重启mysql服务。
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># service mysqld restart</div></pre></td></tr></table></figure>
+
+
+初次安装mysql是root账户是没有密码的。
+设置密码的方法
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># mysql –u root</div><div class="line">mysql&gt; set password for ‘root’@‘localhost’ = password(‘mypasswd’);</div><div class="line">mysql&gt; exit</div></pre></td></tr></table></figure>
+
+
+设置开机启动
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># systemctl enable mysqld</div></pre></td></tr></table></figure>
+</code></pre><ol>
+<li><p>新建数据库</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">shell&gt; mysql -uroot -p&lt;root_password&gt;</div><div class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</div><div class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;&lt;password&gt;&apos;;</div><div class="line">mysql&gt; quit;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>导入数据库表</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># zcat /usr/share/doc/zabbix-server-mysql-3.2.*/create.sql.gz | mysql -uzabbix -p zabbix</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改zabbixserver配置文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># vi /etc/zabbix/zabbix_server.conf</div><div class="line">DBHost=localhost</div><div class="line">DBName=zabbix</div><div class="line">DBUser=zabbix</div><div class="line">DBPassword=zabbix</div><div class="line">实际上是DBHost和DBPassword去掉前面的#号即可。</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>启动zabbix服务</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># systemctl start zabbix-server</div><div class="line">设置开机自动启动</div><div class="line"># systemctl enable zabbix-server</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>修改PHP设置</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># vim /etc/httpd/conf.d/zabbix.conf</div><div class="line">php_value max_execution_time 300</div><div class="line">php_value memory_limit 128M</div><div class="line">php_value post_max_size 16M</div><div class="line">php_value upload_max_filesize 2M</div><div class="line">php_value max_input_time 300</div><div class="line">php_value always_populate_raw_post_data -1</div><div class="line">php_value date.timezone Asia/Shanghai</div><div class="line">实际上就是修改时区。</div></pre></td></tr></table></figure>
+</li>
+<li><p>启动apache服务</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># systemctl start httpd</div><div class="line">设置开机自动启动</div><div class="line"># systemctl enable httpd</div></pre></td></tr></table></figure>
+</li>
+<li><p>登录zabbix</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://IP/zabbix/</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>1. 首次登录需进行验证与配置
+
+    ![](images/20170317093201.png)
+
+2. 点击next会出现检查状态
+
+    ![](images/20170317093202.png)
+
+3. 点击next配置MySQL
+
+    ![](images/20170317093203.png)
+
+4. 继续
+
+    ![](images/20170317093204.png)
+
+    ![](images/20170317093205.png)
+
+    ![](images/20170317093206.png)
+
+5. 默认用户名密码为`Admin/zabbix`
+
+    ![](images/20170317093207.png)
+</code></pre><h2 id="Windows-Agent安装"><a href="#Windows-Agent安装" class="headerlink" title="Windows Agent安装"></a>Windows Agent安装</h2><ol>
+<li><p>下载客户端</p>
+<p> <code>http://www.zabbix.com/download</code></p>
+</li>
+<li><p>目录结构</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">zabbix_agents_3.2.0.win</div><div class="line">├── bin</div><div class="line">|   ├── win32</div><div class="line">|   |   ├── zabbix_agentd.exe</div><div class="line">|   |   ├── zabbix_get.exe</div><div class="line">|   |   └── zabbix_sender.exe</div><div class="line">|   └── win64</div><div class="line">|   |   ├── zabbix_agentd.exe</div><div class="line">|   |   ├── zabbix_get.exe</div><div class="line">|   |   └── zabbix_sender.exe</div><div class="line">└── conf</div><div class="line">    └── zabbix_agentd.win.conf</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改或新增配置文件</p>
+<ol>
+<li><p>修改zabbix_agents_3.2.0.win\conf\zabbix_agentd.win.conf</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//括号内是行号</div><div class="line">(23)LogFile=D:\zabbix_agentd.log// 日志文件路径</div><div class="line">(84)Server=127.0.0.1// 服务端ip（可多个，用“,”隔开）</div><div class="line">(125)ServerActive=127.0.0.1// 服务端ip</div><div class="line">(136)Hostname=Windows host	// 客户端Name（要与监控页面hosts配置的Hostname一致）</div></pre></td></tr></table></figure>
+</li>
+<li><p>新建zabbix_agentd.win.conf文件</p>
+<p> 写入上述内容即可。</p>
+</li>
+</ol>
+</li>
+<li><p>安装与启动</p>
+<p> 进入zabbix_agentd.exe文件目录下，执行如下命令完成安装</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zabbix_agentd.exe -c c:\zabbix\zabbix_agentd.conf -i</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>执行如下命令，启动客户端服务
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zabbix_agentd.exe -c c:\zabbix\zabbix_agentd.conf -s</div></pre></td></tr></table></figure>
+</code></pre><h2 id="CentOS-Agent安装"><a href="#CentOS-Agent安装" class="headerlink" title="CentOS Agent安装"></a>CentOS Agent安装</h2><ol>
+<li><p>导入源</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>安装</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install zabbix-agent</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>修改配置文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># vi /etc/zabbix/zabbix_agentd.conf</div><div class="line">修改如下几项：</div><div class="line">LogFile=D:\zabbix_agentd.log// 日志文件路径</div><div class="line">Server=127.0.0.1// 服务端ip（可多个，用“,”隔开）</div><div class="line">ServerActive=127.0.0.1// 服务端ip</div><div class="line">Hostname=Windows host	// 客户端Name（要与监控页面hosts配置的Hostname一致）</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>启动</p>
+<p> <code># systemctl start zabbix-agent</code></p>
+</li>
+</ol>
+
+          
         
       
     </div>
@@ -1646,301 +1782,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/zabbix安装说明/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stone">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/31/zabbix安装说明/" itemprop="url">
-                  zabbix安装说明
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂记/" itemprop="url" rel="index">
-                    <span itemprop="name">杂记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂记/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基本说明"><a href="#基本说明" class="headerlink" title="基本说明"></a>基本说明</h2><h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><ul>
-<li>系统环境：Centos7.2</li>
-<li>数据库：MySQL（PostgreSQL）</li>
-<li>Zabbix版本：3.2</li>
-</ul>
-<h3 id="官方文档地址"><a href="#官方文档地址" class="headerlink" title="官方文档地址"></a>官方文档地址</h3><p><a href="https://www.zabbix.com/documentation/3.2/manual/installation/install_from_packages" target="_blank" rel="external">zabbix安装说明</a></p>
-<h2 id="Server安装"><a href="#Server安装" class="headerlink" title="Server安装"></a>Server安装</h2><p>使用Yum安装。</p>
-<ol>
-<li><p>导入源</p>
-<p> <code># rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm</code></p>
-</li>
-<li><p>安装zabbix包</p>
-<p> <code>yum install zabbix-server-mysql zabbix-web-mysql</code></p>
-</li>
-<li><p>安装MySQL数据库</p>
-<p> CentOS 7的yum源中没有正常安装mysql时的mysql-sever文件，需要去官网上下载。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</div><div class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</div><div class="line"># yum install mysql-community-server</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<pre><code>成功安装之后重启mysql服务。
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># service mysqld restart</div></pre></td></tr></table></figure>
-
-
-初次安装mysql是root账户是没有密码的。
-设置密码的方法
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># mysql –u root</div><div class="line">mysql&gt; set password for ‘root’@‘localhost’ = password(‘mypasswd’);</div><div class="line">mysql&gt; exit</div></pre></td></tr></table></figure>
-
-
-设置开机启动
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># systemctl enable mysqld</div></pre></td></tr></table></figure>
-</code></pre><ol>
-<li><p>新建数据库</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">shell&gt; mysql -uroot -p&lt;root_password&gt;</div><div class="line">mysql&gt; create database zabbix character set utf8 collate utf8_bin;</div><div class="line">mysql&gt; grant all privileges on zabbix.* to zabbix@localhost identified by &apos;&lt;password&gt;&apos;;</div><div class="line">mysql&gt; quit;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>导入数据库表</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># zcat /usr/share/doc/zabbix-server-mysql-3.2.*/create.sql.gz | mysql -uzabbix -p zabbix</div></pre></td></tr></table></figure>
-</li>
-<li><p>修改zabbixserver配置文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># vi /etc/zabbix/zabbix_server.conf</div><div class="line">DBHost=localhost</div><div class="line">DBName=zabbix</div><div class="line">DBUser=zabbix</div><div class="line">DBPassword=zabbix</div><div class="line">实际上是DBHost和DBPassword去掉前面的#号即可。</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>启动zabbix服务</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># systemctl start zabbix-server</div><div class="line">设置开机自动启动</div><div class="line"># systemctl enable zabbix-server</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>修改PHP设置</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># vim /etc/httpd/conf.d/zabbix.conf</div><div class="line">php_value max_execution_time 300</div><div class="line">php_value memory_limit 128M</div><div class="line">php_value post_max_size 16M</div><div class="line">php_value upload_max_filesize 2M</div><div class="line">php_value max_input_time 300</div><div class="line">php_value always_populate_raw_post_data -1</div><div class="line">php_value date.timezone Asia/Shanghai</div><div class="line">实际上就是修改时区。</div></pre></td></tr></table></figure>
-</li>
-<li><p>启动apache服务</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># systemctl start httpd</div><div class="line">设置开机自动启动</div><div class="line"># systemctl enable httpd</div></pre></td></tr></table></figure>
-</li>
-<li><p>登录zabbix</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://IP/zabbix/</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<pre><code>1. 首次登录需进行验证与配置
-
-    ![](images/20170317093201.png)
-
-2. 点击next会出现检查状态
-
-    ![](images/20170317093202.png)
-
-3. 点击next配置MySQL
-
-    ![](images/20170317093203.png)
-
-4. 继续
-
-    ![](images/20170317093204.png)
-
-    ![](images/20170317093205.png)
-
-    ![](images/20170317093206.png)
-
-5. 默认用户名密码为`Admin/zabbix`
-
-    ![](images/20170317093207.png)
-</code></pre><h2 id="Windows-Agent安装"><a href="#Windows-Agent安装" class="headerlink" title="Windows Agent安装"></a>Windows Agent安装</h2><ol>
-<li><p>下载客户端</p>
-<p> <code>http://www.zabbix.com/download</code></p>
-</li>
-<li><p>目录结构</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">zabbix_agents_3.2.0.win</div><div class="line">├── bin</div><div class="line">|   ├── win32</div><div class="line">|   |   ├── zabbix_agentd.exe</div><div class="line">|   |   ├── zabbix_get.exe</div><div class="line">|   |   └── zabbix_sender.exe</div><div class="line">|   └── win64</div><div class="line">|   |   ├── zabbix_agentd.exe</div><div class="line">|   |   ├── zabbix_get.exe</div><div class="line">|   |   └── zabbix_sender.exe</div><div class="line">└── conf</div><div class="line">    └── zabbix_agentd.win.conf</div></pre></td></tr></table></figure>
-</li>
-<li><p>修改或新增配置文件</p>
-<ol>
-<li><p>修改zabbix_agents_3.2.0.win\conf\zabbix_agentd.win.conf</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//括号内是行号</div><div class="line">(23)LogFile=D:\zabbix_agentd.log// 日志文件路径</div><div class="line">(84)Server=127.0.0.1// 服务端ip（可多个，用“,”隔开）</div><div class="line">(125)ServerActive=127.0.0.1// 服务端ip</div><div class="line">(136)Hostname=Windows host	// 客户端Name（要与监控页面hosts配置的Hostname一致）</div></pre></td></tr></table></figure>
-</li>
-<li><p>新建zabbix_agentd.win.conf文件</p>
-<p> 写入上述内容即可。</p>
-</li>
-</ol>
-</li>
-<li><p>安装与启动</p>
-<p> 进入zabbix_agentd.exe文件目录下，执行如下命令完成安装</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zabbix_agentd.exe -c c:\zabbix\zabbix_agentd.conf -i</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<pre><code>执行如下命令，启动客户端服务
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zabbix_agentd.exe -c c:\zabbix\zabbix_agentd.conf -s</div></pre></td></tr></table></figure>
-</code></pre><h2 id="CentOS-Agent安装"><a href="#CentOS-Agent安装" class="headerlink" title="CentOS Agent安装"></a>CentOS Agent安装</h2><ol>
-<li><p>导入源</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>安装</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># yum install zabbix-agent</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>修改配置文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># vi /etc/zabbix/zabbix_agentd.conf</div><div class="line">修改如下几项：</div><div class="line">LogFile=D:\zabbix_agentd.log// 日志文件路径</div><div class="line">Server=127.0.0.1// 服务端ip（可多个，用“,”隔开）</div><div class="line">ServerActive=127.0.0.1// 服务端ip</div><div class="line">Hostname=Windows host	// 客户端Name（要与监控页面hosts配置的Hostname一致）</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>启动</p>
-<p> <code># systemctl start zabbix-agent</code></p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/兼容IE的MVVM框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2098,6 +1939,165 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/前端异步加载的实现方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/前端异步加载的实现方法/" itemprop="url">
+                  前端异步加载的实现方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="document-ready-amp-amp-document-onload"><a href="#document-ready-amp-amp-document-onload" class="headerlink" title="$(document).ready() &amp;&amp; document.onload"></a>$(document).ready() &amp;&amp; document.onload</h2><p>页面加载完成后异步调用js。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/31/前端异步加载的实现方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2169,7 +2169,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2208,6 +2208,18 @@
               
                 <li class="links-of-blogroll-item">
                   <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cnodejs.org" title="Cnode" target="_blank">Cnode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.v2ex.com" title="V2EX" target="_blank">V2EX</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com" title="AlloyTeam" target="_blank">AlloyTeam</a>
                 </li>
               
             </ul>

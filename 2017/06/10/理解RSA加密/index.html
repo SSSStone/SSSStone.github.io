@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RSA,加密," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="基本概念参考阮一峰老师的文章 RSA算法原理（一）介绍了RSA算法用到的数学公式工具：http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html RSA算法原理（二）以一组demo讲解RSA密钥的生成和不可逆性：http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part">
+<meta name="keywords" content="RSA,加密">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解RSA加解密">
+<meta property="og:url" content="http://blog.yancoder.com/2017/06/10/理解RSA加密/index.html">
+<meta property="og:site_name" content="Stone">
+<meta property="og:description" content="基本概念参考阮一峰老师的文章 RSA算法原理（一）介绍了RSA算法用到的数学公式工具：http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html RSA算法原理（二）以一组demo讲解RSA密钥的生成和不可逆性：http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part">
+<meta property="og:image" content="http://blog.yancoder.com/images/201706061114041.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/201706061114242.png">
+<meta property="og:image" content="http://blog.yancoder.com/images/20170606112944.png">
+<meta property="og:updated_time" content="2017-06-10T09:23:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解RSA加解密">
+<meta name="twitter:description" content="基本概念参考阮一峰老师的文章 RSA算法原理（一）介绍了RSA算法用到的数学公式工具：http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html RSA算法原理（二）以一组demo讲解RSA密钥的生成和不可逆性：http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part">
+<meta name="twitter:image" content="http://blog.yancoder.com/images/201706061114041.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'XOWQNS8RHX',
+      apiKey: 'ae4efcb65d6c353c356c37b2d5f52c4d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yancoder.com/2017/06/10/理解RSA加密/"/>
+
+
+
+
+
+  <title> 理解RSA加解密 | Stone </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=61486039";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端笔记</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/06/10/理解RSA加密/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                理解RSA加解密
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T17:18:37+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-10T17:23:23+08:00">
+                2017-06-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/浏览器/" itemprop="url" rel="index">
+                    <span itemprop="name">浏览器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>参考阮一峰老师的文章</p>
+<p>RSA算法原理（一）介绍了RSA算法用到的数学公式工具：<a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html</a></p>
+<p>RSA算法原理（二）以一组demo讲解RSA密钥的生成和不可逆性：<a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html</a></p>
+<p>符号说明：</p>
+<p><code>≡</code> 同余。两个整数a，b，若它们除以整数m所得的余数相等，则称a，b对于模m同余，记作a≡b(mod m)，读作a同余于b模m，或读作a与b关于模m同余。</p>
+<a id="more"></a>
+<p>我的补充(有助于自己理解的补充)</p>
+<h1 id="用公钥加密为什么不能用公钥解密？"><a href="#用公钥加密为什么不能用公钥解密？" class="headerlink" title="用公钥加密为什么不能用公钥解密？"></a>用公钥加密为什么不能用公钥解密？</h1><p>这一点不同于不可逆加密算法，不可逆加密算法不需要密钥也不能被解密，只有的到对应的明文，重新加密，才能确定明文和密文的对应关系。</p>
+<p>非对称加密是可逆的，所以用公钥加密，一定可以用公钥解密。概念上没有问题，可是解密现阶段无法实现或者实现成本太高。</p>
+<p>举个简单的例子，我们人力计算<code>11</code>的<code>11</code>次幂，还是有希望能计算出来的，但是给你一个数 <code>285311670611</code> 让你计算这个数字的开<code>11</code>次方，人力还可以计算出来么？<br>这个例子中，幂指数 <code>11</code> 作为我们的密钥，求值过程为加密过程，那么这完全是一个可逆的加密，但是对于人力来说，却是“不可逆”。</p>
+<p>当然，这里例子中的“不可逆”对于计算机来说就是小菜一碟了，所以我们需要对于计算机也要计算量超级大的解密算法，来让计算机也不能用公钥去解密；<br>并且我们需要解密过程可以化简变形，在我们知道私钥的情况下，解密过程的计算量极大减少，并且公钥不能推导出私钥。</p>
+<p>基于这样的诉求，RSA诞生了。这些数学家真的脑子怎么长的=.=</p>
+<h1 id="RSA加密算法的理解"><a href="#RSA加密算法的理解" class="headerlink" title="RSA加密算法的理解"></a>RSA加密算法的理解</h1><p>加密要用公钥 (n,e)</p>
+<p><img src="/images/201706061114041.png" alt=""></p>
+<p>解密要用私钥(n,d)</p>
+<p><img src="/images/201706061114242.png" alt=""></p>
+<p>用公钥推导私钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">（1）ed≡1 (mod φ(n))。只有知道e和φ(n)，才能算出d。</div><div class="line">（2）φ(n)=(p-1)(q-1)。只有知道p和q，才能算出φ(n)。</div><div class="line">（3）n=pq。只有将n因数分解，才能算出p和q。</div></pre></td></tr></table></figure>
+<p>结论：</p>
+<ul>
+<li>由公式1可以看出，用公钥加密算法加密以后，我们想用算法的逆变换去解密，对于电脑来说也是一项“不可逆”的工作量了。</li>
+<li>由公式2可以看出，对加密算法进行一系列推导，我们如果知道私钥(d)，即可以很少的工作量去解密密文。</li>
+<li>公钥推导私钥需要对 <code>n</code> 进行因数分解，而大整数的因数分解，是一件非常困难的事情，目前，除了暴力破解，还没有发现别的有效方法。</li>
+</ul>
+<p>基于以上三点，RSA完全符合我们对非对称加密的诉求</p>
+<h1 id="加解密相关"><a href="#加解密相关" class="headerlink" title="加解密相关"></a>加解密相关</h1><h2 id="加解密速度问题"><a href="#加解密速度问题" class="headerlink" title="加解密速度问题"></a>加解密速度问题</h2><p>即使用密钥解密在计算机的计算能力内了，可是依旧需要很大的计算量，而且公钥和私钥的大小相差很大，这就直接导致了加密和解密的计算量差别很大。</p>
+<p>当前公钥加密速度大约是12000次/秒，私钥解密速度约是300次/秒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">n=119263477369052012922637196530783652401581445956350841560954863526975117908165699062010236394009208141897875804687843459842125106550108593510740467934411286423507269375591768884321570401534909084090161637144873510938388101883333290501884915534203304006197643606655871549571440181559411792469912124238983204579</div><div class="line"></div><div class="line">e=65537</div><div class="line"></div><div class="line">d=57281481867428326148066756720623114067543207262585340186675866140326773981038676005537272242767106286258440830434094459396227657336737540594436390270709116600548275303062471272502940472389614010092413136147606051219547590060791675176641306271494019790111235852053008032643494254448830003976266489627722404537</div><div class="line"></div><div class="line"># 由这组数据可以看出，公钥中 `e` 作为幂指数和私钥中 `d` 作为幂指数的计算量的差别。</div></pre></td></tr></table></figure>
+<p><img src="/images/20170606112944.png" alt=""></p>
+<h2 id="明文、密文长度问题"><a href="#明文、密文长度问题" class="headerlink" title="明文、密文长度问题"></a>明文、密文长度问题</h2><p>（1）明文长度</p>
+<p>不管明文长度是多少，RSA 生成的密文长度总是固定的。但是明文长度不能超过密钥长度。比如 Java 默认的 RSA 加密实现不允许明文长度超过密钥长度减去 11(单位是字节，也就是 byte)。也就是说，如果我们定义的密钥(我们可以通过 java.security.KeyPairGenerator.initialize(int keysize) 来定义密钥长度)长度为 1024(单位是位，也就是 bit)，生成的密钥长度就是 1024位 / 8位/字节 = 128字节，那么我们需要加密的明文长度不能超过 128字节 - 11 字节 = 117字节。也就是说，我们最大能将 117 字节长度的明文进行加密，否则会出问题(抛诸如 javax.crypto.IllegalBlockSizeException: Data must not be longer than 53 bytes 的异常)。而 BC 提供的加密算法能够支持到的 RSA 明文长度最长为密钥长度。</p>
+<p>（2）密文长度</p>
+<p>生成密文的长度等于密钥长度。密钥长度越大，生成密文的长度也就越大，加密的速度也就越慢，而密文也就越难被破解掉。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Stone
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.yancoder.com/2017/06/10/理解RSA加密/" title="理解RSA加解密">http://blog.yancoder.com/2017/06/10/理解RSA加密/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RSA/" rel="tag"># RSA</a>
+          
+            <a href="/tags/加密/" rel="tag"># 加密</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/程序员的核心竞争力/" rel="next" title="程序员的核心竞争力">
+                <i class="fa fa-chevron-left"></i> 程序员的核心竞争力
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Stone" />
+          <p class="site-author-name" itemprop="name">Stone</p>
+           
+              <p class="site-description motion-element" itemprop="description">If you only do what you can do you will never be more than you are now!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/SSSStone" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gruad.yancoder.com/" title="小锋子" target="_blank">小锋子</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://cnodejs.org" title="Cnode" target="_blank">Cnode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.v2ex.com" title="V2EX" target="_blank">V2EX</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com" title="AlloyTeam" target="_blank">AlloyTeam</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用公钥加密为什么不能用公钥解密？"><span class="nav-number">2.</span> <span class="nav-text">用公钥加密为什么不能用公钥解密？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RSA加密算法的理解"><span class="nav-number">3.</span> <span class="nav-text">RSA加密算法的理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加解密相关"><span class="nav-number">4.</span> <span class="nav-text">加解密相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加解密速度问题"><span class="nav-number">4.1.</span> <span class="nav-text">加解密速度问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#明文、密文长度问题"><span class="nav-number">4.2.</span> <span class="nav-text">明文、密文长度问题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-rocket"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Stone</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
