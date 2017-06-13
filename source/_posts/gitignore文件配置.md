@@ -3,7 +3,7 @@ title: gitignore文件配置
 date: 2017-03-31 19:34:18
 tags: 
 - Git
-categories: 
+categories:
 - 杂记
 - 工具
 ---
