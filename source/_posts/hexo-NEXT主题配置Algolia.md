@@ -31,7 +31,7 @@ Never use your Admin API Key to index content — you might leak it by mistake a
 
 添加自定义 `ApiKey` ，并设定其权限。
 
-![](/images/algolia-write-key)
+![](/images/algolia-write-key.png)
 
 2 配置文件改为配置环境变量
 
