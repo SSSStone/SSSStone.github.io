@@ -127,7 +127,7 @@ window.addEventListener('pageshow', function(event){
 
 #### 症状
 
-![](http://km.oa.com/files/photos/pictures/201709/1504946446_1_w649_h214.png)
+![](/images/1504946446_1_w649_h214.png)
 (1)第一次：用户在A页面使用replaceState(null,null,c)到状态A'，跳转到B页面(活动页之类)，此时用户点击返回，会加载A'，历史缓存中没有C页面URL的缓存，所以加载C页面并缓存C页面。
 (2)第二次：两天后，用户重复此操作，点击返回，会加载A'，历史缓存中有C页面缓存，直接读取缓存，展示给用户的是两天前缓存的C页面！
 此时，C页面上的信息的时效性完全不能保证和预测。
@@ -139,7 +139,7 @@ window.addEventListener('pageshow', function(event){
 3. 随机数后缀
 
 三种策略在规避history mechanisms中的表现：
-![](http://km.oa.com/files/photos/pictures/201709/1504947926_93_w614_h73.png)
+![](/images/1504947926_93_w614_h73.png)
 我们可以使用2、3两种策略来规避chrome history mechanisms对页面返回的影响。
 
 ### Page cache + history.replacState()
@@ -147,7 +147,7 @@ window.addEventListener('pageshow', function(event){
 #### 症状
 
 history.replacState()失效。
-![](http://km.oa.com/files/photos/pictures/201709/1504948033_72_w645_h219.png)
+![](/images/1504948033_72_w645_h219.png)
 我们想让用户从B页面返回时，能加载C页面，然而因为Pagecache的存在，用户返回A'后，虽然URL是C页面的URL，可是页面从cache中读取，并不会重新加载，也就不会展现给用户C页面。
 
 #### 规避
