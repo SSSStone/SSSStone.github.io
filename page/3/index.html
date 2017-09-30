@@ -327,7 +327,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS执行顺序/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS实现数字千分符格式化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -349,8 +349,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/JS执行顺序/" itemprop="url">
-                  JS执行顺序
+                <a class="post-title-link" href="/2017/03/31/JS实现数字千分符格式化/" itemprop="url">
+                  JS实现数字千位符格式化
                 </a>
               
             
@@ -401,8 +401,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript原理</span>
+                  <a href="/categories/JavaScript应用/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript应用</span>
                   </a>
                 </span>
 
@@ -437,41 +437,14 @@
 
       
         
-          
-            <h2 id="函数的声明和调用"><a href="#函数的声明和调用" class="headerlink" title="函数的声明和调用"></a>函数的声明和调用</h2><p>JavaScript是一种描述型脚本语言，由浏览器进行动态的解析与执行。函数的定义方式大体有以下两种，浏览器对于不同的方式有不同的解析顺序。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//“定义式”函数定义 </span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello World!"</span>); </div><div class="line">&#125;</div><div class="line"><span class="comment">//“赋值式”函数定义 </span></div><div class="line"><span class="keyword">var</span> Fn2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello wild!"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>页面加载过程中，浏览器会对页面上或载入的每个js代码块(或文件)进行扫描。</p>
-<ol>
-<li>如果遇到定义式函数，则进行预处理，处理完成之后再开始由上至下执行；</li>
-<li>遇到赋值式函数，则只是将函数赋给一个变量，不进行预处理(变量必须先定义后引用的原则)，待调用到的时候才进行处理。</li>
-</ol>
-<p>例子：</p>
-<ol>
-<li>“定义式”函数定义</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Fn1(); </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello World!"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>正常执行，弹出“Hello World!”，浏览器对Fn1进行了预处理，再从Fn1();开始执行。</p>
-<ol>
-<li>“赋值式”函数定义</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Fn2(); </div><div class="line"><span class="keyword">var</span> Fn2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello wild!"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="代码块及js文件的执行顺序"><a href="#代码块及js文件的执行顺序" class="headerlink" title="代码块及js文件的执行顺序"></a>代码块及js文件的执行顺序</h2><p><strong>代码块</strong>是指<code>&lt;script type=”text/javascript”&gt;&lt;/script&gt;</code>标签包裹着的js代码，文件就是指js文件。</p>
-<p>浏览器对每个块或文件进行独立的扫描，然后对全局的代码进行顺序执行。</p>
-<ul>
-<li>在两个块中，定义函数所在的块必须在函数被调用的块之前。 </li>
-</ul>
-<p>例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"> </span></div><div class="line">	Fn(); </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">		alert(<span class="string">"Hello World!"</span>); </div><div class="line">	&#125; </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line">// 报错：Fn is notdefined，两个块换过来就对了</div></pre></td></tr></table></figure>
-<h2 id="重复定义函数会覆盖前面的定义"><a href="#重复定义函数会覆盖前面的定义" class="headerlink" title="重复定义函数会覆盖前面的定义"></a>重复定义函数会覆盖前面的定义</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">1</span>); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">2</span>); </div><div class="line">&#125; </div><div class="line">fn(); </div><div class="line"><span class="comment">// 弹出：“2”</span></div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">fn(); </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">1</span>); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">2</span>); </div><div class="line">&#125; </div><div class="line"><span class="comment">// 弹出：“2” </span></div><div class="line"><span class="comment">// 还是弹出“2”，为什么？</span></div></pre></td></tr></table></figure>
-<h2 id="body内部的函数会先于onload的函数执行"><a href="#body内部的函数会先于onload的函数执行" class="headerlink" title="body内部的函数会先于onload的函数执行"></a>body内部的函数会先于<code>onload</code>的函数执行</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fnOnLoad</span>(<span class="params"></span>)</span>&#123; </div><div class="line">		alert(<span class="string">"I am outside the Wall!"</span>); </div><div class="line">	&#125; </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"fnOnLoad();"</span>&gt;</span> </div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">		alert(<span class="string">"I am inside the Wall.."</span>); </div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </div><div class="line">// 先弹出“I am inside the Wall..”; </div><div class="line">// 后弹出“I am outside the Wall!”</div></pre></td></tr></table></figure>
-<h2 id="JavaScript是单线程"><a href="#JavaScript是单线程" class="headerlink" title="JavaScript是单线程"></a>JavaScript是单线程</h2><p>JavaScript是没有多线程概念的，所有的程序都是“单线程”依次执行的。</p>
-<p>例子1：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	<span class="keyword">var</span> sum = <span class="number">0</span>; </div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> ind=<span class="number">0</span>; ind&lt;<span class="number">1000</span>; ind++) &#123; </div><div class="line">		sum += ind; </div><div class="line">	&#125; </div><div class="line">	alert(<span class="string">"答案是"</span>+sum); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"早知道了，我就是不说"</span>); </div><div class="line">&#125; </div><div class="line">fn1(); </div><div class="line">fn2(); </div><div class="line"><span class="comment">//先弹出：“答案是499500”， </span></div><div class="line"><span class="comment">//后弹出：“早知道了，我就是不说” </span></div><div class="line"><span class="comment">//执行fn1肯定要花费一定时间，此时，fn2等待fn1执行，而不是“多线程”。</span></div></pre></td></tr></table></figure>
-<p>例子2：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"fn1"</span>); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"fn2"</span>); </div><div class="line">&#125; </div><div class="line">fn1(); </div><div class="line">fn2(); </div><div class="line"><span class="comment">//先弹出：“fn1”， </span></div><div class="line"><span class="comment">//在不点击fn1弹框的确认按钮时，fn2不会执行，阻塞。</span></div></pre></td></tr></table></figure>
-
-          
+          <p>收集整理了几种千位符格式化方法。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/31/JS实现数字千分符格式化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -674,7 +647,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/CSRF攻击/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS执行顺序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -696,8 +669,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/CSRF攻击/" itemprop="url">
-                  CSRF攻击
+                <a class="post-title-link" href="/2017/03/31/JS执行顺序/" itemprop="url">
+                  JS执行顺序
                 </a>
               
             
@@ -748,8 +721,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/JavaScript原理/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript原理</span>
                   </a>
                 </span>
 
@@ -784,11 +757,207 @@
 
       
         
-          <p>CSRF（Cross-site request forgery），中文名称：跨站请求伪造。</p>
-<h2 id="图解CSRF"><a href="#图解CSRF" class="headerlink" title="图解CSRF"></a>图解CSRF</h2><p><img src="/images/20170328141745.png" alt=""></p>
+          
+            <h2 id="函数的声明和调用"><a href="#函数的声明和调用" class="headerlink" title="函数的声明和调用"></a>函数的声明和调用</h2><p>JavaScript是一种描述型脚本语言，由浏览器进行动态的解析与执行。函数的定义方式大体有以下两种，浏览器对于不同的方式有不同的解析顺序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//“定义式”函数定义 </span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello World!"</span>); </div><div class="line">&#125;</div><div class="line"><span class="comment">//“赋值式”函数定义 </span></div><div class="line"><span class="keyword">var</span> Fn2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello wild!"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>页面加载过程中，浏览器会对页面上或载入的每个js代码块(或文件)进行扫描。</p>
+<ol>
+<li>如果遇到定义式函数，则进行预处理，处理完成之后再开始由上至下执行；</li>
+<li>遇到赋值式函数，则只是将函数赋给一个变量，不进行预处理(变量必须先定义后引用的原则)，待调用到的时候才进行处理。</li>
+</ol>
+<p>例子：</p>
+<ol>
+<li>“定义式”函数定义</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Fn1(); </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello World!"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正常执行，弹出“Hello World!”，浏览器对Fn1进行了预处理，再从Fn1();开始执行。</p>
+<ol>
+<li>“赋值式”函数定义</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Fn2(); </div><div class="line"><span class="keyword">var</span> Fn2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"Hello wild!"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="代码块及js文件的执行顺序"><a href="#代码块及js文件的执行顺序" class="headerlink" title="代码块及js文件的执行顺序"></a>代码块及js文件的执行顺序</h2><p><strong>代码块</strong>是指<code>&lt;script type=”text/javascript”&gt;&lt;/script&gt;</code>标签包裹着的js代码，文件就是指js文件。</p>
+<p>浏览器对每个块或文件进行独立的扫描，然后对全局的代码进行顺序执行。</p>
+<ul>
+<li>在两个块中，定义函数所在的块必须在函数被调用的块之前。 </li>
+</ul>
+<p>例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"> </span></div><div class="line">	Fn(); </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">		alert(<span class="string">"Hello World!"</span>); </div><div class="line">	&#125; </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line">// 报错：Fn is notdefined，两个块换过来就对了</div></pre></td></tr></table></figure>
+<h2 id="重复定义函数会覆盖前面的定义"><a href="#重复定义函数会覆盖前面的定义" class="headerlink" title="重复定义函数会覆盖前面的定义"></a>重复定义函数会覆盖前面的定义</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">1</span>); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">2</span>); </div><div class="line">&#125; </div><div class="line">fn(); </div><div class="line"><span class="comment">// 弹出：“2”</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">fn(); </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">1</span>); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="number">2</span>); </div><div class="line">&#125; </div><div class="line"><span class="comment">// 弹出：“2” </span></div><div class="line"><span class="comment">// 还是弹出“2”，为什么？</span></div></pre></td></tr></table></figure>
+<h2 id="body内部的函数会先于onload的函数执行"><a href="#body内部的函数会先于onload的函数执行" class="headerlink" title="body内部的函数会先于onload的函数执行"></a>body内部的函数会先于<code>onload</code>的函数执行</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fnOnLoad</span>(<span class="params"></span>)</span>&#123; </div><div class="line">		alert(<span class="string">"I am outside the Wall!"</span>); </div><div class="line">	&#125; </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"fnOnLoad();"</span>&gt;</span> </div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">		alert(<span class="string">"I am inside the Wall.."</span>); </div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </div><div class="line">// 先弹出“I am inside the Wall..”; </div><div class="line">// 后弹出“I am outside the Wall!”</div></pre></td></tr></table></figure>
+<h2 id="JavaScript是单线程"><a href="#JavaScript是单线程" class="headerlink" title="JavaScript是单线程"></a>JavaScript是单线程</h2><p>JavaScript是没有多线程概念的，所有的程序都是“单线程”依次执行的。</p>
+<p>例子1：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	<span class="keyword">var</span> sum = <span class="number">0</span>; </div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> ind=<span class="number">0</span>; ind&lt;<span class="number">1000</span>; ind++) &#123; </div><div class="line">		sum += ind; </div><div class="line">	&#125; </div><div class="line">	alert(<span class="string">"答案是"</span>+sum); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"早知道了，我就是不说"</span>); </div><div class="line">&#125; </div><div class="line">fn1(); </div><div class="line">fn2(); </div><div class="line"><span class="comment">//先弹出：“答案是499500”， </span></div><div class="line"><span class="comment">//后弹出：“早知道了，我就是不说” </span></div><div class="line"><span class="comment">//执行fn1肯定要花费一定时间，此时，fn2等待fn1执行，而不是“多线程”。</span></div></pre></td></tr></table></figure>
+<p>例子2：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	alert(<span class="string">"fn1"</span>); </div><div class="line">&#125; </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123; </div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"fn2"</span>); </div><div class="line">&#125; </div><div class="line">fn1(); </div><div class="line">fn2(); </div><div class="line"><span class="comment">//先弹出：“fn1”， </span></div><div class="line"><span class="comment">//在不点击fn1弹框的确认按钮时，fn2不会执行，阻塞。</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/2017腾讯实习面试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/2017腾讯实习面试/" itemprop="url">
+                  2017年春季校招
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/杂记/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>2017春招说来就来，从2月6号急匆匆赶来学校看书到3月中旬第一面，到月末去深圳腾大345面，第一次走完一个完整的面试流程。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/CSRF攻击/#more" rel="contents">
+            <a class="btn" href="/2017/03/31/2017腾讯实习面试/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -952,6 +1121,162 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS自定义sleep()方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Stone">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/JS自定义sleep()方法/" itemprop="url">
+                  JS自定义sleep()方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
+                2017-06-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript应用/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript应用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>JS中不存在自带的sleep方法，要想休眠要自己定义sleep()方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">milliSeconds</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(); <span class="comment">// get the current time</span></div><div class="line">    <span class="keyword">while</span> (<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() &lt; startTime + milliSeconds) &#123;&#125; <span class="comment">// hog cpu</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1157,7 +1482,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS自定义sleep()方法/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS获取剪切板信息/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Stone">
@@ -1179,8 +1504,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/31/JS自定义sleep()方法/" itemprop="url">
-                  JS自定义sleep()方法
+                <a class="post-title-link" href="/2017/03/31/JS获取剪切板信息/" itemprop="url">
+                  JS从剪切板获取信息
                 </a>
               
             
@@ -1267,11 +1592,15 @@
 
       
         
-          
-            <p>JS中不存在自带的sleep方法，要想休眠要自己定义sleep()方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">milliSeconds</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(); <span class="comment">// get the current time</span></div><div class="line">    <span class="keyword">while</span> (<span class="keyword">new</span> <span class="built_in">Date</span>().getTime() &lt; startTime + milliSeconds) &#123;&#125; <span class="comment">// hog cpu</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
+          <p>通过<code>paste</code>事件，可以在粘贴操作的事件响应中获取剪切板内容，经过类别判断，以合适的方法获取剪切板内容。</p>
+<h2 id="paste事件"><a href="#paste事件" class="headerlink" title="paste事件"></a><code>paste</code>事件</h2><p>可以用<code>js</code>给页面中的元素绑定<code>paste</code>事件的方法，当用户鼠标在该元素上或者该元素处于<code>focus</code>状态，绑定到<code>paste</code>事件的方法就运行了。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/31/JS获取剪切板信息/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1440,337 +1769,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/JS获取剪切板信息/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stone">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/31/JS获取剪切板信息/" itemprop="url">
-                  JS从剪切板获取信息
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript应用/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript应用</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>通过<code>paste</code>事件，可以在粘贴操作的事件响应中获取剪切板内容，经过类别判断，以合适的方法获取剪切板内容。</p>
-<h2 id="paste事件"><a href="#paste事件" class="headerlink" title="paste事件"></a><code>paste</code>事件</h2><p>可以用<code>js</code>给页面中的元素绑定<code>paste</code>事件的方法，当用户鼠标在该元素上或者该元素处于<code>focus</code>状态，绑定到<code>paste</code>事件的方法就运行了。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/31/JS获取剪切板信息/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.yancoder.com/2017/03/31/MyEclipse编译器中修改Web项目的发布名称/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stone">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Stone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/31/MyEclipse编译器中修改Web项目的发布名称/" itemprop="url">
-                  MyEclipse编译器中修改Web项目的发布名称
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T19:34:18+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-04T00:28:27+08:00">
-                2017-06-04
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂记/" itemprop="url" rel="index">
-                    <span itemprop="name">杂记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂记/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>在工程目录上右键, </li>
-<li>选<code>properties</code>, 弹出属性窗口, </li>
-<li>选中<code>MyEclipse</code> -&gt; <code>Web</code>, </li>
-<li>在右边的<code>Context root</code>中修改保存即可。</li>
-</ol>
-
-          
         
       
     </div>

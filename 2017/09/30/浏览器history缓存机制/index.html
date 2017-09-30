@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="浏览器,缓存,History," />
+  <meta name="keywords" content="浏览器,History,缓存," />
 
 
 
@@ -87,20 +87,20 @@
 
 
 
-<meta name="description" content="History.back()标准先从标准规范入手，浏览器history mechanisms标准如下： https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13  13.13 History ListsUser agents often have history mechanisms, such as “Back” butto">
-<meta name="keywords" content="浏览器,缓存,History">
+<meta name="description" content="用户点击浏览器工具栏中的后退按钮，或者移动设备中的返回键，或者js执行history.back()时，浏览器会再当前窗口‘打开’历史记录中的前一个页面。那么‘打开’这个操作是如何实现的？在不同的浏览器中实现方式是否一样？">
+<meta name="keywords" content="浏览器,History,缓存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器History缓存机制">
 <meta property="og:url" content="http://blog.yancoder.com/2017/09/30/浏览器history缓存机制/index.html">
 <meta property="og:site_name" content="Stone">
-<meta property="og:description" content="History.back()标准先从标准规范入手，浏览器history mechanisms标准如下： https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13  13.13 History ListsUser agents often have history mechanisms, such as “Back” butto">
+<meta property="og:description" content="用户点击浏览器工具栏中的后退按钮，或者移动设备中的返回键，或者js执行history.back()时，浏览器会再当前窗口‘打开’历史记录中的前一个页面。那么‘打开’这个操作是如何实现的？在不同的浏览器中实现方式是否一样？">
 <meta property="og:image" content="http://km.oa.com/files/photos/pictures/201709/1504946446_1_w649_h214.png">
 <meta property="og:image" content="http://km.oa.com/files/photos/pictures/201709/1504947926_93_w614_h73.png">
 <meta property="og:image" content="http://km.oa.com/files/photos/pictures/201709/1504948033_72_w645_h219.png">
-<meta property="og:updated_time" content="2017-09-30T09:41:53.000Z">
+<meta property="og:updated_time" content="2017-09-30T09:46:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器History缓存机制">
-<meta name="twitter:description" content="History.back()标准先从标准规范入手，浏览器history mechanisms标准如下： https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13  13.13 History ListsUser agents often have history mechanisms, such as “Back” butto">
+<meta name="twitter:description" content="用户点击浏览器工具栏中的后退按钮，或者移动设备中的返回键，或者js执行history.back()时，浏览器会再当前窗口‘打开’历史记录中的前一个页面。那么‘打开’这个操作是如何实现的？在不同的浏览器中实现方式是否一样？">
 <meta name="twitter:image" content="http://km.oa.com/files/photos/pictures/201709/1504946446_1_w649_h214.png">
 
 
@@ -383,7 +383,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-09-30T17:41:53+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-09-30T17:46:13+08:00">
                 2017-09-30
               </time>
             
@@ -437,7 +437,9 @@
       
 
       
-        <h1 id="History-back-标准"><a href="#History-back-标准" class="headerlink" title="History.back()标准"></a>History.back()标准</h1><p>先从标准规范入手，浏览器history mechanisms标准如下：</p>
+        <p>用户点击浏览器工具栏中的后退按钮，或者移动设备中的返回键，或者js执行<code>history.back()</code>时，浏览器会再当前窗口‘打开’历史记录中的前一个页面。<br>那么‘打开’这个操作是如何实现的？在不同的浏览器中实现方式是否一样？</p>
+<a id="more"></a>
+<h1 id="History-back-标准"><a href="#History-back-标准" class="headerlink" title="History.back()标准"></a>History.back()标准</h1><p>先从标准规范入手，浏览器history mechanisms标准如下：</p>
 <p><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13" target="_blank" rel="external">https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.13</a></p>
 <blockquote>
 <p>13.13 History Lists<br>User agents often have history mechanisms, such as “Back” buttons and history lists, which can be used to redisplay an entity retrieved earlier in a session.<br>History mechanisms and caches are different. <strong>In particular history mechanisms SHOULD NOT try to show a semantically transparent view of the current state of a resource. Rather, a history mechanism is meant to show exactly what the user saw at the time when the resource was retrieved.</strong> By default, an expiration time does not apply to history mechanisms. If the entity is still in storage, a history mechanism SHOULD display it even if the entity has expired, unless the user has specifically configured the agent to refresh expired history documents. This is not to be construed to prohibit the history mechanism from telling the user that a view might be stale.</p>
@@ -557,9 +559,9 @@
           
             <a href="/tags/浏览器/" rel="tag"># 浏览器</a>
           
-            <a href="/tags/缓存/" rel="tag"># 缓存</a>
-          
             <a href="/tags/History/" rel="tag"># History</a>
+          
+            <a href="/tags/缓存/" rel="tag"># 缓存</a>
           
         </div>
       
